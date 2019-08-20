@@ -1,0 +1,240 @@
+/*@media screen and (min-width:920px)*/
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    margin: 0px;
+    font-size: 15px;
+    font-family: "National", "Helvetica", "Arial", sans-serif;
+}
+
+.header {
+    background: #F19F9F;
+}
+
+.container {
+    max-width: 1200px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.c_logo {
+    flex: none;
+}
+
+.logo {
+    height: 70px;
+}
+
+.nav {
+    flex: none;
+
+}
+
+.nav__list {
+    line-height: 40px;
+}
+
+.nav__list__item {
+    display: inline;
+    margin-right: 30px;
+}
+
+.link {
+    color: white;
+}
+
+.header__bar {
+    height: 70px;
+}
+
+.header__bar__buttons {
+    margin: auto 0 auto auto;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 210px;
+}
+
+.header__bar__signup {
+    border: solid 1px;
+    background-color: #2685C6;
+    border-color: #99caec;
+    font-weight: 700;
+}
+
+.header__bar__signup,
+.header__bar__login {
+    line-height: 40px;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    color: #fff;
+}
+
+.header__banner {
+    background-color: #FD6E6E;
+}
+
+.header__banner__content {
+    padding-top: 90px;
+    padding-bottom: 128px;
+    text-align: center;
+    color: white;
+    margin: auto;
+}
+
+.header__banner__content h1 {
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 70px;
+    margin: 0 200px;
+}
+
+.header__banner__content p {
+    font-size: 20px;
+    line-height: 30px;
+    margin: 0 300px;
+
+}
+
+.header__banner__buttons {
+    padding-top: 40px;
+    display: inline-flex;
+    width: 480px;
+    justify-content: space-between;
+}
+
+.header__banner__pro-signup,
+.header__banner__signup {
+    line-height: 50px;
+    height: 50px;
+    width: 220px;
+    text-align: center;
+    color: #fff;
+    border: solid 1px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.header__banner__pro-signup {
+    background-color: #69C5E4;
+    border-color: #B7E3F2;
+}
+
+.header__banner__signup {
+    background-color: #25D670;
+    border-color: #6AF26E;
+}
+
+/*Scene*/
+
+.c_scene {
+    position: absolute;
+}
+
+.c_scene__dino {
+    position: absolute;
+    z-index: 2;
+    width: 180px;
+    top: 182px;
+    left: 950px;
+}
+
+.c_scene__cloud {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.25;
+    width: 110px;
+}
+
+.c_scene .cloud_1 {
+    top: 10px;
+    left: 10px;
+    animation: move_1 1s ease-in-out 1;
+}
+
+.c_scene .cloud_2 {
+    top: 330px;
+    left: 100px;
+    animation: move_2 1s ease-in-out 1;
+}
+
+.c_scene .cloud_3 {
+    top: 310px;
+    left: 1000px;
+    animation: move_3 1s ease-in-out 1;
+}
+
+.c_scene .cloud_4 {
+    top: 40px;
+    left: 1050px;
+    animation: move_4 1s ease-in-out 1;
+}
+
+@keyframes move_1 {
+    from {
+        left: -70vh;
+    }
+
+    to {
+        left: 10px;
+    }
+}
+
+@keyframes move_2 {
+    from {
+        left: -70vh;
+    }
+
+    to {
+        left: 100px;
+    }
+}
+
+@keyframes move_3 {
+    from {
+        left: 170vh;
+    }
+
+    to {
+        left: 1000px;
+    }
+}
+
+@keyframes move_4 {
+    from {
+        left: 170vh;
+    }
+
+    to {
+        left: 1050px;
+    }
+}
+
+/*Main*/
+
+.container_centered_white {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 720px;
+    padding-top: 80px;
+    padding-bottom: 110px;
+}
+
+.container_centered_white h2 {
+    font-weight: 600;
+    font-size: 40px;
+    color: #3A3A3A;
+}
+
+.container_centered_white p {
+    font-weight: 400;
+    font-size: 17px;
+    color: #6E6C6C;
+}
+
+.container_centered_white span {
+    color: #61B7D4;
+}
