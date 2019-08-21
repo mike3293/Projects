@@ -137,6 +137,13 @@ body {
 
 .c_scene {
     position: absolute;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding-right: 7rem;
+    padding-left: 7rem;
 }
 
 .c_scene__dino {
@@ -149,7 +156,7 @@ body {
 
 .c_scene__cloud {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     opacity: 0.25;
     width: 110px;
 }
@@ -157,25 +164,25 @@ body {
 .c_scene .cloud_1 {
     top: 10px;
     left: 10px;
-    animation: move_1 1s ease-in-out 1;
+    animation: move_1 1s ease-out 1;
 }
 
 .c_scene .cloud_2 {
     top: 330px;
     left: 100px;
-    animation: move_2 1s ease-in-out 1;
+    animation: move_2 1s ease-out 1;
 }
 
 .c_scene .cloud_3 {
     top: 310px;
     left: 1000px;
-    animation: move_3 1s ease-in-out 1;
+    animation: move_3 1s ease-out 1;
 }
 
 .c_scene .cloud_4 {
     top: 40px;
     left: 1050px;
-    animation: move_4 1s ease-in-out 1;
+    animation: move_4 1s ease-out 1;
 }
 
 @keyframes move_1 {
@@ -200,7 +207,7 @@ body {
 
 @keyframes move_3 {
     from {
-        left: 170vh;
+        left: 300vh;
     }
 
     to {
@@ -210,7 +217,7 @@ body {
 
 @keyframes move_4 {
     from {
-        left: 170vh;
+        left: 200vh;
     }
 
     to {
