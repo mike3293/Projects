@@ -14,17 +14,21 @@ body {
     background: #F19F9F;
 }
 
+
 .container {
+    position: relative;
     max-width: 1200px;
     display: flex;
     margin: 0 auto;
-}
-
-.c_logo {
-    flex: none;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
+    flex: none;
+}
+
+.logo__img {
     height: 70px;
 }
 
@@ -37,12 +41,13 @@ body {
     line-height: 40px;
 }
 
-.nav__list__item {
+.nav__item {
     display: inline;
     margin-right: 30px;
+    text-transform: uppercase;
 }
 
-.link {
+.nav__link {
     color: white;
 }
 
@@ -50,22 +55,27 @@ body {
     height: 70px;
 }
 
-.header__bar__buttons {
+.buttons {
     margin: auto 0 auto auto;
     display: inline-flex;
     justify-content: space-between;
     width: 210px;
 }
 
-.header__bar__signup {
+.buttons__link {
+    color: white;
+}
+
+.buttons__signup {
     border: solid 1px;
     background-color: #2685C6;
     border-color: #99caec;
     font-weight: 700;
 }
 
-.header__bar__signup,
-.header__bar__login {
+.buttons__signup,
+.buttons__login {
+    text-transform: uppercase;
     line-height: 40px;
     height: 40px;
     width: 100px;
@@ -76,6 +86,7 @@ body {
 .header__banner {
     background-color: #FD6E6E;
     text-align: center;
+    position: relative;
 }
 
 .header__banner__content {
@@ -109,6 +120,7 @@ body {
 
 .header__banner__pro-signup,
 .header__banner__signup {
+    text-transform: uppercase;
     line-height: 50px;
     height: 50px;
     width: 220px;
@@ -135,51 +147,50 @@ body {
 
 /*Scene*/
 
-.c_scene {
+.scene {
     position: absolute;
     overflow: hidden;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    padding-right: 7rem;
-    padding-left: 7rem;
+    padding: 0 110px;
 }
 
-.c_scene__dino {
+.scene__dino {
     position: absolute;
     z-index: 2;
     width: 180px;
-    top: 182px;
-    left: 950px;
+    bottom: -10px;
+    right: 0px;
 }
 
-.c_scene__cloud {
+.scene__cloud {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
     opacity: 0.25;
     width: 110px;
 }
 
-.c_scene .cloud_1 {
+.scene .cloud_1 {
     top: 10px;
     left: 10px;
     animation: move_1 1s ease-out 1;
 }
 
-.c_scene .cloud_2 {
+.scene .cloud_2 {
     top: 330px;
     left: 100px;
     animation: move_2 1s ease-out 1;
 }
 
-.c_scene .cloud_3 {
+.scene .cloud_3 {
     top: 310px;
     left: 1000px;
     animation: move_3 1s ease-out 1;
 }
 
-.c_scene .cloud_4 {
+.scene .cloud_4 {
     top: 40px;
     left: 1050px;
     animation: move_4 1s ease-out 1;
@@ -207,7 +218,7 @@ body {
 
 @keyframes move_3 {
     from {
-        left: 300vh;
+        left: 250vh;
     }
 
     to {
@@ -227,21 +238,21 @@ body {
 
 /*Main*/
 
-.container_centered {
+.container_text_centered {
     text-align: center;
     margin: 0 auto;
     padding-top: 80px;
     padding-bottom: 110px;
 }
 
-.main__section_white .container_centered h2 {
+.main__section_bg_white .container_text_centered h2 {
     font-weight: 600;
     font-size: 40px;
     color: #3A3A3A;
     line-height: 50px;
 }
 
-.main__section_white .container_centered p {
+.main__section_bg_white .container_text_centered p {
     max-width: 720px;
     font-weight: 400;
     font-size: 17px;
@@ -249,25 +260,25 @@ body {
     margin: 0 auto;
 }
 
-.main__section_white .container_centered span {
+.main__section_bg_white .container_text_centered span {
     color: #61B7D4;
 }
 
-.main__section_grey {
+.main__section_bg_grey {
     background-color: #F8FAFB;
 }
 
-.main__section_grey__items_block {
+.items-block {
     display: flex;
     justify-content: center;
     margin-bottom: 70px;
 }
 
-.main__section_grey__item {
+.items-block__item {
     width: 285px;
 }
 
-.main__section_grey__img {
+.items-block__img {
     width: 160px;
     background-color: #61B7D4;
     border-radius: 50%;
@@ -276,24 +287,26 @@ body {
     margin-bottom: 40px;
 }
 
-.main__section_grey__arrow {
+.items-block__arrow {
     align-self: flex-start;
     margin-top: 65px;
 }
 
-.main__section_grey__item__text h2 {
+.items-block__text h2 {
+    text-transform: uppercase;
     color: #61B7D4;
     font-weight: 600;
 }
 
-.main__section_grey__item__text p {
+.items-block__text p {
     color: #6E6C6C;
     font-weight: 400;
     font-size: 17px;
     line-height: 25px;
 }
 
-.main__section_grey__btn {
+.btn {
+    text-transform: uppercase;
     line-height: 50px;
     height: 50px;
     width: 285px;

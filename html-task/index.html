@@ -3,54 +3,60 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=4000, initial-scale=1">
     <title>wufoo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header class="header">
-        <div class="header__bar">
+        <!-- bem? -->
+        <div class="bar header__bar">
             <div class="container">
-                <div class="c_logo">
-                    <img class="logo" src="img/wufoo.png">
+                <div class="logo">
+                    <img class="logo__img" src="img/wufoo.png">
                 </div>
                 <nav class="nav">
                     <ul class="nav__list">
-                        <li class="nav__list__item"><a href="#" class="link">FEATURES</a></li>
-                        <li class="nav__list__item"><a href="#" class="link">TEMPLATES</a></li>
-                        <li class="nav__list__item"><a href="#" class="link">DEMO</a></li>
-                        <li class="nav__list__item"><a href="#" class="link">PRICING</a></li>
-                        <li class="nav__list__item"><a href="#" class="link">RESOURCES</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link">Features</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link">Templates</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link">Demo</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link">Pricing</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link">Recources</a></li>
                     </ul>
                 </nav>
-                <div class="header__bar__buttons">
-                    <a href="#" class="link">
-                        <div class="header__bar__signup">SIGN UP</div>
+                <!-- bem? -->
+                <div class="buttons bar__buttons">
+                    <a href="#" class="buttons__link">
+                        <div class="buttons__signup">Sign Up</div>
                     </a>
-                    <a href="#" class="link">
-                        <div class="header__bar__login">LOGIN</div>
+                    <a href="#" class="buttons__link">
+                        <div class="buttons__login">Login</div>
                 </div></a>
             </div>
         </div>
-        <div class="header__banner">
-            <div class="container">
-                <div class="c_scene">
-                    <img src="img/cloud.svg" class="c_scene__cloud cloud_1">
-                    <img src="img/cloud.svg" class="c_scene__cloud cloud_2">
-                    <img src="img/cloud.svg" class="c_scene__cloud cloud_3">
-                    <img src="img/cloud.svg" class="c_scene__cloud cloud_4">
-                    <img src="img/dino.svg" class="c_scene__dino">
+        <!-- bem? -->
+        <div class="banner header__banner">
+            <div class="scene">
+                <div class="container">
+                    <img src="img/cloud.svg" class="scene__cloud cloud_1">
+                    <img src="img/cloud.svg" class="scene__cloud cloud_2">
+                    <img src="img/cloud.svg" class="scene__cloud cloud_3">
+                    <img src="img/cloud.svg" class="scene__cloud cloud_4">
+                    <img src="img/dino.svg" class="scene__dino">
                 </div>
+            </div>
+            <div class="container">
+                <!-- bem? -->
                 <div class="header__banner__content">
                     <h1>Build and share online forms</h1>
                     <p>Create forms, collect data and payments, and automate your workflows. </p>
+                    <!-- bem? -->
                     <div class="header__banner__buttons">
                         <a href="#" class="link">
-                            <div class="header__banner__pro-signup">PRO SIGN UP</div>
+                            <div class="header__banner__pro-signup">Pro Sign Up</div>
                         </a>
                         <a href="#" class="link">
-                            <div class="header__banner__signup">SIGN UP FREE</div>
+                            <div class="header__banner__signup">Sign Up Free</div>
                         </a>
                     </div>
                 </div>
@@ -59,48 +65,49 @@
         </div>
     </header>
     <main>
-        <section class="main__section_white">
-            <div class="container_centered">
+        <section class="main__section_bg_white">
+            <div class="container_text_centered">
                 <h2>Building online forms can be hard.<br><span>Wufoo</span> makes it easy.</h2>
                 <p>Our form designer can help you create contact forms, online surveys and invitations so you can collect the data, registrations and payments you need.</p>
             </div>
         </section>
-        <section class="main__section_grey">
-            <div class="container_centered">
-                <div class="main__section_grey__items_block">
-                    <div class="main__section_grey__item">
-                        <div class="main__section_grey__img">
+        <section class="main__section_bg_grey">
+            <div class="container_text_centered">
+                <div class="items-block">
+                    <div class="items-block__item">
+                        <div class="items-block__img">
                             <img src="img/icon-1.svg">
                         </div>
-                        <div class="main__section_grey__item__text">
-                            <h2>CREATE A FORM!</h2>
+                        <div class="items-block__text">
+                            <h2>Ceate A Form!</h2>
                             <p>Use our easy form builder to customize and design your form.</p>
                         </div>
                     </div>
-                    <img class="main__section_grey__arrow" src="img/arrow.svg">
-                    <div class="main__section_grey__item">
-                        <div class="main__section_grey__img">
+                    <img class="items-block__arrow" src="img/arrow.svg">
+                    <div class="items-block__item">
+                        <div class="items-block__img">
                             <img src="img/icon-2.svg">
                         </div>
-                        <div class="main__section_grey__item__text">
-                            <h2>SHARE IT!</h2>
+                        <div class="items-block__text">
+                            <h2>Share It!</h2>
                             <p>Link to our pages. Embed on your site. Or use our REST API.</p>
                         </div>
                     </div>
-                    <img class="main__section_grey__arrow" src="img/arrow.svg">
-                    <div class="main__section_grey__item">
-                        <div class="main__section_grey__img">
+                    <img class="items-block__arrow" src="img/arrow.svg">
+                    <div class="items-block__item">
+                        <div class="items-block__img">
                             <img src="img/icon-3.svg">
                         </div>
-                        <div class="main__section_grey__item__text">
-                            <h2>GET YOUR DATA!</h2>
+                        <div class="items-block__text">
+                            <h2>Get Your Data!</h2>
                             <p>We can email or text you as data comes in. Or set up a real-time report!</p>
                         </div>
                     </div>
                 </div>
                 <a href="#" class="link">
-                    <div class="main__section_grey__btn">
-                        TRY OUR FORM BUILDER
+                    <!-- bem? -->
+                    <div class="btn">
+                        Try Our Form Builder
                     </div>
                 </a>
             </div>
