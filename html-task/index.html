@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <title>wufoo</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /*To prevent blinking*/
+        .buttons__signup {
+            background-color: #2685C6;
+        }
+
+        .banner__pro-signup {
+            background-color: #69C5E4;
+        }
+
+        .banner__signup {
+            background-color: #25D670;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,31 +26,48 @@
         <!-- bem? -->
         <div class="bar header__bar">
             <div class="container">
-                <div class="logo">
+                <div class="logo bar__logo">
                     <img class="logo__img" src="img/wufoo.png">
                 </div>
-                <nav class="nav">
+                <nav class="nav bar__nav">
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#" class="nav__link">Features</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Templates</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link nav__link-sub">Templates</a>
+                            <ul class="sub nav__sub">
+                                <li class="sub__item"><a href="#" class="sub_link">All tempates</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Forms</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Registration</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Surveys</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Tracking</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Online Orders</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Lead Generation</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Invitations</a></li>
+                            </ul>
+                        </li>
                         <li class="nav__item"><a href="#" class="nav__link">Demo</a></li>
                         <li class="nav__item"><a href="#" class="nav__link">Pricing</a></li>
-                        <li class="nav__item"><a href="#" class="nav__link">Recources</a></li>
+                        <li class="nav__item"><a href="#" class="nav__link nav__link-sub">Recources</a>
+                            <ul class="sub nav__sub">
+                                <li class="sub__item"><a href="#" class="sub_link">Guides</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Why Wufoo</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Partners</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Examples</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Blog</a></li>
+                                <li class="sub__item"><a href="#" class="sub_link">Help Center</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- bem? -->
                 <div class="buttons bar__buttons">
-                    <a href="#" class="buttons__link">
-                        <div class="buttons__signup">Sign Up</div>
-                    </a>
-                    <a href="#" class="buttons__link">
-                        <div class="buttons__login">Login</div>
-                </div></a>
+                    <div class="buttons__signup"><a href="#" class="buttons__link">Sign Up</a></div>
+                    <div class="buttons__login"><a href="#" class="buttons__link">Login</a><a href="#" class="buttons__auxiliary">RAWRR!</a></div>
+                </div>
             </div>
         </div>
         <!-- bem? -->
         <div class="banner header__banner">
-            <div class="scene">
+            <div class="scene banner__scene">
                 <div class="container">
                     <img src="img/cloud.svg" class="scene__cloud cloud_1">
                     <img src="img/cloud.svg" class="scene__cloud cloud_2">
@@ -47,27 +78,28 @@
             </div>
             <div class="container">
                 <!-- bem? -->
-                <div class="header__banner__content">
+                <div class="banner__content">
                     <h1>Build and share online forms</h1>
                     <p>Create forms, collect data and payments, and automate your workflows. </p>
                     <!-- bem? -->
-                    <div class="header__banner__buttons">
+                    <div class="banner__buttons">
                         <a href="#" class="link">
-                            <div class="header__banner__pro-signup">Pro Sign Up</div>
+                            <div class="banner__pro-signup">Pro Sign Up</div>
                         </a>
                         <a href="#" class="link">
-                            <div class="header__banner__signup">Sign Up Free</div>
+                            <div class="banner__signup">Sign Up Free</div>
                         </a>
                     </div>
                 </div>
             </div>
-            <img class="header__banner__arrow" src="img/arrow_next.svg">
+            <img class="banner__arrow" src="img/arrow_next.svg">
         </div>
     </header>
-    <main>
+    <main class="main">
         <section class="main__section_bg_white">
             <div class="container_text_centered">
-                <h2>Building online forms can be hard.<br><span>Wufoo</span> makes it easy.</h2>
+                <!-- bem? -->
+                <h2>Building online forms can be hard.<br><span class="container_text_centered__text_color_blue">Wufoo</span> makes it easy.</h2>
                 <p>Our form designer can help you create contact forms, online surveys and invitations so you can collect the data, registrations and payments you need.</p>
             </div>
         </section>
@@ -104,12 +136,18 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="link">
-                    <!-- bem? -->
-                    <div class="btn">
-                        Try Our Form Builder
-                    </div>
+                <!-- bem? -->
+                <div class="btn container_text_centered__btn">
+                    <a href="#" class="btn__link">Try Our Form Builder</a>
+                </div>
                 </a>
+            </div>
+        </section>
+        <section class="main__section_bg_white">
+            <div class="container_text_centered">
+                <!-- bem? -->
+                <h2>Wufoo has the <span class="container_text_centered__text_color_red">features</span> you love.</h2>
+                <p>Our form builder gives you an award-winning interface, easy customization, galleries, templates and reporting!</p>
             </div>
         </section>
     </main>

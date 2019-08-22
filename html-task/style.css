@@ -42,20 +42,62 @@ body {
 }
 
 .nav__item {
-    display: inline;
+    display: block;
+    float: left;
     margin-right: 30px;
     text-transform: uppercase;
+
 }
 
 .nav__link {
     color: white;
+    height: 100%;
+    padding: 28px 0;
 }
+
+.nav__link:hover {
+    color: #CD9713;
+}
+
+.nav__sub {
+    position: absolute;
+    z-index: 10;
+    display: none;
+    background-color: #FC7C7C;
+    transform: translate3d(-25px, 14px, 0);
+    text-transform: none;
+    font-size: 16px;
+    width: 190px;
+    padding: 0;
+}
+
+.sub__item {
+    display: block;
+    padding-left: 0px;
+}
+
+.sub_link {
+    color: white;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding-left: 27px;
+}
+
+.sub_link:hover {
+    opacity: 0.7;
+}
+
+.nav__item:hover .nav__link-sub+.nav__sub {
+    display: block;
+}
+
 
 .header__bar {
     height: 70px;
 }
 
-.buttons {
+.bar__buttons {
     margin: auto 0 auto auto;
     display: inline-flex;
     justify-content: space-between;
@@ -64,13 +106,8 @@ body {
 
 .buttons__link {
     color: white;
-}
-
-.buttons__signup {
-    border: solid 1px;
-    background-color: #2685C6;
-    border-color: #99caec;
-    font-weight: 700;
+    width: 100%;
+    height: 100%;
 }
 
 .buttons__signup,
@@ -83,13 +120,41 @@ body {
     color: #fff;
 }
 
+.buttons__signup {
+    border: solid 1px;
+    background-color: #2685C6;
+    border-color: #99caec;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+
+.buttons__auxiliary {
+    display: none;
+    color: #CD9713;
+}
+
+.buttons__signup:hover {
+    background-color: #4795CA;
+}
+
+
+.buttons__login:hover .buttons__link {
+    display: none;
+}
+
+.buttons__login:hover .buttons__auxiliary {
+    display: block;
+}
+
+
+
 .header__banner {
     background-color: #FD6E6E;
     text-align: center;
     position: relative;
 }
 
-.header__banner__content {
+.banner__content {
     padding-top: 90px;
     padding-bottom: 95px;
     text-align: center;
@@ -97,29 +162,29 @@ body {
     margin: auto;
 }
 
-.header__banner__content h1 {
+.banner__content h1 {
     font-size: 50px;
     font-weight: 400;
     line-height: 70px;
     margin: 0 200px;
 }
 
-.header__banner__content p {
+.banner__content p {
     font-size: 20px;
     line-height: 30px;
     margin: 0 300px;
     min-width: 540px;
 }
 
-.header__banner__buttons {
+.banner__buttons {
     padding-top: 40px;
     display: inline-flex;
     width: 480px;
     justify-content: space-between;
 }
 
-.header__banner__pro-signup,
-.header__banner__signup {
+.banner__pro-signup,
+.banner__signup {
     text-transform: uppercase;
     line-height: 50px;
     height: 50px;
@@ -131,23 +196,33 @@ body {
     font-size: 20px;
 }
 
-.header__banner__pro-signup {
+.banner__pro-signup {
     background-color: #69C5E4;
     border-color: #B7E3F2;
+    transition: background-color 0.2s;
 }
 
-.header__banner__signup {
+.banner__pro-signup:hover {
+    background-color: #8FD2E8;
+}
+
+.banner__signup {
     background-color: #25D670;
     border-color: #6AF26E;
+    transition: background-color 0.2s;
 }
 
-.header__banner__arrow {
+.banner__signup:hover {
+    background-color: #2BDF77;
+}
+
+.banner__arrow {
     transform: rotate(90deg);
 }
 
 /*Scene*/
 
-.scene {
+.banner__scene {
     position: absolute;
     overflow: hidden;
     top: 0;
@@ -162,7 +237,7 @@ body {
     z-index: 2;
     width: 180px;
     bottom: -10px;
-    right: 0px;
+    right: 30px;
 }
 
 .scene__cloud {
@@ -175,25 +250,25 @@ body {
 .scene .cloud_1 {
     top: 10px;
     left: 10px;
-    animation: move_1 1s ease-out 1;
+    animation: move_1 1.5s ease-out 1;
 }
 
 .scene .cloud_2 {
     top: 330px;
     left: 100px;
-    animation: move_2 1s ease-out 1;
+    animation: move_2 1.5s ease-out 1;
 }
 
 .scene .cloud_3 {
-    top: 310px;
-    left: 1000px;
-    animation: move_3 1s ease-out 1;
+    top: 300px;
+    right: 30px;
+    animation: move_3 1.5s ease-out 1;
 }
 
 .scene .cloud_4 {
     top: 40px;
-    left: 1050px;
-    animation: move_4 1s ease-out 1;
+    right: 0px;
+    animation: move_4 1.5s ease-out 1;
 }
 
 @keyframes move_1 {
@@ -208,7 +283,7 @@ body {
 
 @keyframes move_2 {
     from {
-        left: -70vh;
+        left: -75vh;
     }
 
     to {
@@ -218,21 +293,21 @@ body {
 
 @keyframes move_3 {
     from {
-        left: 250vh;
+        right: -75vh;
     }
 
     to {
-        left: 1000px;
+        right: 30px;
     }
 }
 
 @keyframes move_4 {
     from {
-        left: 200vh;
+        right: -80vh;
     }
 
     to {
-        left: 1050px;
+        right: 0px;
     }
 }
 
@@ -240,11 +315,16 @@ body {
 
 .container_text_centered {
     text-align: center;
-    margin: 0 auto;
+
+}
+
+.main__section_bg_white {
     padding-top: 80px;
     padding-bottom: 110px;
 }
 
+
+/*bem?*/
 .main__section_bg_white .container_text_centered h2 {
     font-weight: 600;
     font-size: 40px;
@@ -260,12 +340,22 @@ body {
     margin: 0 auto;
 }
 
-.main__section_bg_white .container_text_centered span {
+/*bem?*/
+.container_text_centered__text_color_blue {
     color: #61B7D4;
 }
 
+.container_text_centered__text_color_red {
+    color: #E66760;
+}
+
+
+
+
 .main__section_bg_grey {
     background-color: #F8FAFB;
+    padding-top: 80px;
+    padding-bottom: 110px;
 }
 
 .items-block {
@@ -305,7 +395,7 @@ body {
     line-height: 25px;
 }
 
-.btn {
+.container_text_centered__btn {
     text-transform: uppercase;
     line-height: 50px;
     height: 50px;
@@ -316,4 +406,16 @@ body {
     font-weight: 600;
     font-size: 17px;
     margin: auto;
+    transition: background-color 0.2s;
+}
+
+.container_text_centered__btn:hover {
+    background-color: #68B0C9;
+}
+
+.btn__link {
+    color: white;
+    display: block;
+    height: 100%;
+    width: 100%;
 }
