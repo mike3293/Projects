@@ -318,8 +318,8 @@ body {
 .main__section {
     padding-top: 80px;
     padding-bottom: 110px;
+    position: relative;
 }
-
 
 /*bem?*/
 .container__title {
@@ -554,13 +554,64 @@ body {
     font-weight: 400;
 }
 
+.main__brands-img {
+    display: inline-block;
+    max-width: 610px;
+}
 
+.brands-img__icon {
+    background: url(img/sprites.png) no-repeat;
+    margin: 0 14px;
+    height: 56px;
+    float: left;
+}
 
+.brands-img__icon_amazon {
+    width: 112px;
+    background-position: 0 0px;
+}
 
+.brands-img__icon_bb {
+    width: 72px;
+    background-position: -5px -71px;
+}
 
+.brands-img__icon_disney {
+    width: 93px;
+    background-position: -5px -203px;
+}
 
+.brands-img__icon_cnet {
+    width: 54px;
+    background-position: -5px -137px;
+}
 
+.brands-img__icon_ms {
+    width: 131px;
+    background-position: -5px -269px;
 
+}
+
+.brands-img__icon_twitter {
+    width: 126px;
+    background-position: -5px -533px;
+
+}
+
+.brands-img__icon_geo {
+    width: 128px;
+    background-position: -5px -335px;
+}
+
+.brands-img__icon_sony {
+    width: 120px;
+    background-position: -5px -467px;
+}
+
+.brands-img__icon_cross {
+    width: 111px;
+    background-position: -5px -401px;
+}
 
 
 
