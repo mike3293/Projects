@@ -1,0 +1,14 @@
+<script>
+    //reduce()
+    function F(array, callback, initialValue) {
+        acc = 0; //to fix
+        for (let i = 0; i < array.length; i++) {
+            acc = callback(acc, array[i], i, array);
+        }
+        return acc;
+    }
+    let arr = [1, 2, 3];
+    alert(F(arr, function(a, b) {
+        return a + b;
+    }));
+</script>

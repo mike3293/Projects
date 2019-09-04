@@ -1,0 +1,7 @@
+<script>
+    const f = (x, y, z) => {
+        return x + y + z;
+    }
+    const curry = foo => x => y => z => { return foo(x, y, z) };
+    alert(curry(f)(1)(2)(3));
+</script>
