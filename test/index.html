@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-
-<body>
-    <script>
-        const G = (...args) => {
-            let sum = 0;
-            for (let i = args.length - 1; i >= 0; i--) {
-                sum += args[i];
-            }
-            return sum;
+<script>
+    const G = (...args) => {
+        let sum = 0;
+        for (let i = 0; i < args.length; i++) {
+            sum += args[i];
         }
-        const F = (x, foo) => {
-            foo.bind(x);
-            return foo;
-        };
-        const H = F(1, G);
-        alert(H(2, 3));
-    </script>
-</body>
-
-</html>
+        return sum;
+    }
+    const F = (x, foo) => {
+        // return foo.bind(null, x);
+        return (...moreArgs) => { return foo(x, ...moreArgs); }
+    };
+    const H = F(1, G);
+    alert(H(2, 3));
+</script>
