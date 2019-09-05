@@ -1,14 +1,21 @@
 <script>
     //reduce()
     function F(array, callback, initialValue) {
-        acc = 0; //to fix
-        for (let i = 0; i < array.length; i++) {
-            acc = callback(acc, array[i], i, array);
+        let i;
+        if (initialValue === undefined) {
+            accum = array[0];
+            i = 1;
+        } else {
+            accum = initialValue;
+            i = 0;
         }
-        return acc;
+
+        for (; i < array.length; i++) {
+            accum = callback(accum, array[i], i, array);
+        }
+
+        return accum;
     }
     let arr = [1, 2, 3];
-    alert(F(arr, function(a, b) {
-        return a + b;
-    }));
+    alert(F(arr, (a, b) => { return a + b; }, 2));
 </script>
