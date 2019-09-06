@@ -1,0 +1,13 @@
+<script>
+    //map()
+    function map(array, callback) {
+        let arrayMapped = [];
+        for (let i = 0; i < array.length; i++)
+            arrayMapped[i] = callback(array[i]);
+        return arrayMapped;
+    }
+
+
+    let arr = [1, 2, 3, 4];
+    alert(map(arr, curr => curr ** 2));
+</script>

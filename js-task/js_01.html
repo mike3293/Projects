@@ -1,15 +1,31 @@
-<script>
-    const G = (...args) => {
-        let sum = 0;
-        for (let i = 0; i < args.length; i++) {
-            sum += args[i];
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="tests_01.js"></script>
+    <script>
+        const G = (...args) => {
+            let sum = 0;
+            for (let i = 0; i < args.length; i++) {
+                sum += args[i];
+            }
+            return sum;
         }
-        return sum;
-    }
-    const F = (x, foo) => {
-        // return foo.bind(null, x);
-        return (...moreArgs) => { return foo(x, ...moreArgs); }
-    };
-    const H = F(1, G);
-    alert(H(2, 3));
-</script>
+        const F = (x, foo) => {
+            // return foo.bind(null, x);
+            return (...moreArgs) => { return foo(x, ...moreArgs); }
+        };
+
+        // const H = F(1, G);
+        // alert(H(2, 3));
+    </script>
+</body>
+
+</html>
