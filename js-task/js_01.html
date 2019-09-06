@@ -9,8 +9,11 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
-    <script src="tests_01.js"></script>
     <script>
+        QUnit.test("F()", function(assert) {
+            assert.equal(F(1, G)(2, 3), 6, "3 variables sum");
+        });
+
         const G = (...args) => {
             let sum = 0;
             for (let i = 0; i < args.length; i++) {
