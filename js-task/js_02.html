@@ -1,7 +1,40 @@
-<script>
-    const f = (x, y, z) => {
-        return x + y + z;
-    }
-    const curry = foo => x => y => z => { return foo(x, y, z) };
-    alert(curry(f)(1)(2)(3));
-</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script>
+        QUnit.test("curry()", function(assert) {
+            const sum = (x, y, z) => x + y + z;
+            assert.ok(curry(sum)(2)(1)(5) === 8, "3 variables sum");
+            assert.throws(() => curry(2), "throw error if argument of curry not a function");
+        });
+
+        function curry(foo) {
+            if (typeof foo !== 'function') {
+                throw new TypeError(foo + ' is not a function');
+            }
+
+            const ARITY = foo.length;
+
+            return function innerFunction(...args) {
+                if (args.length >= ARITY) {
+                    return foo(...args);
+                } else {
+                    return (a) => {
+                        args.push(a);
+                        return innerFunction(...args);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
