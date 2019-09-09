@@ -12,6 +12,9 @@
     <script>
         QUnit.test("F()", function(assert) {
             assert.equal(F(1, G)(2, 3), 6, "3 variables sum");
+            assert.ok(F(2, G)(3) === 5, "2 variables sum");
+            assert.ok(F(2, G)(), "1 variable");
+            assert.throws(() => F(2, 2)(), "throw error if second arg is not a function");
         });
 
         const G = (...args) => {
@@ -23,6 +26,9 @@
         }
         const F = (x, foo) => {
             // return foo.bind(null, x);
+            if (typeof foo !== 'function') {
+                throw new TypeError(foo + ' is not a function');
+            }
             return (...moreArgs) => { return foo(x, ...moreArgs); }
         };
 
