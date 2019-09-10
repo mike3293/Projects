@@ -21,6 +21,7 @@
             assert.throws(() => F(2, null)(), "throw error if last arg of F is not a function");
         });
 
+        //bind()
         const G = (...args) => {
             let sum = 0;
             for (let i = 0; i < args.length; i++) {
