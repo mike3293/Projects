@@ -10,7 +10,7 @@
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
-        QUnit.test("F()", function(assert) {
+        QUnit.test("partial", function(assert) {
             assert.ok(typeof F(G) === "function", "F(G) is a function");
 
             assert.equal(F(1, G)(2, 3), 6, "F(1, G)(2, 3) = 6");

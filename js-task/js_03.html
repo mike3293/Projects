@@ -10,7 +10,7 @@
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
-        QUnit.test("curry()", function(assert) {
+        QUnit.test("fold", function(assert) {
             sum = (a, b) => { return a + b; }
             assert.equal(F([1, 2, 3], sum, 4), 10, "F([1, 2, 3], sum, 4) = 10");
             assert.equal(F([1, 2, 3], sum, 4), 10, "F([1, 2, 3], sum) = 6");

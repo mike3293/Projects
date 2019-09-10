@@ -1,13 +1,41 @@
-<script>
-    //map()
-    function map(array, callback) {
-        let arrayMapped = [];
-        for (let i = 0; i < array.length; i++)
-            arrayMapped[i] = callback(array[i]);
-        return arrayMapped;
-    }
+<!DOCTYPE html>
+<html>
 
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
 
-    let arr = [1, 2, 3, 4];
-    alert(map(arr, curr => curr ** 2));
-</script>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script>
+        QUnit.test("map", function(assert) {
+            arrSq = curr => curr ** 2;
+            assert.deepEqual(map([1, 2, 3, 4], arrSq), [1, 4, 9, 16], "map([1, 2, 3, 4], arrSq) return [1, 4, 9, 16]");
+
+            assert.throws(() => map([1], null), "throw error if callback is not a function");
+            assert.throws(() => F(null, arrSq), "throw error if array is not an Array object");
+            assert.throws(() => F([], arrSq), "throw error if array is empty");
+        });
+
+        //map()
+        function map(array, callback) {
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+            if (!Array.isArray(array)) {
+                throw new TypeError(array + ' is not an Array object');
+            }
+            if (array.length == 0) {
+                throw new TypeError('array is empty');
+            }
+            let arrayMapped = [];
+            for (let i = 0; i < array.length; i++)
+                arrayMapped[i] = callback(array[i]);
+            return arrayMapped;
+        }
+    </script>
+</body>
+
+</html>

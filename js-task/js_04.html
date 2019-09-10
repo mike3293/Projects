@@ -1,20 +1,44 @@
-<script>
-    function F(callback, initialValue) {
-        let array = [];
-        let next;
-        let current = initialValue;
-        while (next = callback(current)) {
-            current = next[1];
-            array.push(next[0]);
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script>
+        QUnit.test("unfold", function(assert) {
+            arr10 = current => {
+                if (current <= 30) {
+                    return [current, current + 10];
+                } else return false;
+            }
+            assert.deepEqual(F(arr10, 0), [0, 10, 20, 30], "F(arr10, 0) return [0, 10, 20, 30]");
+
+            assert.throws(() => F(null, 0), "throw error if callback is not a function");
+            assert.throws(() => F(arr10, undefined), "throw error if initialValue is not a number");
+        });
+
+        function F(callback, initialValue) {
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+            if (isNaN(initialValue)) {
+                throw new TypeError(initialValue + ' is not a number');
+            }
+            let array = [];
+            let next;
+            let current = initialValue;
+            while (next = callback(current)) {
+                current = next[1];
+                array.push(next[0]);
+            }
+            return array;
         }
-        return array;
-    }
+    </script>
+</body>
 
-
-
-    alert(F(current => {
-        if (current <= 50) {
-            return [current, current + 10];
-        } else return false;
-    }, 0));
-</script>
+</html>
