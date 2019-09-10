@@ -11,9 +11,22 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("curry()", function(assert) {
-            const sum = (x, y, z) => x + y + z;
-            assert.ok(curry(sum)(2)(1)(5) === 8, "3 variables sum");
-            assert.throws(() => curry(2), "throw error if argument of curry not a function");
+            const sum3 = (x, y, z) => x + y + z;
+
+            function sum5(a, b, c, d, f) {
+                let sum = 0;
+                for (let i = 0; i < arguments.length; i++) {
+                    sum += arguments[i];
+                }
+                return sum;
+            }
+
+            assert.ok(typeof curry(sum3) === "function", "curry(sum3) is a function");
+
+            assert.equal(curry(sum3)(2)(1)(5), 8, "curry(sum3)(2)(1)(5) = 8");
+            assert.equal(curry(sum5)(2)(1)(5)(1)(1), 10, "curry(sum5)(2)(1)(5)(1)(1) = 10");
+
+            assert.throws(() => curry(), "throw error if argument of curry is not a function");
         });
 
         function curry(foo) {

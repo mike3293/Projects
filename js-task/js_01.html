@@ -11,10 +11,14 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("F()", function(assert) {
-            assert.equal(F(1, G)(2, 3), 6, "3 variables sum");
-            assert.ok(F(2, G)(3) === 5, "2 variables sum");
-            assert.ok(F(2, G)(), "1 variable");
-            assert.throws(() => F(2, 2)(), "throw error if second arg is not a function");
+            assert.ok(typeof F(G) === "function", "F(G) is a function");
+
+            assert.equal(F(1, G)(2, 3), 6, "F(1, G)(2, 3) = 6");
+            assert.equal(F(2, 3, G)(), 5, "F(2, 3, G)() = 5");
+            assert.equal(F(2, G)(), 2, "F(2, G)() = 2");
+            assert.equal(F(G)(), 0, "F(G)() = 0 (sum)");
+
+            assert.throws(() => F(2, null)(), "throw error if last arg of F is not a function");
         });
 
         const G = (...args) => {
@@ -24,16 +28,19 @@
             }
             return sum;
         }
-        const F = (x, foo) => {
-            // return foo.bind(null, x);
-            if (typeof foo !== 'function') {
-                throw new TypeError(foo + ' is not a function');
-            }
-            return (...moreArgs) => { return foo(x, ...moreArgs); }
-        };
+        //(x,y,z,...,G)
+        const F = (...args) => {
+            const PartArgs = args;
+            const Foo = PartArgs.pop();
 
-        // const H = F(1, G);
-        // alert(H(2, 3));
+            if (typeof Foo !== 'function') {
+                throw new TypeError(Foo + ' is not a function');
+            }
+
+            return (...moreArgs) => {
+                return Foo(...moreArgs.concat(PartArgs));
+            }
+        };
     </script>
 </body>
 
