@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script>
+        QUnit.test("filter", function(assert) {
+            moreThan5 = curr => curr > 5;
+            assert.deepEqual(filter([8, 5, 3, 6], moreThan5), [8, 6], "filter([8, 5, 3, 6], moreThan5) return [8, 6]");
+
+            evenIndex = (curr, index) => !(index % 2);
+            assert.deepEqual(filter([1, 2, 3, 4, 5, 6, 7], evenIndex), [1, 3, 5, 7], "filter([1, 2, 3, 4, 5, 6, 7], evenIndex) return [1, 3, 5, 7]");
+
+            assert.throws(() => filter([1], null), "throw error if callback is not a function");
+            assert.throws(() => filter(null, moreThan5), "throw error if array is not an Array object");
+            assert.throws(() => filter([], moreThan5), "throw error if array is empty");
+        });
+
+        //map()
+        function filter(array, callback) {
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+            if (!Array.isArray(array)) {
+                throw new TypeError(array + ' is not an Array object');
+            }
+            if (array.length == 0) {
+                throw new TypeError('array is empty');
+            }
+            let arrayFiltered = [];
+            for (let i = 0; i < array.length; i++) {
+                if (callback(array[i], i, array)) {
+                    arrayFiltered.push(array[i]);
+                }
+            }
+            return arrayFiltered;
+        }
+    </script>
+</body>
+
+</html>
