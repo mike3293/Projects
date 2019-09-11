@@ -2,15 +2,28 @@
 <html>
 
 <head>
-    <!-- <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css"> -->
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
 </head>
 
 <body>
-    <!-- <div id="qunit"></div>
+    <div id="qunit"></div>
     <div id="qunit-fixture"></div>
-    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script> -->
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
-        const lazy = function(foo, ...args) {
+        QUnit.test("lazy", function(assert) {
+            sum = (a, b) => { return a + b; }
+
+            const lazyReduce = lazy(reduce, [1, 2, 3], sum, 4);
+
+            assert.ok(typeof lazyReduce === "function", "lazyReduce is a function");
+            assert.equal(lazyReduce(), reduce([1, 2, 3], sum, 4), "result of lazyReduce() and reduce([1, 2, 3], sum, 4) is the same");
+            assert.throws(() => lazy(null), "throw error if first arg is not a function");
+        });
+
+        function lazy(foo, ...args) {
+            if (typeof foo !== 'function') {
+                throw new TypeError(foo + ' is not a function');
+            }
             let result;
             let processed = false;
 
@@ -49,10 +62,6 @@
 
             return accum;
         }
-        sum = (a, b) => { return a + b; }
-        const lazyReduce = lazy(reduce, [1, 2, 3], sum, 4);
-        alert(lazyReduce());
-        alert(lazyReduce());
     </script>
 </body>
 
