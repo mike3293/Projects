@@ -9,8 +9,9 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("lazy", function(assert) {
+        QUnit.test("memoization", function(assert) {
             let factorial = n => {
                 if (n > 1) {
                     return n * factorial(n - 1);
@@ -23,19 +24,6 @@
             assert.equal(factorial(5), 120, "factorial(5) return 120");
             assert.equal(factorial(6), 720, "factorial(6) return 720");
         });
-
-        function memo(foo) {
-            const storage = {};
-            return function(n) {
-                if (n in storage) {
-                    return storage[n];
-                } else {
-                    let result = foo(n);
-                    storage[n] = result;
-                    return result;
-                }
-            }
-        }
     </script>
 </body>
 

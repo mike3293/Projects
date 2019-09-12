@@ -9,6 +9,7 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
         QUnit.test("first", function(assert) {
             const moreThan6 = curr => curr > 6;
@@ -18,24 +19,6 @@
             assert.throws(() => first(null, moreThan6), "throw error if array is not an Array object");
             assert.throws(() => first([], moreThan6), "throw error if array is empty");
         });
-
-        function first(array, callback) {
-            if (typeof callback !== 'function') {
-                throw new TypeError(callback + ' is not a function');
-            }
-            if (!Array.isArray(array)) {
-                throw new TypeError(array + ' is not an Array object');
-            }
-            if (array.length == 0) {
-                throw new TypeError('array is empty');
-            }
-
-            for (let i = 0; i < array.length; i++) {
-                if (callback(array[i], i, array)) {
-                    return array[i];
-                }
-            }
-        }
     </script>
 </body>
 

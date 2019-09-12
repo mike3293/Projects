@@ -9,8 +9,16 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
         QUnit.test("partial", function(assert) {
+            const sum = (...args) => {
+                let sum = 0;
+                for (let i = 0; i < args.length; i++) {
+                    sum += args[i];
+                }
+                return sum;
+            }
             assert.ok(typeof partial(sum) === "function", "partial(sum) is a function");
 
             assert.equal(partial(1, sum)(2, 3), 6, "partial(1, sum)(2, 3) = 6");
@@ -20,28 +28,6 @@
 
             assert.throws(() => partial(2, null)(), "throw error if last arg of partial is not a function");
         });
-
-        //bind()
-        const sum = (...args) => {
-            let sum = 0;
-            for (let i = 0; i < args.length; i++) {
-                sum += args[i];
-            }
-            return sum;
-        }
-
-        //(x,y,z,...,sum)
-        const partial = (...args) => {
-            const foo = args.pop();
-
-            if (typeof foo !== 'function') {
-                throw new TypeError(foo + ' is not a function');
-            }
-
-            return (...moreArgs) => {
-                return foo(...args.concat(moreArgs));
-            }
-        };
     </script>
 </body>
 

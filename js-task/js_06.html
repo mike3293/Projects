@@ -9,6 +9,7 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
         QUnit.test("filter", function(assert) {
             const moreThan5 = curr => curr > 5;
@@ -21,25 +22,6 @@
             assert.throws(() => filter(null, moreThan5), "throw error if array is not an Array object");
             assert.throws(() => filter([], moreThan5), "throw error if array is empty");
         });
-
-        function filter(array, callback) {
-            if (typeof callback !== 'function') {
-                throw new TypeError(callback + ' is not a function');
-            }
-            if (!Array.isArray(array)) {
-                throw new TypeError(array + ' is not an Array object');
-            }
-            if (array.length == 0) {
-                throw new TypeError('array is empty');
-            }
-            let arrayFiltered = [];
-            for (let i = 0; i < array.length; i++) {
-                if (callback(array[i], i, array)) {
-                    arrayFiltered.push(array[i]);
-                }
-            }
-            return arrayFiltered;
-        }
     </script>
 </body>
 

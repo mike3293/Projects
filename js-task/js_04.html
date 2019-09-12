@@ -9,6 +9,7 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
         QUnit.test("unfold", function(assert) {
             const arr10 = current => {
@@ -21,23 +22,6 @@
             assert.throws(() => unfold(null, 0), "throw error if callback is not a function");
             assert.throws(() => unfold(arr10, undefined), "throw error if initialValue is not a number");
         });
-
-        function unfold(callback, initialValue) {
-            if (typeof callback !== 'function') {
-                throw new TypeError(callback + ' is not a function');
-            }
-            if (isNaN(initialValue)) {
-                throw new TypeError(initialValue + ' is not a number');
-            }
-            let array = [];
-            let next;
-            let current = initialValue;
-            while (next = callback(current)) {
-                current = next[1];
-                array.push(next[0]);
-            }
-            return array;
-        }
     </script>
 </body>
 

@@ -9,6 +9,7 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+     <script src="FP_functions.js"></script>
     <script>
         QUnit.test("curry", function(assert) {
             const sum3 = (x, y, z) => x + y + z;
@@ -29,24 +30,7 @@
             assert.throws(() => curry(), "throw error if argument of curry is not a function");
         });
 
-        function curry(foo) {
-            if (typeof foo !== 'function') {
-                throw new TypeError(foo + ' is not a function');
-            }
-
-            const arity = foo.length;
-
-            return function innerFunction(...args) {
-                if (args.length >= arity) {
-                    return foo(...args);
-                } else {
-                    return (a) => {
-                        args.push(a);
-                        return innerFunction(...args);
-                    }
-                }
-            }
-        }
+        
     </script>
 </body>
 
