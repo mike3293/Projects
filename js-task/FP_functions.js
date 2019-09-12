@@ -42,6 +42,7 @@ function fold(array, callback, initialValue) {
         throw new TypeError('array is empty');
     }
     let i;
+    let accum;
     if (initialValue === undefined) {
         accum = array[0];
         i = 1;
@@ -149,12 +150,14 @@ function lazy(foo, ...args) {
 // memoization
 function memo(foo) {
     const storage = {};
+
     return function(n) {
         if (n in storage) {
             return storage[n];
         } else {
             let result = foo(n);
             storage[n] = result;
+
             return result;
         }
     }
