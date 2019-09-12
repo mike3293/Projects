@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("lazy", function(assert) {
-            sum = (a, b) => { return a + b; }
+            const sum = (a, b) => { return a + b; }
 
             const lazyReduce = lazy(reduce, [1, 2, 3], sum, 4);
 
@@ -46,6 +46,7 @@
                 throw new TypeError('array is empty');
             }
             let i;
+            let accum;
             if (initialValue === undefined) {
                 accum = array[0];
                 i = 1;

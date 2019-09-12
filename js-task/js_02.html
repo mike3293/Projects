@@ -34,10 +34,10 @@
                 throw new TypeError(foo + ' is not a function');
             }
 
-            const ARITY = foo.length;
+            const arity = foo.length;
 
             return function innerFunction(...args) {
-                if (args.length >= ARITY) {
+                if (args.length >= arity) {
                     return foo(...args);
                 } else {
                     return (a) => {

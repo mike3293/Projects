@@ -11,12 +11,12 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("unfold and fold", function(assert) {
-            randArrFoo = (current, array) => {
+            const randArrFoo = (current, array) => {
                 if (array.length < 10) {
                     return [current, Math.floor(Math.random() * 10)];
                 } else return false;
             }
-            sumFoo = (a, b) => { return a + b; }
+            const sumFoo = (a, b) => { return a + b; }
 
             const randArr = unfold(randArrFoo, 2);
             const sum = fold(randArr, sumFoo);
@@ -57,6 +57,7 @@
                 throw new TypeError('array is empty');
             }
             let i;
+            let accum;
             if (initialValue === undefined) {
                 accum = array[0];
                 i = 1;

@@ -29,17 +29,17 @@
             }
             return sum;
         }
+
         //(x,y,z,...,G)
         const F = (...args) => {
-            const PartArgs = args;
-            const Foo = PartArgs.pop();
+            const foo = args.pop();
 
-            if (typeof Foo !== 'function') {
-                throw new TypeError(Foo + ' is not a function');
+            if (typeof foo !== 'function') {
+                throw new TypeError(foo + ' is not a function');
             }
 
             return (...moreArgs) => {
-                return Foo(...moreArgs.concat(PartArgs));
+                return foo(...args.concat(moreArgs));
             }
         };
     </script>

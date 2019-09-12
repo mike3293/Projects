@@ -11,18 +11,18 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("fold", function(assert) {
-            sum = (a, b) => { return a + b; }
-            assert.equal(F([1, 2, 3], sum, 4), 10, "F([1, 2, 3], sum, 4) = 10");
-            assert.equal(F([1, 2, 3], sum, 4), 10, "F([1, 2, 3], sum) = 6");
+            const sum = (a, b) => { return a + b; }
+            assert.equal(fold([1, 2, 3], sum, 4), 10, "fold([1, 2, 3], sum, 4) = 10");
+            assert.equal(fold([1, 2, 3], sum, 4), 10, "fold([1, 2, 3], sum) = 6");
 
-            assert.throws(() => F([1], null), "throw error if callback of fold is not a function");
-            assert.throws(() => F(null, sum), "throw error if array of fold is not an Array object");
-            assert.throws(() => F([], sum), "throw error if array is empty");
-            assert.throws(() => F([1], sum, "string"), "throw error if initialValue of fold is not a number");
+            assert.throws(() => fold([1], null), "throw error if callback of fold is not a function");
+            assert.throws(() => fold(null, sum), "throw error if array of fold is not an Array object");
+            assert.throws(() => fold([], sum), "throw error if array is empty");
+            assert.throws(() => fold([1], sum, "string"), "throw error if initialValue of fold is not a number");
         });
 
         //reduce()
-        function F(array, callback, initialValue) {
+        function fold(array, callback, initialValue) {
             if (typeof callback !== 'function') {
                 throw new TypeError(callback + ' is not a function');
             }

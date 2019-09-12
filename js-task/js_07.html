@@ -11,8 +11,8 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("filter and reduce", function(assert) {
-            evenElem = current => !(current % 2);
-            avg = (a, b, i, arr) => a + b / arr.length; //or find normal sum and divide by array lenght in the end
+            const evenElem = current => !(current % 2);
+            const avg = (a, b, i, arr) => a + b / arr.length; //or find normal sum and divide by array lenght in the end
 
             const array = [1, 23, 2, 6, 12, 0];
             let filtered = filter(array, evenElem);
@@ -51,6 +51,7 @@
                 throw new TypeError('array is empty');
             }
             let i;
+            let accum;
             if (initialValue === undefined) {
                 accum = array[0];
                 i = 1;
