@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script>
+        QUnit.test("lazy", function(assert) {
+
+            const moreThan5 = curr => curr > 5;
+            const memoFilter = memo(filter);
+
+            assert.ok(typeof memoFilter === "function", "memoFilter is a function");
+            assert.deepEqual(memoFilter([1, 2, 11, 3, 10], moreThan5), [11, 10], "memoFilter([1, 2, 11, 3, 10], moreThan5) return [11, 10]");
+            assert.deepEqual(memoFilter([1, 2, 11, 3, 10], moreThan5), [11, 10], "memoFilter([1, 2, 11, 3, 10], moreThan5) return [11, 10]");
+        });
+
+        function memo(foo) {
+            const storage = {};
+            return function(...args) {
+                if (storage[args] != undefined) {
+                    return storage[args];
+                } else {
+                    let result = foo(...args);
+                    storage[args] = result;
+                    return result;
+                }
+            }
+        }
+
+        function filter(array, callback) {
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+            if (!Array.isArray(array)) {
+                throw new TypeError(array + ' is not an Array object');
+            }
+            if (array.length == 0) {
+                throw new TypeError('array is empty');
+            }
+            let arrayFiltered = [];
+            for (let i = 0; i < array.length; i++) {
+                if (callback(array[i], i, array)) {
+                    arrayFiltered.push(array[i]);
+                }
+            }
+            return arrayFiltered;
+        }
+    </script>
+</body>
+
+</html>
