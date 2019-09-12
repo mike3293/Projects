@@ -10,15 +10,15 @@
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
-        QUnit.test("filter and reduce", function(assert) {
+        QUnit.test("filter and fold", function(assert) {
             const evenElem = current => !(current % 2);
             const avg = (a, b, i, arr) => a + b / arr.length; //or find normal sum and divide by array lenght in the end
 
             const array = [1, 23, 2, 6, 12, 0];
             let filtered = filter(array, evenElem);
-            let answer = reduce(filtered, avg, 0);
+            let answer = fold(filtered, avg, 0);
 
-            assert.equal(answer, 5, "filter([1, 23, 2, 6, 12, 0], evenElem) -> reduce([2, 6, 12, 0], avg, 0) -> 5");
+            assert.equal(answer, 5, "filter([1, 23, 2, 6, 12, 0], evenElem) -> fold([2, 6, 12, 0], avg, 0) -> 5");
         });
 
         function filter(array, callback) {
@@ -40,7 +40,7 @@
             return arrayFiltered;
         }
 
-        function reduce(array, callback, initialValue) {
+        function fold(array, callback, initialValue) {
             if (typeof callback !== 'function') {
                 throw new TypeError(callback + ' is not a function');
             }

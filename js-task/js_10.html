@@ -13,10 +13,10 @@
         QUnit.test("lazy", function(assert) {
             const sum = (a, b) => { return a + b; }
 
-            const lazyReduce = lazy(reduce, [1, 2, 3], sum, 4);
+            const lazyFold = lazy(fold, [1, 2, 3], sum, 4);
 
-            assert.ok(typeof lazyReduce === "function", "lazyReduce is a function");
-            assert.equal(lazyReduce(), reduce([1, 2, 3], sum, 4), "result of lazyReduce() and reduce([1, 2, 3], sum, 4) is the same");
+            assert.ok(typeof lazyFold === "function", "lazyFold is a function");
+            assert.equal(lazyFold(), fold([1, 2, 3], sum, 4), "result of lazyFold() and fold([1, 2, 3], sum, 4) is the same");
             assert.throws(() => lazy(null), "throw error if first arg is not a function");
         });
 
@@ -35,7 +35,7 @@
             };
         };
 
-        function reduce(array, callback, initialValue) {
+        function fold(array, callback, initialValue) {
             if (typeof callback !== 'function') {
                 throw new TypeError(callback + ' is not a function');
             }
