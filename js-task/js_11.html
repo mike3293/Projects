@@ -11,18 +11,17 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script>
         QUnit.test("lazy", function(assert) {
-
-            const factorial = n => {
+            let factorial = n => {
                 if (n > 1) {
                     return n * factorial(n - 1);
                 }
                 return n;
             }
-            const memoFactorial = memo(factorial);
+            factorial = memo(factorial);
 
-            assert.ok(typeof memoFactorial === "function", "memoFactorial is a function");
-            assert.equal(memoFactorial(5), 120, "memoFactorial(5) return 120");
-            // assert.ok(memoFactorial(10000), "to runtime compare with 2");
+            assert.ok(typeof factorial === "function", "memoFactorial is a function");
+            assert.equal(factorial(5), 120, "factorial(5) return 120");
+            assert.equal(factorial(6), 720, "factorial(6) return 720");
         });
 
         function memo(foo) {
