@@ -22,7 +22,6 @@
             assert.throws(() => filter([], moreThan5), "throw error if array is empty");
         });
 
-        //map()
         function filter(array, callback) {
             if (typeof callback !== 'function') {
                 throw new TypeError(callback + ' is not a function');
