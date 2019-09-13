@@ -9,28 +9,31 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
-     <script src="FP_functions.js"></script>
+    <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("curry", function(assert) {
-            const sum3 = (x, y, z) => x + y + z;
+        const sum3 = (x, y, z) => x + y + z;
 
-            function sum5(a, b, c, d, f) {
-                let sum = 0;
-                for (let i = 0; i < arguments.length; i++) {
-                    sum += arguments[i];
-                }
-                return sum;
+        function sum5(a, b, c, d, f) {
+            let sum = 0;
+            for (let i = 0; i < arguments.length; i++) {
+                sum += arguments[i];
             }
+            return sum;
+        }
+
+        QUnit.test("curry() return function", function(assert) {
 
             assert.ok(typeof curry(sum3) === "function", "curry(sum3) is a function");
-
+        });
+        QUnit.test("curry() work with 3 args", function(assert) {
             assert.equal(curry(sum3)(2)(1)(5), 8, "curry(sum3)(2)(1)(5) = 8");
+        });
+        QUnit.test("curry() work with 5 args", function(assert) {
             assert.equal(curry(sum5)(2)(1)(5)(1)(1), 10, "curry(sum5)(2)(1)(5)(1)(1) = 10");
-
+        });
+        QUnit.test("curry() throw", function(assert) {
             assert.throws(() => curry(), "throw error if argument of curry is not a function");
         });
-
-        
     </script>
 </body>
 

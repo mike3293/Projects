@@ -11,14 +11,16 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("unfold", function(assert) {
+        QUnit.test("unfold() work", function(assert) {
             const arr10 = current => {
                 if (current <= 30) {
                     return [current, current + 10];
                 } else return false;
             }
-            assert.deepEqual(unfold(arr10, 0), [0, 10, 20, 30], "unfold(arr10, 0) return [0, 10, 20, 30]");
 
+            assert.deepEqual(unfold(arr10, 0), [0, 10, 20, 30], "unfold(arr10, 0) return [0, 10, 20, 30]");
+        });
+        QUnit.test("unfold() throws", function(assert) {
             assert.throws(() => unfold(null, 0), "throw error if callback is not a function");
             assert.throws(() => unfold(arr10, undefined), "throw error if initialValue is not a number");
         });

@@ -11,10 +11,11 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("map", function(assert) {
+        QUnit.test("map() work", function(assert) {
             const arrSq = curr => curr ** 2;
             assert.deepEqual(map([1, 2, 3, 4], arrSq), [1, 4, 9, 16], "map([1, 2, 3, 4], arrSq) return [1, 4, 9, 16]");
-
+        });
+        QUnit.test("map() throws", function(assert) {
             assert.throws(() => map([1], null), "throw error if callback is not a function");
             assert.throws(() => map(null, arrSq), "throw error if array is not an Array object");
             assert.throws(() => map([], arrSq), "throw error if array is empty");

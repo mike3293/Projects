@@ -1,0 +1,12 @@
+{
+  "name": "js-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "FP_functions.js",
+  "scripts": {
+    "tests": "js_01.html & js_02.html & js_03.html & js_04.html & js_05.html & js_06.html & js_07.html & js_08.html & js_09.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

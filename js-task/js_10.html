@@ -11,13 +11,16 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("lazy", function(assert) {
+        QUnit.test("lazy() work", function(assert) {
             const sum = (a, b) => { return a + b; }
 
             const lazyFold = lazy(fold, [1, 2, 3], sum, 4);
 
             assert.ok(typeof lazyFold === "function", "lazyFold is a function");
             assert.equal(lazyFold(), fold([1, 2, 3], sum, 4), "result of lazyFold() and fold([1, 2, 3], sum, 4) is the same");
+        });
+
+        QUnit.test("lazy() throw", function(assert) {
             assert.throws(() => lazy(null), "throw error if first arg is not a function");
         });
     </script>

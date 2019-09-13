@@ -149,6 +149,9 @@ function lazy(foo, ...args) {
 
 // memoization
 function memo(foo) {
+    if (typeof foo !== 'function') {
+        throw new TypeError(foo + ' is not a function');
+    }
     const storage = {};
 
     return function(n) {

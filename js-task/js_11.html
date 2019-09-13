@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
     <script src="FP_functions.js"></script>
     <script>
-        QUnit.test("memoization", function(assert) {
+        QUnit.test("memo() work", function(assert) {
             let factorial = n => {
                 if (n > 1) {
                     return n * factorial(n - 1);
@@ -20,9 +20,11 @@
             }
             factorial = memo(factorial);
 
-            assert.ok(typeof factorial === "function", "memoFactorial is a function");
+            assert.ok(typeof factorial === "function", "factorial after memo() is a function");
             assert.equal(factorial(5), 120, "factorial(5) return 120");
-            assert.equal(factorial(6), 720, "factorial(6) return 720");
+        });
+        QUnit.test("memo() throw", function(assert) {
+            assert.throws(() => memo(null), "throw error if first arg is not a function");
         });
     </script>
 </body>
