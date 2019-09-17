@@ -2,7 +2,7 @@
   "name": "js-task",
   "version": "1.0.0",
   "description": "",
-  "main": "tests.js",
+  "main": "FP_functions.js",
   "scripts": {
     "test": "qunit"
   },
