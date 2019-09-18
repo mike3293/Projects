@@ -2,27 +2,27 @@ const fp = {};
 (function(fp) {
     // bind()
     fp.partial = function(...args) {
-        const foo = args.pop();
+        const functionPartial = args.pop();
 
-        if (typeof foo !== 'function') {
-            throw new TypeError(foo + ' is not a function');
+        if (typeof functionPartial !== 'function') {
+            throw new TypeError(functionPartial + ' is not a function');
         }
 
         return (...moreArgs) => {
-            return foo(...args.concat(moreArgs));
+            return functionPartial(...args.concat(moreArgs));
         }
     }
 
-    fp.curry = function(foo) {
-        if (typeof foo !== 'function') {
-            throw new TypeError(foo + ' is not a function');
+    fp.curry = function(functionToCurry) {
+        if (typeof functionToCurry !== 'function') {
+            throw new TypeError(functionToCurry + ' is not a function');
         }
 
-        const arity = foo.length;
+        const arity = functionToCurry.length;
 
         return function innerFunction(...args) {
             if (args.length >= arity) {
-                return foo(...args);
+                return functionToCurry(...args);
             } else {
                 return (a) => {
                     args.push(a);
@@ -134,25 +134,25 @@ const fp = {};
         }
     }
 
-    fp.lazy = function(foo, ...args) {
-        if (typeof foo !== 'function') {
-            throw new TypeError(foo + ' is not a function');
+    fp.lazy = function(functionToBeLazy, ...args) {
+        if (typeof functionToBeLazy !== 'function') {
+            throw new TypeError(functionToBeLazy + ' is not a function');
         }
         let result;
         let processed = false;
 
         return function() {
             if (processed) { return result; }
-            result = foo(...args);
+            result = functionToBeLazy(...args);
             processed = true;
             return result;
         }
     }
 
     // memoization
-    fp.memo = function(foo) {
-        if (typeof foo !== 'function') {
-            throw new TypeError(foo + ' is not a function');
+    fp.memo = function(functionToBeMemorized) {
+        if (typeof functionToBeMemorized !== 'function') {
+            throw new TypeError(functionToBeMemorized + ' is not a function');
         }
         const storage = {};
 
@@ -160,7 +160,7 @@ const fp = {};
             if (n in storage) {
                 return storage[n];
             } else {
-                let result = foo(n);
+                let result = functionToBeMemorized(n);
                 storage[n] = result;
 
                 return result;
