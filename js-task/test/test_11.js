@@ -12,6 +12,7 @@ QUnit.test("memo() work", function(assert) {
     assert.ok(typeof factorial === "function", "factorial after memo() is a function");
     assert.equal(factorial(5), 120, "factorial(5) return 120");
 });
-QUnit.test("memo() throw", function(assert) {
-    assert.throws(() => fp.memo(null), "throw error if first arg is not a function");
+QUnit.test("memo() throw errors if args are not ok", function(assert) {
+    assert.throws(() => fp.memo(null), "throw error if arg is not a function");
+    assert.throws(() => fp.memo(Object()), "throw error if arg isNaN");
 });

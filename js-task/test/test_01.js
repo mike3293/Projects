@@ -18,6 +18,6 @@ QUnit.test("partial() work without part of parameters", function(assert) {
 QUnit.test("partial() get only function", function(assert) {
     assert.equal(fp.partial(sum)(), 0, "partial(sum)() = 0 (sum)");
 });
-QUnit.test("partial() throw", function(assert) {
+QUnit.test("partial() throw error if last arg is not a function", function(assert) {
     assert.throws(() => fp.partial(2, null)(), "throw error if last arg of partial is not a function");
 });
