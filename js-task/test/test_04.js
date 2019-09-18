@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("unfold() work", function(assert) {
     const arr10 = current => {

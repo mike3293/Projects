@@ -1,4 +1,5 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
+
 const sum = (...args) => {
     let sum = 0;
     for (let i = 0; i < args.length; i++) {

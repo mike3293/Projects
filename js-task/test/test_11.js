@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("memo() work", function(assert) {
     let factorial = n => {

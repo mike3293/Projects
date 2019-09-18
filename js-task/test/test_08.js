@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("implementation of 8-th task using unfold and fold functions", function(assert) {
     const randArrFoo = (current, array) => {

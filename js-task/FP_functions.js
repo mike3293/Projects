@@ -190,4 +190,5 @@ const fp = {};
         }
     }
 }(fp));
-module.exports = fp;
+//module.exports = fp;
+export default fp;

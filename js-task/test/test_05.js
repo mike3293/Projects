@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("map() work", function(assert) {
     const arrSq = curr => curr ** 2;

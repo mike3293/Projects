@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("implementation of 7-th task using filter and fold functions", function(assert) {
     const evenElem = current => !(current % 2);

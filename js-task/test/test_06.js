@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("filter() work with callback which have one parameter", function(assert) {
     const moreThan5 = curr => curr > 5;

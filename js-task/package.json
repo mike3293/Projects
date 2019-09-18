@@ -2,15 +2,18 @@
   "name": "js-task",
   "version": "1.0.0",
   "description": "",
-  "main": "FP_functions.js",
+  "main": "index.js",
   "scripts": {
     "test": "qunit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "esm": "^3.2.25"
+  },
   "devDependencies": {
+    "import-export": "^1.0.1",
     "qunit": "^2.9.2"
   }
 }

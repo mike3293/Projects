@@ -1,4 +1,4 @@
-const fp = require("../FP_functions.js");
+import fp from '../FP_functions.js';
 
 QUnit.test("first() work", function(assert) {
     const moreThan6 = curr => curr > 6;
