@@ -46,18 +46,18 @@ const fp = {};
         let i;
         let accum;
         if (initialValue === undefined) {
-            accum = array[0];
+            accum = 0;
             i = 1;
         } else if (!isNaN(initialValue)) {
             accum = initialValue;
             i = 0;
-        } else {
-            throw new TypeError(initialValue + ' is not a number');
         }
 
-        for (; i < array.length; i++) {
-            accum = callback(accum, array[i], i, array);
+        function callbackForMap(arrayI, i, array) {
+            accum = callback(accum, arrayI, i, array);
         }
+
+        fp.map(array, callbackForMap);
 
         return accum;
     }
@@ -72,10 +72,15 @@ const fp = {};
         let array = [];
         let next;
         let current = initialValue;
-        while (next = callback(current, array)) {
-            current = next[1];
-            array.push(next[0]);
-        }
+
+        (function repeat() {
+            if (next = callback(current, array)) {
+                current = next[1];
+                array.push(next[0]);
+                repeat();
+            }
+        })();
+
         return array;
     }
 
@@ -91,9 +96,12 @@ const fp = {};
             throw new TypeError('array is empty');
         }
         let arrayMapped = [];
-        for (let i = 0; i < array.length; i++) {
+
+        (function repeat(i) {
             arrayMapped[i] = callback(array[i], i, array);
-        }
+            if (i < array.length - 1) repeat(++i);
+        })(0);
+
         return arrayMapped;
     }
 
@@ -108,11 +116,14 @@ const fp = {};
             throw new TypeError('array is empty');
         }
         let arrayFiltered = [];
-        for (let i = 0; i < array.length; i++) {
+
+        (function repeat(i) {
             if (callback(array[i], i, array)) {
                 arrayFiltered.push(array[i]);
             }
-        }
+            if (i < array.length - 1) repeat(++i);
+        })(0);
+
         return arrayFiltered;
     }
 
@@ -127,11 +138,16 @@ const fp = {};
             throw new TypeError('array is empty');
         }
 
-        for (let i = 0; i < array.length; i++) {
+        let firstArg;
+        (function repeat(i) {
             if (callback(array[i], i, array)) {
-                return array[i];
+                firstArg = array[i];
+                return;
             }
-        }
+            if (i < array.length - 1) repeat(++i);
+        })(0);
+
+        return firstArg;
     }
 
     fp.lazy = function(functionToBeLazy, ...args) {
@@ -157,6 +173,12 @@ const fp = {};
         const storage = {};
 
         return function(n) {
+            if (n === undefined) {
+                throw new TypeError(n + 'argument is undefined');
+            }
+            if (isNaN(n)) {
+                throw new TypeError(n + 'argument is NaN');
+            }
             if (n in storage) {
                 return storage[n];
             } else {
