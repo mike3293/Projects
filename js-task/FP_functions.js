@@ -43,21 +43,24 @@ const fp = {};
         if (array.length == 0) {
             throw new TypeError('array is empty');
         }
+
         let i;
         let accum;
+        const arrForMap = array.slice();
+
         if (initialValue === undefined) {
-            accum = 0;
+            accum = arrForMap.shift();
             i = 1;
         } else if (!isNaN(initialValue)) {
             accum = initialValue;
             i = 0;
         }
 
-        function callbackForMap(arrayI, i, array) {
-            accum = callback(accum, arrayI, i, array);
+        function callbackForMap(arrayI, i, arrForMap) {
+            accum = callback(accum, arrayI, i, arrForMap);
         }
 
-        fp.map(array, callbackForMap);
+        fp.map(arrForMap, callbackForMap);
 
         return accum;
     }
