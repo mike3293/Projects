@@ -26,8 +26,9 @@ fp.curry = function(functionToCurry) {
             return functionToCurry(...args);
         } else {
             return (a) => {
-                args.push(a);
-                return innerFunction(...args);
+                const arrayLast = args.slice();
+                arrayLast.push(a);
+                return innerFunction(...arrayLast);
             }
         }
     }

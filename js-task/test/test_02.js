@@ -19,8 +19,9 @@ QUnit.test("c(3) return function", function(assert) {
     assert.ok(typeof d === "function", "d is a function");
 });
 
-QUnit.test("d(4) return number '10'", function(assert) {
-    assert.equal(d(4), 10, "curry(sum5)(2)(1)(5)(1)(1) = 10");
+QUnit.test("curry(sum)(1)(2)(3) returned function test with d(4) and d(5)", function(assert) {
+    assert.equal(d(4), 10, "d(4) = 10");
+    assert.equal(d(5), 11, "d(5) = 11");
 });
 QUnit.test("curry() throw error if argument of curry is not a function", function(assert) {
     assert.throws(() => fp.curry(), "throw error");
