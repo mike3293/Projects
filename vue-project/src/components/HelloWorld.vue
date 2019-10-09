@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
-    <h1 class = "h3">
+    <h1 class = "block">
       {{ msg }}
-      <span class="h3__element">40px</span>
+      <span class="block__element">40px</span>
     </h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -42,13 +42,17 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.h3 {
+<style lang="scss">
+.block {
   margin: 40px 0 0;
 
   &__element {
     font-size: 80px;
   }
+}
+
+h3 {
+  margin: 40px 0 0;
 }
 ul {
   list-style-type: none;
