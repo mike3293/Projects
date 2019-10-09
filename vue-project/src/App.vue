@@ -1,30 +1,33 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div class="app">
+    <nav class="nav">
+      <router-link to="/" class="nav__page-links">Home</router-link>
+      <router-link to="/about" class="nav__page-links">About</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-@import './variables.scss';
-#app {
+@import "./variables.scss";
+
+.app {
   font-family: $avenir;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
+
+.nav {
   padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  &__page-links {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-left: 10px;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
