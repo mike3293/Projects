@@ -14,7 +14,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-# if you are deploying to https://<USERNAME>.github.io
 git push -f https://github.com/mike3293/mike3293.github.io.git master
 
 cd -

@@ -5,6 +5,7 @@
       <router-link to="/about" class="nav__page-links">About</router-link>
     </nav>
     <router-view />
+    <footer />
   </div>
 </template>
 

@@ -11,7 +11,7 @@ export default {
     return {
       version: process.env.VUE_APP_VERSION,
       enviroment: process.env.NODE_ENV
-    }
+    };
   }
-}
+};
 </script>

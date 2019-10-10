@@ -18,7 +18,7 @@ export default new Router({
       name: "about",
       // route level code-splitting
       component: function() {
-        return import("./views/About.vue");
+        return import("./about/About.vue");
       }
     }
   ]
