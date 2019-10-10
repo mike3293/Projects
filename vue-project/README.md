@@ -24,6 +24,12 @@ npm run build
 npm run lint
 ```
 
+### deploy to https://mike3293.github.io/
+
+```
+npm run deploy
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
