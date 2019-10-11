@@ -15,6 +15,13 @@ export default new Router({
       component: Signin
     },
     {
+      path: "/sign-up",
+      name: "sign-up",
+      component: function() {
+        return import("./auth/sign-up/SignUp.vue");
+      }
+    },
+    {
       path: "/home",
       name: "home",
       component: Home

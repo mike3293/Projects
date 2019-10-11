@@ -2,7 +2,7 @@
   <div class="app">
     <nav class="nav">
       <router-link to="/" class="nav__page-links">Sign in</router-link>
-      <router-link to="/home" class="nav__page-links">Home</router-link>
+      <router-link to="/home" class="nav__page-links">Test page with 4 pic</router-link>
       <router-link to="/about" class="nav__page-links">About</router-link>
     </nav>
     <router-view />
@@ -12,6 +12,17 @@
 
 <style lang="scss">
 @import "./variables.scss";
+
+* {
+  box-sizing: border-box;
+  // text-decoration: none;
+}
+
+body {
+  margin: 0px;
+  font-size: 16px;
+  /* font-family: "National", "Helvetica", "Arial", sans-serif; */
+}
 
 .app {
   font-family: $avenir;
