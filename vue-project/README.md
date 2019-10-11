@@ -34,4 +34,4 @@ npm run deploy
 
 #### Path to webpack config node_modules\@vue\cli-service\lib\config
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<!-- See [Configuration Reference](https://cli.vuejs.org/config/). -->
