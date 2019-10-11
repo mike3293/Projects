@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h2 class="home__title">Home page</h2>
+    <img src="../shared/assets/Untitled.png" />
     <img src="../shared/assets/logo.png" />
     <br />
     <img v-bind:src="picture" />
