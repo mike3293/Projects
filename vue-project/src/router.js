@@ -14,10 +14,17 @@ export default new Router({
       name: "sign-in",
       component: Signin
     },
+    // {
+    //   path: "/admin",
+    //   name: "admin",
+    //   component: function () {
+    //     return import("./admin/Admin.vue");
+    //   }
+    // },
     {
       path: "/sign-up",
       name: "sign-up",
-      component: function() {
+      component: function () {
         return import("./auth/sign-up/SignUp.vue");
       }
     },
@@ -30,7 +37,7 @@ export default new Router({
       path: "/about",
       name: "about",
       // route level code-splitting
-      component: function() {
+      component: function () {
         return import("./about/About.vue");
       }
     }

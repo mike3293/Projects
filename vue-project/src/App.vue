@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <nav class="nav">
-      <router-link to="/" class="nav__page-links">Sign in</router-link>
       <router-link to="/home" class="nav__page-links">Test page with 4 pic</router-link>
       <router-link to="/about" class="nav__page-links">About</router-link>
+      <router-link to="/" class="nav__page-links">Sign in</router-link>
     </nav>
     <router-view />
     <footer />
@@ -21,7 +21,6 @@
 body {
   margin: 0px;
   font-size: 16px;
-  /* font-family: "National", "Helvetica", "Arial", sans-serif; */
 }
 
 .app {
@@ -32,7 +31,7 @@ body {
 
 .nav {
   padding: 30px;
-
+  text-align: right;
   &__page-links {
     font-weight: bold;
     color: #2c3e50;
