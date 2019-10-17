@@ -27,7 +27,9 @@ firebase.initializeApp(firebaseConfig);
 // });
 
 export const signIn = function (email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password);
+    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        this.$router.push('/admin');
+    }).catch((err) => alert(err));
     console.log("in");
 }
 

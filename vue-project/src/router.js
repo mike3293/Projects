@@ -14,13 +14,13 @@ export default new Router({
       name: "sign-in",
       component: Signin
     },
-    // {
-    //   path: "/admin",
-    //   name: "admin",
-    //   component: function () {
-    //     return import("./admin/Admin.vue");
-    //   }
-    // },
+    {
+      path: "/admin",
+      name: "admin",
+      component: function () {
+        return import("./admin/Admin.vue");
+      }
+    },
     {
       path: "/sign-up",
       name: "sign-up",
