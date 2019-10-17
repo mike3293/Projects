@@ -1,6 +1,6 @@
 <template>
     <div class="sign-in">
-        <form class="sign-in__form">
+        <form v-on:submit.prevent class="sign-in__form">
             <h3 class="sign-in__title">Sign in</h3>
             <input required v-model="login" placeholder="Login" class="sign-in__input" />
             <input
@@ -14,12 +14,13 @@
                 <router-link to="/sign-up">Sign up</router-link>
                 <router-link to="/">Password?</router-link>
             </div>
-            <CommonButton msg="Sign in" class="sign-in__button" />
+            <button class="sign-in__button button" v-on:click="sign(login, password)">Sign in</button>
         </form>
     </div>
 </template>
 
 <style lang="scss">
+@import "../../shared/components/button/button.css";
 .sign-in {
     &__form {
         width: 35%;
@@ -51,11 +52,18 @@
 </style>
 
 <script>
-import CommonButton from "../../shared/components/button/CommonButton.vue";
+//import CommonButton from "../../shared/components/button/CommonButton.vue";
+import { signIn } from "../firebase";
 export default {
     name: "sign-in",
-    components: {
-        CommonButton
+    data: function() {
+        return {
+            login: "m@gmail.com",
+            password: "123456"
+        };
+    },
+    methods: {
+        sign: signIn
     }
 };
 </script>

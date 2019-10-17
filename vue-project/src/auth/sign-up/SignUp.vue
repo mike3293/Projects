@@ -20,7 +20,7 @@
                 class="sign-up__input"
             />
 
-            <CommonButton msg="Sign up" class="sign-up__button" />
+            <!-- <CommonButton msg="Sign up" class="sign-up__button" /> -->
         </form>
     </div>
 </template>
@@ -57,11 +57,8 @@
 </style>
 
 <script>
-import CommonButton from "../../shared/components/button/CommonButton.vue";
+//import CommonButton from "../../shared/components/button/CommonButton.vue";
 export default {
-    name: "sign-up",
-    components: {
-        CommonButton
-    }
+    name: "sign-up"
 };
 </script>

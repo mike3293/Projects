@@ -37,37 +37,38 @@ export default {
             version: process.env.VUE_APP_VERSION,
             enviroment: process.env.NODE_ENV
         };
-    },
-    mounted() {
-        //for test
-        const REST_API_KEY = "cRESoEW5HdJlDoWRKXuSkr";
-        const APP_ID = "cKkCoesL9cP5Leo8oRpCoI";
-        const FORM_ID = "bJW6FdM1DeW6ddQmkitSoX";
-
-        const LOGIN_HASH = "bxWRCuFKncGQ7dJ1pdScy6";
-        const PASSWORD_HASH = "c6W6rNW51kW7JdPWn8smkg";
-        const GROUP_HASH = "dcHmoSmLvdOz5_tXhdOCod";
-        //const TOKEN_HASH = "ddK8knF8jbq4oXWOqXWOvn";
-
-        (async function() {
-            const response = await fetch(
-                `https://quintadb.ru/apps/${APP_ID}/dtypes/entity/${FORM_ID}.json?rest_api_key=${REST_API_KEY}`
-            );
-            const myJson = await response.json();
-            return (
-                myJson.records[0].values[LOGIN_HASH] +
-                " " +
-                myJson.records[0].values[PASSWORD_HASH] +
-                " " +
-                myJson.records[0].values[GROUP_HASH] +
-                " | " +
-                myJson.records[1].values[LOGIN_HASH] +
-                " " +
-                myJson.records[1].values[PASSWORD_HASH] +
-                " " +
-                myJson.records[1].values[GROUP_HASH]
-            );
-        })().then(str => (this.info = str));
     }
+    // mounted() {
+    //     //for test
+    //     const REST_API_KEY = "cRESoEW5HdJlDoWRKXuSkr";
+    //     const APP_ID = "cKkCoesL9cP5Leo8oRpCoI";
+    //     const FORM_ID = "bJW6FdM1DeW6ddQmkitSoX";
+
+    //     const LOGIN_HASH = "bxWRCuFKncGQ7dJ1pdScy6";
+    //     const PASSWORD_HASH = "c6W6rNW51kW7JdPWn8smkg";
+    //     const GROUP_HASH = "dcHmoSmLvdOz5_tXhdOCod";
+    //     //const TOKEN_HASH = "ddK8knF8jbq4oXWOqXWOvn";
+
+    //     // (async function() {
+    //     //     const response = await fetch(
+    //     //         `https://quintadb.ru/apps/${APP_ID}/dtypes/entity/${FORM_ID}.json?rest_api_key=${REST_API_KEY}`
+    //     //     );
+    //     //     const myJson = await response.json();
+    //     //     return (
+    //     //         myJson.records[0].values[LOGIN_HASH] +
+    //     //         " " +
+    //     //         myJson.records[0].values[PASSWORD_HASH] +
+    //     //         " " +
+    //     //         myJson.records[0].values[GROUP_HASH] +
+    //     //         " | " +
+    //     //         myJson.records[1].values[LOGIN_HASH] +
+    //     //         " " +
+    //     //         myJson.records[1].values[PASSWORD_HASH] +
+    //     //         " " +
+    //     //         myJson.records[1].values[GROUP_HASH]
+    //     //     );
+    //     // })().then(str => (this.info = str));
+
+    // }
 };
 </script>
