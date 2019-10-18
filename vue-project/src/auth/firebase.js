@@ -2,7 +2,8 @@ import * as firebase from "firebase/app";
 
 import "firebase/auth";
 //import "firebase/firestore";
-//import router from "../router";
+import store from "../store";
+
 
 
 var firebaseConfig = {
@@ -32,44 +33,35 @@ export const signIn = function (email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         //this.$router.push('/admin');
     }).catch((err) => alert(err));
-    console.log("in");
+    //alert("in");
+}
+
+
+
+// var provider = new firebase.auth.GoogleAuthProvider();
+
+// export const googleSignIn = function () {
+//     firebase.auth().signInWithPopup(provider).then(function (result) {
+//         // This gives you a Google Access Token. You can use it to access the Google API.
+//         var token = result.credential.accessToken;
+//         // The signed-in user info.
+//         var user = result.user;
+//         // ...
+//         console.log(token + " " + user.email);
+//     });
+// }
+
+export const signUp = async function (email, password, name) {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
 
     var user = firebase.auth().currentUser;
 
     user.updateProfile({
-        displayName: "Jane Q. User"
+        displayName: name
     }).then(function () {
-        console.log("Changed?");
-    });
+        alert("Changed?");
+    });     //TO DO: remove then
 
-}
-
-
-
-var provider = new firebase.auth.GoogleAuthProvider();
-
-export const googleSignIn = function () {
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-        console.log(token + " " + user.email);
-    });
-}
-
-export const signUp = function (email, password, name) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            var user = firebase.auth().currentUser;
-
-            user.updateProfile({
-                displayName: name
-            }).then(function () {
-                console.log("Changed?");
-            });
-        });
 }
 
 //const router = this.$router;
@@ -77,6 +69,6 @@ export const signUp = function (email, password, name) {
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log(user);
+        store.dispatch('setUser', user.email);
     }
 });

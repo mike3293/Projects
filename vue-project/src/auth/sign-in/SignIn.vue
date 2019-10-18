@@ -1,6 +1,6 @@
 <template>
     <div class="sign-in">
-        <form v-on:submit.prevent class="sign-in__form">
+        <form v-on:submit.prevent="sign(login, password)" class="sign-in__form">
             <h3 class="sign-in__title">Sign in</h3>
             <input required v-model="login" placeholder="Login" class="sign-in__input" />
             <input
@@ -14,7 +14,7 @@
                 <router-link to="/sign-up">Sign up</router-link>
                 <router-link to="/">Password?</router-link>
             </div>
-            <button class="sign-in__button button" v-on:click="sign(login, password)">Sign in</button>
+            <button class="sign-in__button button">Sign in</button>
         </form>
     </div>
 </template>
@@ -58,7 +58,7 @@ export default {
     name: "sign-in",
     data: function() {
         return {
-            login: "m@gmail.com",
+            login: "admin@admin.com", //TO DELETE
             password: "123456"
         };
     },

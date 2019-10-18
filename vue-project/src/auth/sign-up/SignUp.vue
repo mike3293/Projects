@@ -1,6 +1,6 @@
 <template>
     <div class="sign-up">
-        <form v-on:submit.prevent class="sign-up__form">
+        <form v-on:submit.prevent="signup(login, password, name)" class="sign-up__form">
             <h3 class="sign-up__title">Sign up</h3>
             <input required v-model="name" placeholder="Name" class="sign-up__input" />
             <input
@@ -19,10 +19,7 @@
                 class="sign-up__input"
                 v-bind:class="{ notSame: comparePasswords }"
             />
-            <button
-                class="sign-up__button button"
-                v-on:click="signup(login, password, name)"
-            >Sign up</button>
+            <button class="sign-up__button button">Sign up</button>
             <!-- <CommonButton msg="Sign up" class="sign-up__button" /> -->
         </form>
     </div>
