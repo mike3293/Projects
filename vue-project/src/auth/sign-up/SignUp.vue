@@ -1,9 +1,8 @@
 <template>
     <div class="sign-up">
-        <form class="sign-up__form">
+        <form v-on:submit.prevent class="sign-up__form">
             <h3 class="sign-up__title">Sign up</h3>
-
-            <input required v-model="Name" placeholder="Name" class="sign-up__input" />
+            <input required v-model="name" placeholder="Name" class="sign-up__input" />
             <input
                 required
                 v-model="login"
@@ -18,8 +17,12 @@
                 v-model="passwordValid"
                 placeholder="Repeat password"
                 class="sign-up__input"
+                v-bind:class="{ notSame: comparePasswords }"
             />
-
+            <button
+                class="sign-up__button button"
+                v-on:click="signup(login, password, name)"
+            >Sign up</button>
             <!-- <CommonButton msg="Sign up" class="sign-up__button" /> -->
         </form>
     </div>
@@ -54,11 +57,35 @@
         margin: 10px auto;
     }
 }
+.notSame {
+    border-color: rgb(255, 131, 115);
+}
 </style>
 
 <script>
 //import CommonButton from "../../shared/components/button/CommonButton.vue";
+import { signUp } from "../firebase";
 export default {
-    name: "sign-up"
+    name: "sign-up",
+    data: function() {
+        return {
+            login: "",
+            password: "",
+            passwordValid: "",
+            name: ""
+        };
+    },
+    computed: {
+        comparePasswords() {
+            if (this.password === this.passwordValid) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
+    methods: {
+        signup: signUp
+    }
 };
 </script>

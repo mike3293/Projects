@@ -1,7 +1,9 @@
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
-import "firebase/firestore";
+//import "firebase/firestore";
+//import router from "../router";
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyBmRjQ9JTGRhqF9nTRiMDNHELipbsm5y3o",
@@ -28,15 +30,25 @@ firebase.initializeApp(firebaseConfig);
 
 export const signIn = function (email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-        this.$router.push('/admin');
+        //this.$router.push('/admin');
     }).catch((err) => alert(err));
     console.log("in");
+
+    var user = firebase.auth().currentUser;
+
+    user.updateProfile({
+        displayName: "Jane Q. User"
+    }).then(function () {
+        console.log("Changed?");
+    });
+
 }
+
+
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
-// eslint-disable-next-line no-unused-vars
-const googleSignIn = function () {
+export const googleSignIn = function () {
     firebase.auth().signInWithPopup(provider).then(function (result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
@@ -46,3 +58,25 @@ const googleSignIn = function () {
         console.log(token + " " + user.email);
     });
 }
+
+export const signUp = function (email, password, name) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({
+                displayName: name
+            }).then(function () {
+                console.log("Changed?");
+            });
+        });
+}
+
+//const router = this.$router;
+//router.push('/admin');
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        console.log(user);
+    }
+});
