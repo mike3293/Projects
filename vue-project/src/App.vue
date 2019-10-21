@@ -4,7 +4,7 @@
             <router-link to="/home" class="nav__page-links">Test page with 4 pic</router-link>
             <router-link to="/about" class="nav__page-links">About</router-link>
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
-            <a class="nav__name">{{showName}}</a>
+            <a class="nav__name" href="/">{{showName}}</a>
         </nav>
         <router-view />
         <footer />

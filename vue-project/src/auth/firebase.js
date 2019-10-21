@@ -20,6 +20,16 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.firestore();
 
+firebase.auth().signOut();      //To fix
+
+// (async function () {
+//     try {
+//         const rolesSnapshot = await database.collection('users').where("login", "==", "admin@admin.com").get();
+
+//         alert(rolesSnapshot.docs[0].data().role);
+//     }
+//     catch (e) { alert(e); }
+// })();
 export const signIn = async function (email, password) {
     this.$store.commit('setLoading', true);
     try {
