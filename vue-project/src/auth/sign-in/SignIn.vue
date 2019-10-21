@@ -14,7 +14,7 @@
                 <router-link to="/sign-up">Sign up</router-link>
                 <router-link to="/">Password?</router-link>
             </div>
-            <button class="sign-in__button button">Sign in</button>
+            <button class="sign-in__button button" :disabled="loading">Sign in</button>
         </form>
     </div>
 </template>
@@ -64,6 +64,11 @@ export default {
     },
     methods: {
         sign: signIn
+    },
+    computed: {
+        loading() {
+            return this.$store.state.loading;
+        }
     }
 };
 </script>

@@ -1,12 +1,11 @@
 import * as firebase from "firebase/app";
 
 import "firebase/auth";
-//import "firebase/firestore";
-import store from "../store";
+import "firebase/database";
+import "firebase/firestore";
 
 
-
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBmRjQ9JTGRhqF9nTRiMDNHELipbsm5y3o",
     authDomain: "vivid-cache-256107.firebaseapp.com",
     databaseURL: "https://vivid-cache-256107.firebaseio.com",
@@ -19,21 +18,32 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// firebase
-//   .auth()
-//   .createUserWithEmailAndPassword("m@gmail.com", "123456");
-// .catch(function (error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   // ...
-// });
+const database = firebase.firestore();
 
-export const signIn = function (email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-        //this.$router.push('/admin');
-    }).catch((err) => alert(err));
-    //alert("in");
+export const signIn = async function (email, password) {
+    this.$store.commit('setLoading', true);
+    try {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+
+        //alert("in");
+
+        const rolesSnapshot = await database.collection('users').where("login", "==", email).get();
+
+        const role = rolesSnapshot.docs[0].data().role;
+
+        const nickName = firebase.auth().currentUser.displayName;
+
+        this.$store.dispatch('setUser', { email, role, nickName });
+
+        this.$store.commit('setLoading', false);
+
+
+    }
+    catch (e) {
+        alert(e);
+        this.$store.commit('setLoading', false);
+    }
+
 }
 
 
@@ -52,23 +62,29 @@ export const signIn = function (email, password) {
 // }
 
 export const signUp = async function (email, password, name) {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    this.$store.commit('setLoading', true);
+    try {
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-    var user = firebase.auth().currentUser;
+        var user = firebase.auth().currentUser;
 
-    user.updateProfile({
-        displayName: name
-    }).then(function () {
-        alert("Changed?");
-    });     //TO DO: remove then
+        await user.updateProfile({
+            displayName: name
+        });
 
+        database.collection('users').add({ login: email, role: "user" });
+
+        this.$store.dispatch('setUser', { email, role: 'user', nickName: name });
+        this.$store.commit('setLoading', false);
+    }
+    catch (e) {
+        alert(e);
+        this.$store.commit('setLoading', false);
+    }
 }
 
-//const router = this.$router;
-//router.push('/admin');
-
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        store.dispatch('setUser', user.email);
-    }
-});
+// firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//         store.dispatch('setUser', user.email);
+//     }
+// });

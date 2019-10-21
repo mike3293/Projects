@@ -19,8 +19,7 @@
                 class="sign-up__input"
                 v-bind:class="{ notSame: comparePasswords }"
             />
-            <button class="sign-up__button button">Sign up</button>
-            <!-- <CommonButton msg="Sign up" class="sign-up__button" /> -->
+            <button class="sign-up__button button" :disabled="loading">Sign up</button>
         </form>
     </div>
 </template>
@@ -79,6 +78,9 @@ export default {
             } else {
                 return true;
             }
+        },
+        loading() {
+            return this.$store.state.loading;
         }
     },
     methods: {
