@@ -2,9 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-//import "./auth/firebase";
 
-Vue.config.productionTip = false;
+import AuthServices from "./auth/firebase";
+
+
+//export default new AuthServices(firebase);
+
+
+Vue.config.productionTip = false;   // disable warning about working in dev mode
 
 new Vue({
   router,
