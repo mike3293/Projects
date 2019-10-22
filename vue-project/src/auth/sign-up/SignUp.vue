@@ -36,7 +36,7 @@
                 <p class="error" v-if="!$v.passwordValid.sameAsPassword">not same</p>
             </div>
 
-            <button class="sign-up__button button" :disabled="loading">Sign up</button>
+            <button class="sign-up__button button" :disabled="loading || check">Sign up</button>
         </form>
     </div>
 </template>
@@ -113,15 +113,11 @@ export default {
         }
     },
     computed: {
-        comparePasswords() {
-            if (this.password === this.passwordValid) {
-                return false;
-            } else {
-                return true;
-            }
-        },
         loading() {
             return this.$store.state.loading;
+        },
+        check() {
+            return this.$v.$anyError;
         }
     },
     methods: {

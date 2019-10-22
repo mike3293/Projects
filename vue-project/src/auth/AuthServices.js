@@ -7,7 +7,7 @@ export default class AuthServices {
     constructor() {
         const firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE);
         firebase.initializeApp(firebaseConfig);
-        firebase.auth().signOut();      //To fix
+        firebase.auth().signOut();      //To del
 
     }
 
