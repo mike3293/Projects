@@ -7,53 +7,53 @@ import * as firebase from "firebase/app";
 Vue.use(Router);
 
 const router = new Router({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: "/",
-      name: "sign-in",
-      component: Signin
-    },
-    {
-      path: "/admin",
-      name: "admin",
-      component: function () {
-        return import("./admin/Admin.vue");
-      },
-      meta: { requiresAuth: true }
-    },
-    {
-      path: "/sign-up",
-      name: "sign-up",
-      component: function () {
-        return import("./auth/sign-up/SignUp.vue");
-      }
-    },
-    {
-      path: "/home",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      component: function () {
-        return import("./about/About.vue");
-      }
-    }
-  ]
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: "/",
+            name: "sign-in",
+            component: Signin
+        },
+        {
+            path: "/admin",
+            name: "admin",
+            component: function () {
+                return import("./admin/Admin.vue");
+            },
+            meta: { requiresAuth: true }
+        },
+        {
+            path: "/sign-up",
+            name: "sign-up",
+            component: function () {
+                return import("./auth/sign-up/SignUp.vue");
+            }
+        },
+        {
+            path: "/home",
+            name: "home",
+            component: Home
+        },
+        {
+            path: "/about",
+            name: "about",
+            // route level code-splitting
+            component: function () {
+                return import("./about/About.vue");
+            }
+        }
+    ]
 });
 
 export default router;
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = firebase.auth().currentUser;
-  if (requiresAuth && !isAuthenticated) {
-    next('/')
-  } else {
-    next()
-  }
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+    const isAuthenticated = firebase.auth().currentUser;
+    if (requiresAuth && !isAuthenticated) {
+        next('/')
+    } else {
+        next()
+    }
 })

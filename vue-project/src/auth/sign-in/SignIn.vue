@@ -53,8 +53,7 @@
 
 <script>
 //import CommonButton from "../../shared/components/button/CommonButton.vue";
-import AuthServices from "../firebase";
-const auth = new AuthServices();
+//import { auth } from "../../main";
 export default {
     name: "sign-in",
     data: function() {
@@ -64,7 +63,19 @@ export default {
         };
     },
     methods: {
-        sign: auth.signIn
+        async sign(...args) {
+            try {
+                this.$store.commit("setLoading", true);
+
+                let res = await this.$root.auth.signIn(...args);
+
+                this.$store.dispatch("setUser", res);
+                this.$store.commit("setLoading", false);
+            } catch (e) {
+                alert(e);
+                this.$store.commit("setLoading", false);
+            }
+        }
     },
     computed: {
         loading() {

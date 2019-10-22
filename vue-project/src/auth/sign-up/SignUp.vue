@@ -60,7 +60,6 @@
 
 <script>
 //import CommonButton from "../../shared/components/button/CommonButton.vue";
-import { signUp } from "../firebase";
 export default {
     name: "sign-up",
     data: function() {
@@ -84,7 +83,19 @@ export default {
         }
     },
     methods: {
-        signup: signUp
+        async signup(...args) {
+            try {
+                this.$store.commit("setLoading", true);
+
+                let res = await this.$root.auth.signUp(...args);
+
+                this.$store.dispatch("setUser", res);
+                this.$store.commit("setLoading", false);
+            } catch (e) {
+                alert(e);
+                this.$store.commit("setLoading", false);
+            }
+        }
     }
 };
 </script>
