@@ -3,6 +3,7 @@
         <form v-on:submit.prevent="signup(login, password, name)" class="sign-up__form">
             <h3 class="sign-up__title">Sign up</h3>
             <input required v-model="name" placeholder="Name" class="sign-up__input" />
+            <div class="sign-up__errors"></div>
             <input
                 required
                 v-model="login"
@@ -10,21 +11,42 @@
                 type="email"
                 class="sign-up__input"
             />
-
-            <input required v-model="password" placeholder="Password" class="sign-up__input" />
+            <div class="sign-up__errors"></div>
             <input
-                required
-                v-model="passwordValid"
+                v-model.trim="$v.password.$model"
+                placeholder="Password"
+                class="sign-up__input"
+                type="password"
+            />
+            <div class="sign-up__errors">
+                <p class="error" v-if="!$v.password.required">this field is required</p>
+                <p
+                    class="error"
+                    v-if="!$v.password.minLenght"
+                >password must have at least 6 letters.</p>
+            </div>
+            <input
+                v-model.trim="$v.passwordValid.$model"
                 placeholder="Repeat password"
                 class="sign-up__input"
-                v-bind:class="{ notSame: comparePasswords }"
+                v-bind:class="{ notSame: !$v.passwordValid.sameAsPassword }"
+                type="password"
             />
+            <div class="sign-up__errors">
+                <p class="error" v-if="!$v.passwordValid.sameAsPassword">not same</p>
+            </div>
+
             <button class="sign-up__button button" :disabled="loading">Sign up</button>
         </form>
     </div>
 </template>
 
 <style lang="scss">
+.error {
+    margin: 0;
+    padding: 0;
+    color: red;
+}
 .sign-up {
     &__form {
         width: 35%;
@@ -39,7 +61,7 @@
 
     &__input {
         width: 70%;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
     }
     &__links {
         margin: auto;
@@ -52,6 +74,15 @@
     &__button {
         margin: 10px auto;
     }
+
+    &__errors {
+        display: block;
+        height: 20px;
+        line-height: 20px;
+        text-align: left;
+        width: 70%;
+        margin: auto;
+    }
 }
 .notSame {
     border-color: rgb(255, 131, 115);
@@ -59,7 +90,8 @@
 </style>
 
 <script>
-//import CommonButton from "../../shared/components/button/CommonButton.vue";
+import { required, minLength, sameAs } from "vuelidate/lib/validators";
+
 export default {
     name: "sign-up",
     data: function() {
@@ -69,6 +101,16 @@ export default {
             passwordValid: "",
             name: ""
         };
+    },
+    validations: {
+        password: {
+            required,
+            minLenght: minLength(6)
+        },
+        passwordValid: {
+            required,
+            sameAsPassword: sameAs("password")
+        }
     },
     computed: {
         comparePasswords() {
