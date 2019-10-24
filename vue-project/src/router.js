@@ -24,6 +24,13 @@ const router = new Router({
             meta: { requiresAuth: true }
         },
         {
+            path: "/admin/users",
+            name: "users",
+            component: function () {
+                return import("./admin/user-list/UserList.vue");
+            }
+        },
+        {
             path: "/sign-up",
             name: "sign-up",
             component: function () {

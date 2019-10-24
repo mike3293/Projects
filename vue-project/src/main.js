@@ -5,10 +5,15 @@ import store from "./store";
 import Vuelidate from "vuelidate";
 import AuthServices from "./auth/AuthServices";
 
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import { firebaseConfig } from "./config/index";
+
+firebase.initializeApp(firebaseConfig);
+firebase.auth().signOut();               //To del
 
 Vue.use(Vuelidate);
-
-const auth = new AuthServices();
 
 Vue.config.productionTip = false;   // disable warning about working in dev mode
 
@@ -16,7 +21,7 @@ new Vue({
     router,
     store,
     data: {
-        auth
+        auth: new AuthServices(firebase)
     },
     render: function (h) {
         return h(App);

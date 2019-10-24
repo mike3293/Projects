@@ -1,18 +1,11 @@
-import * as firebase from "firebase/app";
-
-import "firebase/auth";
-import "firebase/firestore";
-
 export default class AuthServices {
-    constructor() {
-        const firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE);
-        firebase.initializeApp(firebaseConfig);
-        firebase.auth().signOut();      //To del
-
+    constructor(firebase) {
+        this.firebase = firebase;
     }
 
 
     async signIn(email, password) {
+        const firebase = this.firebase;
         await firebase.auth().signInWithEmailAndPassword(email, password);
 
         const rolesSnapshot = await firebase.firestore().collection('users').where("login", "==", email).get();
@@ -40,6 +33,8 @@ export default class AuthServices {
     // }
 
     async signUp(email, password, name) {
+        const firebase = this.firebase;
+
         await firebase.auth().createUserWithEmailAndPassword(email, password);
 
         var user = firebase.auth().currentUser;
