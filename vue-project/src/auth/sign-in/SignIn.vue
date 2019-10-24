@@ -58,8 +58,8 @@ export default {
     name: "sign-in",
     data: function() {
         return {
-            login: "admin@admin.com", //TO DELETE
-            password: "123456"
+            login: "", //TO DELETE
+            password: ""
         };
     },
     methods: {

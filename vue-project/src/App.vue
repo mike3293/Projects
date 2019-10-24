@@ -1,10 +1,10 @@
 <template>
     <div class="app">
         <nav class="nav">
-            <router-link to="/home" class="nav__page-links">Test page with 4 pic</router-link>
+            <router-link to="/home" class="nav__page-links" v-if="!showName">Test page with 4 pic</router-link>
             <router-link to="/about" class="nav__page-links">About</router-link>
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
-            <a class="nav__name" href="/">{{showName}}</a>
+            <router-link to="/admin" class="nav__name">{{showName}}</router-link>
         </nav>
         <router-view />
         <footer />

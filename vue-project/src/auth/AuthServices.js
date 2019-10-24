@@ -8,9 +8,17 @@ export default class AuthServices {
         const firebase = this.firebase;
         await firebase.auth().signInWithEmailAndPassword(email, password);
 
-        const rolesSnapshot = await firebase.firestore().collection('users').where("login", "==", email).get();
+        const Snapshot = await firebase.firestore().collection('users').where("login", "==", email).limit(1).get();
 
-        const role = rolesSnapshot.docs[0].data().role;
+        const currentDoc = Snapshot.docs[0];
+
+        // const docRef = firebase.firestore().collection('users').doc(currentDoc.id);
+        // docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });
+
+        // const created = new Date(Snapshot.docs[0].data().createDate);
+        // alert(created);
+
+        const role = currentDoc.data().role;
 
         const nickName = firebase.auth().currentUser.displayName;
 
@@ -43,15 +51,8 @@ export default class AuthServices {
             displayName: name
         });
 
-        firebase.firestore().collection('users').add({ login: email, role: "user" });
+        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: Date(), surveys: 0 });
 
         return { email, role: 'user', nickName: name };
     }
-
-    // firebase.auth().onAuthStateChanged((user) => {
-    //     if (user) {
-    //         store.dispatch('setUser', user.email);
-    //     }
-    // });
-
 }
