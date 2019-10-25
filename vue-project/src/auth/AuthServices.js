@@ -12,15 +12,12 @@ export default class AuthServices {
 
         const currentDoc = Snapshot.docs[0];
 
-        // const docRef = firebase.firestore().collection('users').doc(currentDoc.id);
+        // const docRef = firebase.firestore().collection('users').doc(currentDoc.id);      // increment 'surveys' field
         // docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });
-
-        // const created = new Date(Snapshot.docs[0].data().createDate);
-        // alert(created);
 
         const role = currentDoc.data().role;
 
-        const nickName = firebase.auth().currentUser.displayName;
+        const nickName = currentDoc.data().nickName;
 
         return { email, role, nickName };
     }
@@ -45,13 +42,13 @@ export default class AuthServices {
 
         await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-        var user = firebase.auth().currentUser;
+        //var user = firebase.auth().currentUser;
 
-        await user.updateProfile({
-            displayName: name
-        });
+        // await user.updateProfile({
+        //     displayName: name
+        // });
 
-        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: Date(), surveys: 0 });
+        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: Date(), surveys: 0, nickName: name });
 
         return { email, role: 'user', nickName: name };
     }

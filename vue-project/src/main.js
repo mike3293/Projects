@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import Vuelidate from "vuelidate";
 import AuthServices from "./auth/AuthServices";
+import UsersServices from "./admin/user-list/UsersServices";
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -21,7 +22,8 @@ new Vue({
     router,
     store,
     data: {
-        auth: new AuthServices(firebase)
+        auth: new AuthServices(firebase),
+        usersList: new UsersServices(firebase)
     },
     render: function (h) {
         return h(App);

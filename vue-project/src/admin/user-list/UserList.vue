@@ -18,7 +18,26 @@
         </form>
     </div>-->
     <main class="main">
-        <section class="main__user-list">{{res}}</section>
+        <table border class="main__user-list">
+            <thead>
+                <tr>
+                    <th>Nick</th>
+                    <th>Login</th>
+                    <th>Role</th>
+                    <th>Create at</th>
+                    <th>Surveys</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr :key="user.login" v-for="user in users">
+                    <td>{{user.nickName}}</td>
+                    <td>{{user.login}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{(new Date(user.createDate)).getDate()}}.{{(new Date(user.createDate)).getMonth() + 1}}.{{(new Date(user.createDate)).getFullYear()}}</td>
+                    <td>{{user.surveys}}</td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 </template>
 
@@ -26,44 +45,42 @@
 @import "../../shared/components/button/button.css";
 .main {
     &__user-list {
-        width: 80%;
-        max-width: 800px;
-        display: block;
-        border: 2px solid black;
-        margin: 100px auto;
+        border-radius: 5px;
+        margin: auto;
+
+        border-collapse: collapse;
+
+        th {
+            border-bottom: 3px solid #8f7222;
+            padding: 5px;
+        }
+        td {
+            padding: 5px;
+        }
+
+        tr:nth-child(odd) {
+            background: white;
+        }
+        tr:nth-child(even) {
+            background: #bed3f3;
+        }
     }
 }
 </style>
 
 <script>
-let response;
-
 export default {
     name: "users",
     data: function() {
         return {
-            res: response
+            users: []
         };
     },
-    methods: {
-        async sign(...args) {
-            try {
-                this.$store.commit("setLoading", true);
-
-                let res = await this.$root.auth.signIn(...args);
-
-                this.$store.dispatch("setUser", res);
-                this.$store.commit("setLoading", false);
-            } catch (e) {
-                alert(e);
-                this.$store.commit("setLoading", false);
-            }
-        }
-    },
-    computed: {
-        loading() {
-            return this.$store.state.loading;
-        }
+    created() {
+        const thisContext = this;
+        (async function() {
+            thisContext.users = await thisContext.$root.usersList.getUsers();
+        })();
     }
 };
 </script>

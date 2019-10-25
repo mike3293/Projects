@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        user: null,
+        login: null,
         name: null,
         loading: false
     },
