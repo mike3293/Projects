@@ -12,7 +12,7 @@ import "firebase/firestore";
 import { firebaseConfig } from "./config/index";
 
 firebase.initializeApp(firebaseConfig);
-firebase.auth().signOut();               //To del
+//firebase.auth().signOut();               //To del
 
 Vue.use(Vuelidate);
 

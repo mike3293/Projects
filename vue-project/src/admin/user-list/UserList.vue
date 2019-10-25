@@ -76,11 +76,8 @@ export default {
             users: []
         };
     },
-    created() {
-        const thisContext = this;
-        (async function() {
-            thisContext.users = await thisContext.$root.usersList.getUsers();
-        })();
+    async created() {
+        this.users = await this.$root.usersList.getUsers();
     }
 };
 </script>
