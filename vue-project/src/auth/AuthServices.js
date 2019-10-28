@@ -16,7 +16,6 @@ export default class AuthServices {
         // docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });
 
         const role = currentDoc.data().role;
-
         const nickName = currentDoc.data().nickName;
 
         return { email, role, nickName };
@@ -48,7 +47,9 @@ export default class AuthServices {
         //     displayName: name
         // });
 
-        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: Date(), surveys: 0, nickName: name });
+        const currentDateUnix = (new Date()).valueOf();
+
+        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: currentDateUnix, surveys: 0, nickName: name });
 
         return { email, role: 'user', nickName: name };
     }

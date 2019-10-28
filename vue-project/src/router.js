@@ -31,6 +31,14 @@ const router = new Router({
             }
         },
         {
+            path: '/admin/users/edit',
+            name: "edit",
+            props: true,
+            component: function () {
+                return import("./admin/user-edit/UserEdit.vue");
+            }
+        },
+        {
             path: "/sign-up",
             name: "sign-up",
             component: function () {
