@@ -1,6 +1,9 @@
 <template>
     <div class="edit-user">
-        <form v-on:submit.prevent="edit(login, password, name)" class="edit-user__form">
+        <form
+            v-on:submit.prevent="edit({login, nickName: name, password, role, id})"
+            class="edit-user__form"
+        >
             <h3 class="edit-user__title">Edit user</h3>
             <input required v-model="name" placeholder="Name" class="edit-user__input" />
             <div class="edit-user__errors"></div>
@@ -90,7 +93,8 @@ export default {
             login: this.user.login,
             password: "",
             name: this.user.nickName,
-            role: this.user.role
+            role: this.user.role,
+            id: this.user.id
         };
     },
     validations: {
@@ -111,14 +115,14 @@ export default {
         }
     },
     methods: {
-        async edit(...args) {
+        async edit(user) {
             try {
                 this.$store.commit("setLoading", true);
 
-                let res = await this.$root.usersList.editUser(...args);
+                await this.$root.usersList.editUser(user);
 
                 this.$store.commit("setLoading", false);
-                this.$router.push("users");
+                this.$router.push("./");
             } catch (e) {
                 alert(e);
                 this.$store.commit("setLoading", false);

@@ -18,6 +18,14 @@ Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;   // disable warning about working in dev mode
 
+fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/api", {
+    method: "POST", // POST, PUT, DELETE, etc.,
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ "email": "admin@admin.com" })
+});
+
 new Vue({
     router,
     store,

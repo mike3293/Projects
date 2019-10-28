@@ -5,31 +5,47 @@ export default class UsersServices {
 
 
     async getUsers() {
-        const firebase = this.firebase;
+        const db = this.firebase.firestore();
 
-        const Snapshot = await firebase.firestore().collection('users').get();
+        const Snapshot = await db.collection('users').get();
         // alert(Snapshot.docs[0].data());
 
         const usersArray = [];
+        // const idArray = [];
         for (let user of Snapshot.docs) {
-            usersArray.push(user.data());
+            const data = user.data();
+            data.id = user.id;
+            usersArray.push(data);
+            // const login = user.data().login;
+            // idArray.push({ id, login });
         }
 
         return usersArray;
     }
 
-    async editUser() {
+    async editUser(user) {
         const firebase = this.firebase;
 
-        const Snapshot = await firebase.firestore().collection('users').get();
-        // alert(Snapshot.docs[0].data());
+        const id = `${user.id}`;
 
-        const usersArray = [];
-        for (let user of Snapshot.docs) {
-            usersArray.push(user.data());
-            //alert(user.data().role);
-        }
 
-        return usersArray;
+        //const UserAuth = await admin.auth().getUserByEmail(user.login);
+
+        //alert(UserAuth);
+        // admin.auth().updateUser(uid, {
+        //     email: 'modifiedUser@example.com',
+        //     phoneNumber: '+11234567890',
+        //     emailVerified: true,
+        //     password: 'newPassword',
+        //     displayName: 'Jane Doe',
+        //     photoURL: 'http://www.example.com/12345678/photo.png',
+        //     disabled: true
+        // })
+
+        await firebase.firestore().collection("users").doc(id).set({
+            login: user.login,
+            nickName: user.nickName,
+            role: user.role
+        }, { merge: true });
     }
 }
