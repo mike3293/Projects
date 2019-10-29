@@ -7,6 +7,7 @@ export default class AuthServices {
     async signIn(email, password) {
         const firebase = this.firebase;
         await firebase.auth().signInWithEmailAndPassword(email, password);
+        const token = await firebase.auth().currentUser.getIdToken(true);
 
         const Snapshot = await firebase.firestore().collection('users').where("login", "==", email).limit(1).get();
 
@@ -18,7 +19,7 @@ export default class AuthServices {
         const role = currentDoc.data().role;
         const nickName = currentDoc.data().nickName;
 
-        return { email, role, nickName };
+        return { email, role, nickName, token };
     }
 
 
@@ -40,8 +41,7 @@ export default class AuthServices {
         const firebase = this.firebase;
 
         await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-
+        const token = await firebase.auth().currentUser.getIdToken(true);
 
         const currentDateUnix = (new Date()).valueOf();
 
@@ -54,6 +54,6 @@ export default class AuthServices {
         //     firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
         // }
 
-        return { email, role: 'user', nickName: name };
+        return { email, role: 'user', nickName: name, token };
     }
 }

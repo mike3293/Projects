@@ -1,12 +1,14 @@
 export default class UsersServices {
 
-    constructor(baseURL, getToken) {
+    constructor(baseURL, token) {
         this.baseURL = baseURL;
-        this.getToken = getToken;
+        this.token = token;
     }
 
 
     async post(URL, obj) {
+        obj.token = this.token;
+        alert(this.token);
         await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {

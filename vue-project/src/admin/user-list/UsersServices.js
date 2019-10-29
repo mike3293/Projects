@@ -27,13 +27,14 @@ export default class UsersServices {
         await firebase.firestore().collection("users").doc(id).delete();
         // TODO: 
         //axios.post(url, { email: user.login });
-        await fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/delete", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: user.login })
-        });
+        this.$root.resource.post('/delete', { email: user.login });
+        // await fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/delete", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ email: user.login })
+        // });
     }
 
     async editUser(user) {
