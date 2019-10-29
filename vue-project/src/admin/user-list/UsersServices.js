@@ -22,6 +22,21 @@ export default class UsersServices {
 
         return usersArray;
     }
+    async deleteUser(user) {
+        const firebase = this.firebase;
+
+        const id = `${user.id}`;
+
+        await firebase.firestore().collection("users").doc(id).delete();
+
+        fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/delete", {
+            method: "POST", // POST, PUT, DELETE, etc.,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "email": user.login })
+        });
+    }
 
     async editUser(user) {
         const firebase = this.firebase;
@@ -47,5 +62,13 @@ export default class UsersServices {
             nickName: user.nickName,
             role: user.role
         }, { merge: true });
+
+        fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/edit", {
+            method: "POST", // POST, PUT, DELETE, etc.,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: user.oldLogin, password: user.password, newEmail: user.login })
+        });
     }
 }

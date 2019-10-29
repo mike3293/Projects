@@ -1,7 +1,7 @@
 <template>
     <div class="edit-user">
         <form
-            v-on:submit.prevent="edit({login, nickName: name, password, role, id})"
+            v-on:submit.prevent="edit({login, nickName: name, password, role, id, oldLogin})"
             class="edit-user__form"
         >
             <h3 class="edit-user__title">Edit user</h3>
@@ -94,7 +94,8 @@ export default {
             password: "",
             name: this.user.nickName,
             role: this.user.role,
-            id: this.user.id
+            id: this.user.id,
+            oldLogin: this.user.login
         };
     },
     validations: {

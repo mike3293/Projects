@@ -38,6 +38,7 @@
                     <td>{{user.surveys}}</td>
                     <td>
                         <button @click="edit(user)">edit</button>
+                        <button @click="del(user)">del</button>
                     </td>
                 </tr>
             </tbody>
@@ -131,6 +132,12 @@ export default {
         },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
+        },
+        del(user) {
+            this.$root.usersList.deleteUser(user);
+            this.users = this.users.filter(function(value) {
+                return value != user;
+            });
         }
     },
     computed: {
