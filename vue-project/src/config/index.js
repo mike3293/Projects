@@ -1,17 +1,21 @@
 import dev from "./development";
 import prod from "./production";
 
-let firebaseConfig;
+let appConfig;
 
 if (process.env.NODE_ENV == "development") {
-    firebaseConfig = dev;
+    appConfig = dev;
 }
 else if (process.env.NODE_ENV == "production") {
-    firebaseConfig = prod;
+    appConfig = prod;
 }
 
-export { firebaseConfig };
 
+
+
+export { appConfig };
+
+// TODO: async
 // let firebaseConfig;
 
 // (async function () {

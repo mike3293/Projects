@@ -21,7 +21,7 @@ const router = new Router({
             component: function () {
                 return import("./admin/Admin.vue");
             },
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, requiresAdmin: true }
         },
         {
             path: "/admin/users",
@@ -66,6 +66,15 @@ export default router;
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const isAuthenticated = firebase.auth().currentUser;
+    //const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+    //const isAdmin = (this.$store.state.role === 'admin');
+
+    // if (requiresAdmin && this.$store.state.role !== 'admin') {
+    //     next('/')
+    // } else {
+    //     next()
+    // }
+
     if (requiresAuth && !isAuthenticated) {
         next('/')
     } else {

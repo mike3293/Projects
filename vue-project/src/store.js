@@ -6,14 +6,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        token: null,
         login: null,
         name: null,
-        loading: false
+        loading: false,
+        role: 'user'
     },
     mutations: {
         setUser(state, payload) {
             state.login = payload.email;
             state.name = payload.nickName;
+            state.role = payload.role;
 
             if (payload.role === "admin") {
                 router.push('/admin');
