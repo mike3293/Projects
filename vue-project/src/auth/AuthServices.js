@@ -47,12 +47,12 @@ export default class AuthServices {
 
         firebase.firestore().collection('users').add({ login: email, role: "user", createDate: currentDateUnix, surveys: 0, nickName: name });
 
-        // for (let i = 1; i < 10; i++) {           // add users
-        //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
-        //     const currentDateUnix = (new Date()).valueOf();
+        for (let i = 1; i < 10; i++) {           // add users
+            await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
+            const currentDateUnix = (new Date()).valueOf();
 
-        //     firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
-        // }
+            firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
+        }
 
         return { email, role: 'user', nickName: name, token };
     }

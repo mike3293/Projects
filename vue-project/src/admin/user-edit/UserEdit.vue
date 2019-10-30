@@ -119,8 +119,8 @@ export default {
         async edit(user) {
             try {
                 this.$store.commit("setLoading", true);
-
-                await this.$root.usersList.editUser(user);
+                const res = this.$root.resource;
+                await this.$root.usersList.editUser(user, res);
 
                 this.$store.commit("setLoading", false);
                 this.$router.push("./");

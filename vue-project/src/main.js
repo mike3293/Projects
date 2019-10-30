@@ -19,13 +19,14 @@ Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;   // disable warning about working in dev mode
 
+
 new Vue({
     router,
     store,
     data: {
         auth: new AuthServices(firebase),
         usersList: new UsersServices(firebase),
-        resource: new BaseResource(appConfig.baseURL, store.state.token)
+        resource: new BaseResource(appConfig.baseURL, () => store.state.token)
     },
     render: function (h) {
         return h(App);

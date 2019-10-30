@@ -49,6 +49,7 @@
             <button @click="nextPage">Next</button>
             <button @click="lastPage">Last</button>
         </div>
+        <button @click="add()">Add user</button>
         <!-- debug: sort={{currentSort}}, dir={{currentSortDir}} -->
     </main>
 </template>
@@ -134,7 +135,8 @@ export default {
             this.$router.push({ name: "edit", params: { user } });
         },
         del(user) {
-            this.$root.usersList.deleteUser(user);
+            const res = this.$root.resource;
+            this.$root.usersList.deleteUser(user, res);
             this.users = this.users.filter(function(value) {
                 return value != user;
             });

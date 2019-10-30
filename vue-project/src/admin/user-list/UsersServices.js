@@ -19,27 +19,20 @@ export default class UsersServices {
 
         return usersArray;
     }
-    async deleteUser(user) {
-        const firebase = this.firebase;
 
+    async deleteUser(user, res) {
+        await res.post('/delete', { email: user.login });
+
+        const firebase = this.firebase;
         const id = `${user.id}`;
 
         await firebase.firestore().collection("users").doc(id).delete();
-        // TODO: 
-        //axios.post(url, { email: user.login });
-        this.$root.resource.post('/delete', { email: user.login });
-        // await fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/delete", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ email: user.login })
-        // });
     }
 
-    async editUser(user) {
-        const firebase = this.firebase;
+    async editUser(user, res) {
+        await res.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
 
+        const firebase = this.firebase;
         const id = `${user.id}`;
 
         await firebase.firestore().collection("users").doc(id).set({
@@ -47,13 +40,18 @@ export default class UsersServices {
             nickName: user.nickName,
             role: user.role
         }, { merge: true });
+    }
 
-        await fetch("https://us-central1-vivid-cache-256107.cloudfunctions.net/edit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: user.oldLogin, password: user.password, newEmail: user.login })
-        });
+    async createUser(user, res) {
+        await res.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
+
+        const firebase = this.firebase;
+        const id = `${user.id}`;
+
+        await firebase.firestore().collection("users").doc(id).set({
+            login: user.login,
+            nickName: user.nickName,
+            role: user.role
+        }, { merge: true });
     }
 }

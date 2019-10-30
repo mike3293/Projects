@@ -1,14 +1,15 @@
-export default class UsersServices {
+export default class BaseResource {
 
     constructor(baseURL, token) {
         this.baseURL = baseURL;
-        this.token = token;
+        this.getToken = token;
     }
 
 
     async post(URL, obj) {
-        obj.token = this.token;
-        alert(this.token);
+        const token = this.getToken();
+        obj.token = token;
+        //alert(token && 1);
         await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {
