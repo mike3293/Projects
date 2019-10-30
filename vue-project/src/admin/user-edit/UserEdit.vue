@@ -31,7 +31,7 @@
                 <option>admin</option>
                 <option>user</option>
             </select>
-            <button class="edit-user__button button" :disabled="loading || check">Edit</button>
+            <button class="edit-user__button button" :disabled="loading || check">update</button>
         </form>
         <div>{{msg}}</div>
     </div>

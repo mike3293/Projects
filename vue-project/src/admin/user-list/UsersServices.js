@@ -43,15 +43,13 @@ export default class UsersServices {
     }
 
     async createUser(user, res) {
-        await res.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
+        await res.post('/add', { email: user.login, password: user.password });
 
         const firebase = this.firebase;
-        const id = `${user.id}`;
 
-        await firebase.firestore().collection("users").doc(id).set({
-            login: user.login,
-            nickName: user.nickName,
-            role: user.role
-        }, { merge: true });
+        const currentDateUnix = (new Date()).valueOf();
+
+        firebase.firestore().collection('users').add({ login: user.login, role: user.role, createDate: currentDateUnix, surveys: 0, nickName: user.name });
+
     }
 }

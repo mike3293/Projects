@@ -1,22 +1,4 @@
 <template>
-    <!-- <div class="sign-in">
-        <form v-on:submit.prevent="sign(login, password)" class="sign-in__form">
-            <h3 class="sign-in__title">Sign in</h3>
-            <input required v-model="login" type="email" placeholder="Login" class="sign-in__input" />
-            <input
-                required
-                v-model="password"
-                placeholder="Password"
-                class="sign-in__input"
-                type="password"
-            />
-            <div class="sign-in__links">
-                <router-link to="/sign-up">Sign up</router-link>
-                <router-link to="/">Password?</router-link>
-            </div>
-            <button class="sign-in__button button" :disabled="loading">Sign in</button>
-        </form>
-    </div>-->
     <main class="main">
         <table border class="main__user-list">
             <thead>
@@ -49,7 +31,9 @@
             <button @click="nextPage">Next</button>
             <button @click="lastPage">Last</button>
         </div>
-        <button @click="add()">Add user</button>
+        <button type="button" class="main__add" @click="showModal">Add user</button>
+
+        <user-add v-show="isModalVisible" @close="closeModal" />
         <!-- debug: sort={{currentSort}}, dir={{currentSortDir}} -->
     </main>
 </template>
@@ -84,19 +68,28 @@
         margin: 10px;
         justify-content: center;
     }
+    &__add {
+        margin: auto;
+    }
 }
 </style>
 
 <script>
+import UserAdd from "../user-add/UserAdd.vue";
+
 export default {
     name: "users",
+    components: {
+        UserAdd
+    },
     data: function() {
         return {
             users: [],
             currentSort: "login",
             currentSortDir: "asc",
             pageSize: 3,
-            currentPage: 1
+            currentPage: 1,
+            isModalVisible: false
         };
     },
     async created() {
@@ -140,6 +133,12 @@ export default {
             this.users = this.users.filter(function(value) {
                 return value != user;
             });
+        },
+        showModal() {
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
         }
     },
     computed: {
