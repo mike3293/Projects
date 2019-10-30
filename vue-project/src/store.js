@@ -18,7 +18,6 @@ export default new Vuex.Store({
             state.name = payload.nickName;
             state.role = payload.role;
             state.token = payload.token;
-            alert(state.token);
 
             if (payload.role === "admin") {
                 router.push('/admin');

@@ -31,7 +31,10 @@
                 <option>admin</option>
                 <option>user</option>
             </select>
-            <button class="edit-user__button button" :disabled="loading || check">update</button>
+            <div class="edit-user__menu">
+                <button class="edit-user__button button" @click="goBack()">cancel</button>
+                <button class="edit-user__button button" :disabled="loading || check">update</button>
+            </div>
         </form>
         <div>{{msg}}</div>
     </div>
@@ -59,16 +62,13 @@
         width: 70%;
         // margin-bottom: 20px;
     }
-    &__links {
-        margin: auto;
-        margin-bottom: 5px;
-        width: 70%;
-        display: flex;
-        justify-content: space-between;
-    }
 
+    &__menu {
+        display: flex;
+        justify-content: center;
+    }
     &__button {
-        margin: 10px auto;
+        margin: 10px 50px;
     }
 
     &__errors {
@@ -128,6 +128,9 @@ export default {
                 alert(e);
                 this.$store.commit("setLoading", false);
             }
+        },
+        goBack() {
+            this.$router.push("./");
         }
     }
 };

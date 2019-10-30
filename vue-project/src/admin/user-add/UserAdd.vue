@@ -140,6 +140,10 @@ export default {
     methods: {
         close() {
             this.$emit("close");
+            this.login = "";
+            this.password = "";
+            this.name = "";
+            this.role = "";
         },
         async add(user) {
             try {

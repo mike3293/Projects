@@ -33,7 +33,7 @@
         </div>
         <button type="button" class="main__add" @click="showModal">Add user</button>
 
-        <user-add v-show="isModalVisible" @close="closeModal" />
+        <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
         <!-- debug: sort={{currentSort}}, dir={{currentSortDir}} -->
     </main>
 </template>
@@ -139,6 +139,9 @@ export default {
         },
         closeModal() {
             this.isModalVisible = false;
+        },
+        async refreshTable() {
+            this.users = await this.$root.usersList.getUsers();
         }
     },
     computed: {
