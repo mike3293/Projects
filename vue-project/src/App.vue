@@ -16,23 +16,23 @@
 
 * {
     box-sizing: border-box;
-    // text-decoration: none;
 }
 
 body {
     margin: 0px;
-    font-size: 16px;
 }
 
 .app {
     font-family: $avenir;
     text-align: center;
     color: #2c3e50;
+    font-size: 16px;
 }
 
 .nav {
     padding: 30px;
     text-align: right;
+    text-decoration: underline;
     &__name {
         font-weight: bold;
         color: #205c99;
