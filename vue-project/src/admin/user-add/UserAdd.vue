@@ -149,7 +149,7 @@ export default {
             try {
                 this.$store.commit("setLoading", true);
                 const res = this.$root.resource;
-                await this.$root.usersList.createUser(user, res);
+                await this.$root.users.createUser(user, res);
 
                 this.$store.commit("setLoading", false);
                 this.close();

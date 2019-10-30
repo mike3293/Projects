@@ -120,7 +120,7 @@ export default {
             try {
                 this.$store.commit("setLoading", true);
                 const res = this.$root.resource;
-                await this.$root.usersList.editUser(user, res);
+                await this.$root.users.editUser(user, res);
 
                 this.$store.commit("setLoading", false);
                 this.$router.push("./");

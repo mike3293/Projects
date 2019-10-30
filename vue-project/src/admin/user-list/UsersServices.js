@@ -1,6 +1,7 @@
 export default class UsersServices {
-    constructor(firebase) {
+    constructor(firebase, resource) {
         this.firebase = firebase;
+        this.resource = resource;
     }
 
 
@@ -20,8 +21,8 @@ export default class UsersServices {
         return usersArray;
     }
 
-    async deleteUser(user, res) {
-        await res.post('/delete', { email: user.login });
+    async deleteUser(user) {
+        await this.resource.post('/delete', { email: user.login });
 
         const firebase = this.firebase;
         const id = `${user.id}`;
@@ -29,8 +30,8 @@ export default class UsersServices {
         await firebase.firestore().collection("users").doc(id).delete();
     }
 
-    async editUser(user, res) {
-        await res.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
+    async editUser(user) {
+        await this.resource.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
 
         const firebase = this.firebase;
         const id = `${user.id}`;
@@ -42,8 +43,8 @@ export default class UsersServices {
         }, { merge: true });
     }
 
-    async createUser(user, res) {
-        await res.post('/add', { email: user.login, password: user.password });
+    async createUser(user) {
+        await this.resource.post('/add', { email: user.login, password: user.password });
 
         const firebase = this.firebase;
 

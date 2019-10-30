@@ -1,37 +1,34 @@
 <template>
-    <main class="main">
-        <table border class="main__user-list">
-            <thead>
-                <tr>
-                    <th @click="sort('login')">Login</th>
-                    <th @click="sort('nickName')">Nick</th>
-                    <th @click="sort('role')">Role</th>
-                    <th @click="sort('createDate')">Create at</th>
-                    <th @click="sort('surveys')">Surveys</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr :key="user.login" v-for="user in sortedUsers">
-                    <td>{{user.login}}</td>
-                    <td>{{user.nickName}}</td>
-                    <td>{{user.role}}</td>
-                    <td>{{dataToString(user.createDate)}}</td>
-                    <td>{{user.surveys}}</td>
-                    <td>
-                        <button @click="edit(user)">edit</button>
-                        <button @click="del(user)">del</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="main__nav">
-            <button @click="firstPage">First</button>
-            <button @click="prevPage">Previous</button>
-            <button @click="nextPage">Next</button>
-            <button @click="lastPage">Last</button>
+    <main class="user-list">
+        <md-table border class="user-list__table">
+            <md-table-row>
+                <md-table-head @click="sort('login')">Login</md-table-head>
+                <md-table-head @click="sort('nickName')">Nick</md-table-head>
+                <md-table-head @click="sort('role')">Role</md-table-head>
+                <md-table-head @click="sort('createDate')">Create at</md-table-head>
+                <md-table-head @click="sort('surveys')">Surveys</md-table-head>
+                <md-table-head>Actions</md-table-head>
+            </md-table-row>
+
+            <md-table-row :key="user.login" v-for="user in sortedUsers">
+                <md-table-cell>{{user.login}}</md-table-cell>
+                <md-table-cell>{{user.nickName}}</md-table-cell>
+                <md-table-cell>{{user.role}}</md-table-cell>
+                <md-table-cell>{{dataToString(user.createDate)}}</md-table-cell>
+                <md-table-cell>{{user.surveys}}</md-table-cell>
+                <md-table-cell>
+                    <button @click="edit(user)">edit</button>
+                    <button @click="del(user)">del</button>
+                </md-table-cell>
+            </md-table-row>
+        </md-table>
+        <div class="user-list__pagination">
+            <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button>
         </div>
-        <button type="button" class="main__add" @click="showModal">Add user</button>
+        <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
 
         <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
         <!-- debug: sort={{currentSort}}, dir={{currentSortDir}} -->
@@ -39,13 +36,13 @@
 </template>
 
 <style lang="scss">
-@import "../../shared/components/button/button.css";
-.main {
-    &__user-list {
-        border-radius: 5px;
-        margin: auto;
-        width: 500px;
-        height: 100px;
+.user-list {
+    &__table {
+        text-align: left;
+        // border-radius: 5px;
+        // margin: auto;
+
+        // height: 100px;
         border-collapse: collapse;
 
         th {
@@ -63,19 +60,18 @@
             background: #bed3f3;
         }
     }
-    &__nav {
+    &__pagination {
         display: flex;
         margin: 10px;
         justify-content: center;
-    }
-    &__add {
-        margin: auto;
     }
 }
 </style>
 
 <script>
 import UserAdd from "../user-add/UserAdd.vue";
+
+import "vue-material/dist/theme/default.css";
 
 export default {
     name: "users",
@@ -87,13 +83,13 @@ export default {
             users: [],
             currentSort: "login",
             currentSortDir: "asc",
-            pageSize: 3,
+            pageSize: 5,
             currentPage: 1,
             isModalVisible: false
         };
     },
     async created() {
-        this.users = await this.$root.usersList.getUsers();
+        this.users = await this.$root.users.getUsers();
     },
     methods: {
         dataToString(dateIn) {
@@ -128,8 +124,7 @@ export default {
             this.$router.push({ name: "edit", params: { user } });
         },
         del(user) {
-            const res = this.$root.resource;
-            this.$root.usersList.deleteUser(user, res);
+            this.$root.users.deleteUser(user);
             this.users = this.users.filter(function(value) {
                 return value != user;
             });
@@ -141,20 +136,25 @@ export default {
             this.isModalVisible = false;
         },
         async refreshTable() {
-            this.users = await this.$root.usersList.getUsers();
+            this.users = await this.$root.users.getUsers();
         }
     },
     computed: {
+        // Make server side
         sortedUsers() {
             // eslint-disable-next-line
             return this.users
                 .sort((a, b) => {
                     let modifier = 1;
-                    if (this.currentSortDir === "desc") modifier = -1;
-                    if (a[this.currentSort] < b[this.currentSort])
+                    if (this.currentSortDir === "desc") {
+                        modifier = -1;
+                    }
+                    if (a[this.currentSort] < b[this.currentSort]) {
                         return -1 * modifier;
-                    if (a[this.currentSort] > b[this.currentSort])
+                    }
+                    if (a[this.currentSort] > b[this.currentSort]) {
                         return 1 * modifier;
+                    }
                     return 0;
                 })
                 .filter((row, index) => {
