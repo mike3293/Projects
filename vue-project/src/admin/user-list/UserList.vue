@@ -24,9 +24,9 @@
         </md-table>
         <div class="user-list__pagination">
             <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button>
-            <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
+            <!-- <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button> -->
             <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
-            <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button>
+            <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
 
@@ -87,12 +87,7 @@ export default {
         };
     },
     async created() {
-        const usersObj = await this.$root.users.getUsers(
-            this.currentPage,
-            this.pageSize
-        );
-        this.users = usersObj.array;
-        this.currentPage = usersObj.page;
+        await this.firstPage();
     },
     methods: {
         // Divide pages to functions
@@ -104,45 +99,34 @@ export default {
                 month < 10 ? "0" + month : month
             }.${date.getFullYear()}`;
         },
-        sort(column) {
-            if (column === this.currentSort) {
-                this.currentSortDir =
-                    this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = column;
-        },
         async firstPage() {
-            this.currentPage = 1;
-            const usersObj = await this.$root.users.getUsers(
-                this.currentPage,
+            //this.currentPage = 1;
+            this.users = await this.$root.users.getUsers(
+                "first",
                 this.pageSize
             );
-            this.users = usersObj.array;
-            this.currentPage = usersObj.page;
         },
         async nextPage() {
-            this.currentPage++;
-            const usersObj = await this.$root.users.getUsers(
-                this.currentPage,
+            //this.currentPage++;
+            this.users = await this.$root.users.getUsers(
+                this.users[this.pageSize - 1],
                 this.pageSize
             );
-            this.users = usersObj.array;
-            this.currentPage = usersObj.page;
         },
-        async prevPage() {
-            if (this.currentPage > 1) this.currentPage--;
-            const usersObj = await this.$root.users.getUsers(
-                this.currentPage,
-                this.pageSize
-            );
-            this.users = usersObj.array;
-            this.currentPage = usersObj.page;
-        },
-        async lastPage() {
-            const usersObj = await this.$root.users.getUsers(-1, this.pageSize);
-            this.users = usersObj.array;
-            this.currentPage = usersObj.page;
-        },
+        // async prevPage() {
+        //     if (this.currentPage > 1) this.currentPage--;
+        //     const usersObj = await this.$root.users.getUsers(
+        //         this.currentPage,
+        //         this.pageSize
+        //     );
+        //     this.users = usersObj.array;
+        //     this.currentPage = usersObj.page;
+        // },
+        // async lastPage() {
+        //     const usersObj = await this.$root.users.getUsers(-1, this.pageSize);
+        //     this.users = usersObj.array;
+        //     this.currentPage = usersObj.page;
+        // },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
         },
@@ -162,15 +146,6 @@ export default {
             // this.users = await this.$root.users.getUsers();
         }
     },
-    computed: {
-        // Make server side
-        // sortedUsers() {
-        //     //             this.users = await this.$root.users.getUsers(
-        //     //     this.currentPage,
-        //     //     this.pageSize
-        //     // );
-        //     // eslint-disable-next-line
-        // }
-    }
+    computed: {}
 };
 </script>

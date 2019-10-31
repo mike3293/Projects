@@ -5,12 +5,19 @@ export default class UsersServices {
     }
 
 
-    async getUsers(page, pageSize) {
-        const usersArray = await this.resource.get('/get', { page, pageSize });
+    async getUsers(lastUser, pageSize) {
+        let lastUserProp;
+        if (lastUser != "first") {
+            lastUserProp = lastUser.login; // mb change to [''] for other sort
+        } else {
+            lastUserProp = lastUser;
+        }
+
+        const usersArray = await this.resource.get('/get', { lastUser: lastUserProp, pageSize });
         //alert(usersArray);
-        page = usersArray.pop();
+        //lastUser = usersArray.pop();
         //alert(page);
-        return { array: usersArray, page };
+        return usersArray;
     }
 
     async deleteUser(user) {
