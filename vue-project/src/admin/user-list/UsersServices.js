@@ -6,7 +6,7 @@ export default class UsersServices {
 
 
     async getUsers(page, pageSize) {
-        const usersArray = await this.resource.post('/get', { page, pageSize });
+        const usersArray = await this.resource.get('/get', { page, pageSize });
         //alert(usersArray);
         page = usersArray.pop();
         //alert(page);

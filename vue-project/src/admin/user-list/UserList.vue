@@ -39,7 +39,7 @@
     &__table {
         text-align: left;
         // it's working
-        width: 50%;
+        width: 80%;
         margin: auto;
 
         // height: 100px;
@@ -95,6 +95,7 @@ export default {
         this.currentPage = usersObj.page;
     },
     methods: {
+        // Divide pages to functions
         dataToString(dateIn) {
             const date = new Date(dateIn);
             const day = date.getDate();
