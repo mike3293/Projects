@@ -13,6 +13,7 @@ export default class AuthServices {
 
         const currentDoc = Snapshot.docs[0];
 
+        // To delete, example for create-survey
         // const docRef = firebase.firestore().collection('users').doc(currentDoc.id);      // increment 'surveys' field
         // docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });
 
@@ -23,7 +24,7 @@ export default class AuthServices {
     }
 
 
-
+    // Feature to do
     // var provider = new firebase.auth.GoogleAuthProvider();
 
     // export const googleSignIn = function () {

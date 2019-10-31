@@ -18,10 +18,8 @@ import App from "./App.vue";
 
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
-//import 'vue-material/dist/theme/default-dark.css'
 
 firebase.initializeApp(appConfig.firebase);
-//firebase.auth().signOut();               //To del
 
 Vue.use(Vuelidate);
 

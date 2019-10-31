@@ -1,6 +1,6 @@
 <template>
     <main class="user-list">
-        <md-table border class="user-list__table">
+        <md-table class="user-list__table">
             <md-table-row>
                 <md-table-head @click="sort('login')">Login</md-table-head>
                 <md-table-head @click="sort('nickName')">Nick</md-table-head>
@@ -31,7 +31,6 @@
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
 
         <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
-        <!-- debug: sort={{currentSort}}, dir={{currentSortDir}} -->
     </main>
 </template>
 
@@ -39,8 +38,9 @@
 .user-list {
     &__table {
         text-align: left;
-        // border-radius: 5px;
-        // margin: auto;
+        // it's working
+        //width: 60%;
+        margin: auto;
 
         // height: 100px;
         border-collapse: collapse;

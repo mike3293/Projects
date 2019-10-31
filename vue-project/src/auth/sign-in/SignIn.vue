@@ -52,13 +52,11 @@
 </style>
 
 <script>
-//import CommonButton from "../../shared/components/button/CommonButton.vue";
-//import { auth } from "../../main";
 export default {
     name: "sign-in",
     data: function() {
         return {
-            login: "", //TO DELETE
+            login: "",
             password: ""
         };
     },

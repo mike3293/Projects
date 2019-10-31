@@ -60,7 +60,6 @@
 
     &__input {
         width: 70%;
-        // margin-bottom: 20px;
     }
 
     &__menu {
