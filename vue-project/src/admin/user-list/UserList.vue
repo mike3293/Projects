@@ -10,7 +10,7 @@
                 <md-table-head>Actions</md-table-head>
             </md-table-row>
 
-            <md-table-row :key="user.login" v-for="user in sortedUsers">
+            <md-table-row :key="user.login" v-for="user in users">
                 <md-table-cell>{{user.login}}</md-table-cell>
                 <md-table-cell>{{user.nickName}}</md-table-cell>
                 <md-table-cell>{{user.role}}</md-table-cell>
@@ -39,7 +39,7 @@
     &__table {
         text-align: left;
         // it's working
-        //width: 60%;
+        width: 50%;
         margin: auto;
 
         // height: 100px;
@@ -81,15 +81,18 @@ export default {
     data: function() {
         return {
             users: [],
-            currentSort: "login",
-            currentSortDir: "asc",
             pageSize: 5,
             currentPage: 1,
             isModalVisible: false
         };
     },
     async created() {
-        this.users = await this.$root.users.getUsers();
+        const usersObj = await this.$root.users.getUsers(
+            this.currentPage,
+            this.pageSize
+        );
+        this.users = usersObj.array;
+        this.currentPage = usersObj.page;
     },
     methods: {
         dataToString(dateIn) {
@@ -107,18 +110,37 @@ export default {
             }
             this.currentSort = column;
         },
-        firstPage() {
+        async firstPage() {
             this.currentPage = 1;
+            const usersObj = await this.$root.users.getUsers(
+                this.currentPage,
+                this.pageSize
+            );
+            this.users = usersObj.array;
+            this.currentPage = usersObj.page;
         },
-        nextPage() {
-            if (this.currentPage * this.pageSize < this.users.length)
-                this.currentPage++;
+        async nextPage() {
+            this.currentPage++;
+            const usersObj = await this.$root.users.getUsers(
+                this.currentPage,
+                this.pageSize
+            );
+            this.users = usersObj.array;
+            this.currentPage = usersObj.page;
         },
-        prevPage() {
+        async prevPage() {
             if (this.currentPage > 1) this.currentPage--;
+            const usersObj = await this.$root.users.getUsers(
+                this.currentPage,
+                this.pageSize
+            );
+            this.users = usersObj.array;
+            this.currentPage = usersObj.page;
         },
-        lastPage() {
-            this.currentPage = Math.ceil(this.users.length / this.pageSize);
+        async lastPage() {
+            const usersObj = await this.$root.users.getUsers(-1, this.pageSize);
+            this.users = usersObj.array;
+            this.currentPage = usersObj.page;
         },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
@@ -136,33 +158,18 @@ export default {
             this.isModalVisible = false;
         },
         async refreshTable() {
-            this.users = await this.$root.users.getUsers();
+            // this.users = await this.$root.users.getUsers();
         }
     },
     computed: {
         // Make server side
-        sortedUsers() {
-            // eslint-disable-next-line
-            return this.users
-                .sort((a, b) => {
-                    let modifier = 1;
-                    if (this.currentSortDir === "desc") {
-                        modifier = -1;
-                    }
-                    if (a[this.currentSort] < b[this.currentSort]) {
-                        return -1 * modifier;
-                    }
-                    if (a[this.currentSort] > b[this.currentSort]) {
-                        return 1 * modifier;
-                    }
-                    return 0;
-                })
-                .filter((row, index) => {
-                    let start = (this.currentPage - 1) * this.pageSize;
-                    let end = this.currentPage * this.pageSize;
-                    if (index >= start && index < end) return true;
-                });
-        }
+        // sortedUsers() {
+        //     //             this.users = await this.$root.users.getUsers(
+        //     //     this.currentPage,
+        //     //     this.pageSize
+        //     // );
+        //     // eslint-disable-next-line
+        // }
     }
 };
 </script>

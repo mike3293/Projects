@@ -62,7 +62,9 @@
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 100px;
+    width: 40%;
+    max-width: 400px;
 }
 
 .modal-header,

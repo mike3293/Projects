@@ -5,20 +5,12 @@ export default class UsersServices {
     }
 
 
-    async getUsers() {
-        const db = this.firebase.firestore();
-
-        const Snapshot = await db.collection('users').get();
-
-        const usersArray = [];
-
-        for (let user of Snapshot.docs) {
-            const data = user.data();
-            data.id = user.id;
-            usersArray.push(data);
-        }
-
-        return usersArray;
+    async getUsers(page, pageSize) {
+        const usersArray = await this.resource.post('/get', { page, pageSize });
+        //alert(usersArray);
+        page = usersArray.pop();
+        //alert(page);
+        return { array: usersArray, page };
     }
 
     async deleteUser(user) {
@@ -31,7 +23,7 @@ export default class UsersServices {
     }
 
     async editUser(user) {
-        await this.resource.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
+        const res = await this.resource.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
 
         const firebase = this.firebase;
         const id = `${user.id}`;
@@ -41,6 +33,7 @@ export default class UsersServices {
             nickName: user.nickName,
             role: user.role
         }, { merge: true });
+        return res;
     }
 
     async createUser(user) {
