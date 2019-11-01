@@ -21,15 +21,31 @@ const router = new Router({
             component: function () {
                 return import("./admin/Admin.vue");
             },
+            children: [
+                {
+                    path: "users",
+                    name: "users",
+                    component: function () {
+                        return import("./admin/user-list/UserList.vue");
+                    }
+                },
+                {
+                    path: "create-survey",
+                    name: "create-survey",
+                    component: function () {
+                        return import("./admin/create-survey/CreateSurvey.vue");
+                    }
+                }
+            ],
             meta: { requiresAuth: true, requiresAdmin: true }
         },
-        {
-            path: "/admin/users",
-            name: "users",
-            component: function () {
-                return import("./admin/user-list/UserList.vue");
-            }
-        },
+        // {
+        //     path: "/admin/users",
+        //     name: "users",
+        //     component: function () {
+        //         return import("./admin/user-list/UserList.vue");
+        //     }
+        // },
         {
             path: '/admin/users/edit',
             name: "edit",

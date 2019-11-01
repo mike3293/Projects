@@ -1,5 +1,5 @@
 <template>
-    <main class="user-list">
+    <main class="user-list" v-if="users[0]">
         <md-table class="user-list__table">
             <md-table-row>
                 <md-table-head @click="sort('login')">Login</md-table-head>
@@ -29,17 +29,23 @@
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
-
         <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
+        <!-- <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar> -->
     </main>
 </template>
 
 <style lang="scss">
 .user-list {
+    &__spinner {
+        position: relative;
+        overflow-x: auto;
+        top: 0;
+        left: 0;
+    }
     &__table {
         text-align: left;
         // it's working
-        width: 80%;
+        // width: 80%;
         margin: auto;
 
         // height: 100px;
@@ -91,7 +97,6 @@ export default {
         await this.firstPage();
     },
     methods: {
-        // Divide pages to functions
         dataToString(dateIn) {
             const date = new Date(dateIn);
             const day = date.getDate();
@@ -101,26 +106,32 @@ export default {
             }.${date.getFullYear()}`;
         },
         async firstPage() {
-            //this.currentPage = 1;
+            this.$store.commit("setLoading", true);
             this.users = await this.$root.users.getUsers(
                 "first",
                 this.pageSize
             );
+            this.$store.commit("setLoading", false);
         },
         async nextPage() {
-            //this.currentPage++;
+            this.$store.commit("setLoading", true);
             const firstUser = this.users[0];
-            const users = await this.$root.users.getUsers(
-                this.users[this.pageSize - 1],
-                this.pageSize
-            );
-            if (users[0]) {
-                this.users = users;
-                this.prevStart.push(firstUser);
+
+            if (this.users[this.pageSize - 1]) {
+                const users = await this.$root.users.getUsers(
+                    this.users[this.pageSize - 1],
+                    this.pageSize
+                );
+
+                if (users[0]) {
+                    this.users = users;
+                    this.prevStart.push(firstUser);
+                }
             }
+            this.$store.commit("setLoading", false);
         },
         async prevPage() {
-            //if (this.currentPage > 1) this.currentPage--;
+            this.$store.commit("setLoading", true);
             if (this.prevStart[0]) {
                 this.users = await this.$root.users.getUsers(
                     this.prevStart.pop(),
@@ -128,6 +139,7 @@ export default {
                     "prev"
                 );
             }
+            this.$store.commit("setLoading", false);
         },
         // async lastPage() {
         //     this.users = await this.$root.users.getUsers(
@@ -156,7 +168,11 @@ export default {
         async refreshTable() {
             this.firstPage();
         }
-    },
-    computed: {}
+    }
+    // computed: {
+    //     loading() {
+    //         return this.$store.state.loading;
+    //     }
+    // }
 };
 </script>

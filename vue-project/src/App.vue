@@ -6,6 +6,9 @@
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
             <router-link to="/admin" class="nav__name">{{showName}}</router-link>
         </nav>
+        <div class="app__progress-bar">
+            <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar>
+        </div>
         <router-view />
         <footer />
     </div>
@@ -27,6 +30,9 @@ body {
     text-align: center;
     color: #2c3e50;
     font-size: 16px;
+    &__progress-bar {
+        height: 5px;
+    }
 }
 
 .nav {
@@ -64,6 +70,9 @@ export default {
         },
         showName() {
             return this.$store.state.name;
+        },
+        loading() {
+            return this.$store.state.loading;
         }
     }
 };
