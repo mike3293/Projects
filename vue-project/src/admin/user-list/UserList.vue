@@ -23,8 +23,8 @@
             </md-table-row>
         </md-table>
         <div class="user-list__pagination">
-            <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button>
-            <!-- <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button> -->
+            <!-- <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button> -->
+            <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
             <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
@@ -83,6 +83,7 @@ export default {
             users: [],
             pageSize: 5,
             currentPage: 1,
+            prevStart: [],
             isModalVisible: false
         };
     },
@@ -108,33 +109,43 @@ export default {
         },
         async nextPage() {
             //this.currentPage++;
-            this.users = await this.$root.users.getUsers(
+            const firstUser = this.users[0];
+            const users = await this.$root.users.getUsers(
                 this.users[this.pageSize - 1],
                 this.pageSize
             );
+            if (users[0]) {
+                this.users = users;
+                this.prevStart.push(firstUser);
+            }
         },
-        // async prevPage() {
-        //     if (this.currentPage > 1) this.currentPage--;
-        //     const usersObj = await this.$root.users.getUsers(
-        //         this.currentPage,
-        //         this.pageSize
-        //     );
-        //     this.users = usersObj.array;
-        //     this.currentPage = usersObj.page;
-        // },
+        async prevPage() {
+            //if (this.currentPage > 1) this.currentPage--;
+            if (this.prevStart[0]) {
+                this.users = await this.$root.users.getUsers(
+                    this.prevStart.pop(),
+                    this.pageSize,
+                    "prev"
+                );
+            }
+        },
         // async lastPage() {
-        //     const usersObj = await this.$root.users.getUsers(-1, this.pageSize);
-        //     this.users = usersObj.array;
-        //     this.currentPage = usersObj.page;
+        //     this.users = await this.$root.users.getUsers(
+        //         this.users[this.pageSize - 1],
+        //         this.pageSize,
+        //         "last"
+        //     );
         // },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
+            this.refreshTable();
         },
         del(user) {
             this.$root.users.deleteUser(user);
             this.users = this.users.filter(function(value) {
                 return value != user;
             });
+            this.refreshTable();
         },
         showModal() {
             this.isModalVisible = true;
@@ -143,7 +154,7 @@ export default {
             this.isModalVisible = false;
         },
         async refreshTable() {
-            // this.users = await this.$root.users.getUsers();
+            this.firstPage();
         }
     },
     computed: {}
