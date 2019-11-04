@@ -13,6 +13,7 @@ import router from "./router";
 
 import AuthServices from "./auth/AuthServices";
 import UsersServices from "./admin/user-list/UsersServices";
+import ManageSurveys from "./admin/ManageSurveys";
 
 import App from "./App.vue";
 
@@ -30,6 +31,8 @@ Vue.config.productionTip = false;   // disable warning about working in dev mode
 const authService = new AuthServices(firebase);
 const baseResource = new BaseResource(appConfig.baseURL, () => store.state.token);
 const usersService = new UsersServices(firebase, baseResource);
+const manageSurveys = new ManageSurveys(firebase);
+
 
 new Vue({
     router,
@@ -37,6 +40,7 @@ new Vue({
     data: {
         auth: authService,
         users: usersService,
+        manageSurveys,
     },
     render: function (h) {
         return h(App);

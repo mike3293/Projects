@@ -1,9 +1,9 @@
 <template>
     <div class="admin-panel">
         <div class="admin-panel__sidebar">
-            <md-button class="md-raised admin-panel__b" :md-ripple="false" to="users">Users</md-button>
+            <md-button class="md-raised admin-panel__link" :md-ripple="false" to="users">Users</md-button>
             <md-button
-                class="md-raised admin-panel__b"
+                class="md-raised admin-panel__link"
                 :md-ripple="false"
                 to="create-survey"
             >Create survey</md-button>
@@ -19,18 +19,16 @@
 <style lang="scss">
 .admin-panel {
     display: flex;
-    justify-content: stretch;
     &__sidebar {
-        height: 500px; /* Full-height: remove this if you want "auto" height */
-        width: 160px; /* Set the width of the sidebar */
-        position: relative; /* Fixed Sidebar (stay in place on scroll) */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
+        height: 500px;
+        width: 160px;
+        position: relative;
+        z-index: 1;
+        top: 0;
         left: 0;
-        // background-color: rgb(221, 200, 200); /* Black */
-        overflow-x: hidden; /* Disable horizontal scroll */
-        //padding-top: 20px;
-        border: 1px solid;
+        overflow-x: hidden;
+        border-right: 2px solid;
+        border-bottom: 2px solid;
     }
     // &__link {
     //     // stext-transform: uppercase;
@@ -51,9 +49,9 @@
     //     background-color: #48ec50;
     // }
     &__content {
-        margin: auto;
+        width: 100%;
     }
-    &__b {
+    &__link {
         width: 90%;
         text-transform: none;
         // font-weight: 500;

@@ -36,6 +36,8 @@
 
 <style lang="scss">
 .user-list {
+    max-width: 800px;
+    margin: auto;
     &__spinner {
         position: relative;
         overflow-x: auto;

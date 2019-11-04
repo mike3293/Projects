@@ -20,8 +20,6 @@
 </template>
 
 <style lang="scss">
-@import "./variables.scss";
-
 * {
     box-sizing: border-box;
 }
@@ -31,12 +29,13 @@ body {
 }
 
 .app {
-    font-family: $avenir;
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
     text-align: center;
-    color: #2c3e50;
     font-size: 16px;
     &__progress-bar {
         height: 5px;
+        border-bottom: 2px solid;
+        background-color: #efffaa;
     }
 }
 
@@ -44,6 +43,7 @@ body {
     padding: 30px;
     text-align: right;
     text-decoration: underline;
+    background-color: #efffaa;
     &__name {
         font-weight: bold;
         color: #205c99;
