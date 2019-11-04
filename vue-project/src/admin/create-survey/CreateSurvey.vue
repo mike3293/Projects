@@ -6,27 +6,7 @@
         </md-field>
         <transition-group name="fade">
             <div class="builder__question" :key="question.id" v-for="question in questions">
-                <md-card class="card">
-                    <md-card-content>
-                        <div class="md-layout">
-                            <span>{{question.id}}.</span>
-                            <input class="question-label" v-model="question.label" />
-                        </div>
-                        <md-field>
-                            <label>Answer</label>
-                            <md-textarea v-model="question.answer"></md-textarea>
-                        </md-field>
-                        <md-card-actions class="card__actions">
-                            <!-- <md-button :md-ripple="false">Save</md-button> -->
-                            <md-button :md-ripple="false" @click="delQuestion(question.id)">Cancel</md-button>
-                        </md-card-actions>
-                    </md-card-content>
-
-                    <!-- <md-card-actions>
-                    <md-button>Action</md-button>
-                    <md-button>Action</md-button>
-                    </md-card-actions>-->
-                </md-card>
+                <text-question :question="question" @del="delQuestion" />
             </div>
         </transition-group>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="saveSurvey">Save</md-button>
@@ -78,8 +58,12 @@
 }
 </style>
 <script>
+import TextQuestion from "../../shared/components/survey/text_question/TextQuestion";
 export default {
     name: "CreateSurvey",
+    components: {
+        TextQuestion
+    },
     data() {
         return {
             questions: [],
