@@ -57,4 +57,8 @@ export default class AuthServices {
 
         return { email, role: 'user', nickName: name, token };
     }
+
+    async signOut() {
+        this.firebase.auth().signOut();
+    }
 }

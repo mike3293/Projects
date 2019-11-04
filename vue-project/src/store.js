@@ -23,7 +23,7 @@ export default new Vuex.Store({
                 router.push('/admin/users');
             }
             else {
-                router.push('/home');
+                router.push('/');
             }    //Change to survey mb
         },
         setLoading(state, payload) {

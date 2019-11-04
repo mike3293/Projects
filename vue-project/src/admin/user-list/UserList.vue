@@ -77,8 +77,6 @@
 <script>
 import UserAdd from "../user-add/UserAdd.vue";
 
-import "vue-material/dist/theme/default.css";
-
 export default {
     name: "users",
     components: {

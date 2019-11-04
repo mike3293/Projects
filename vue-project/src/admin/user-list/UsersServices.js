@@ -14,9 +14,7 @@ export default class UsersServices {
         }
 
         const usersArray = await this.resource.get('/get', { lastUser: lastUserProp, pageSize, action });
-        //alert(usersArray);
-        //lastUser = usersArray.pop();
-        //alert(page);
+
         return usersArray;
     }
 
