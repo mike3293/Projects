@@ -1,5 +1,8 @@
 <template>
     <div class="app">
+        <div class="app__progress-bar">
+            <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar>
+        </div>
         <nav class="nav">
             <!-- <router-link to="/home" class="nav__page-links" v-if="!showName">Test page with 4 pic</router-link> -->
             <router-link to="/about" class="nav__page-links">About</router-link>
@@ -11,9 +14,6 @@
                 v-if="showName"
             >Log out</router-link>
         </nav>
-        <div class="app__progress-bar">
-            <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar>
-        </div>
         <router-view />
         <footer />
     </div>
@@ -32,31 +32,32 @@ body {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     text-align: center;
     font-size: 16px;
+    position: relative;
     &__progress-bar {
-        height: 5px;
-        border-bottom: 2px solid;
+        width: 100%;
+        position: absolute;
+    }
+
+    .nav {
+        padding: 30px;
+        text-align: right;
+        text-decoration: underline;
         background-color: #efffaa;
-    }
-}
+        border-bottom: 2px solid;
+        &__name {
+            font-weight: bold;
+            color: #205c99;
+            margin-left: 10px;
+        }
 
-.nav {
-    padding: 30px;
-    text-align: right;
-    text-decoration: underline;
-    background-color: #efffaa;
-    &__name {
-        font-weight: bold;
-        color: #205c99;
-        margin-left: 10px;
-    }
+        &__page-links {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-left: 10px;
 
-    &__page-links {
-        font-weight: bold;
-        color: #2c3e50;
-        margin-left: 10px;
-
-        &.router-link-exact-active {
-            color: #42b983 !important;
+            &.router-link-exact-active {
+                color: #42b983 !important;
+            }
         }
     }
 }
@@ -65,6 +66,13 @@ body {
 <script>
 export default {
     name: "app",
+    // created() {
+    //     firebase.auth().onAuthStateChanged(firebaseUser => {
+    //         if (firebaseUser) {
+    //             store.dispatch("autoSignIn", firebaseUser);
+    //         }
+    //     });
+    // },
     methods: {
         async signOut() {
             await this.$root.auth.signOut();

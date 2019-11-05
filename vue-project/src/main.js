@@ -14,6 +14,7 @@ import router from "./router";
 import AuthServices from "./auth/AuthServices";
 import UsersServices from "./admin/user-list/UsersServices";
 import ManageSurveys from "./admin/ManageSurveys";
+import SurveyServices from "./survey/SurveyServices";
 
 import App from "./App.vue";
 
@@ -32,6 +33,7 @@ const authService = new AuthServices(firebase);
 const baseResource = new BaseResource(appConfig.baseURL, () => store.state.token);
 const usersService = new UsersServices(firebase, baseResource);
 const manageSurveys = new ManageSurveys(firebase);
+const surveyServices = new SurveyServices(firebase);
 
 
 new Vue({
@@ -41,6 +43,7 @@ new Vue({
         auth: authService,
         users: usersService,
         manageSurveys,
+        surveys: surveyServices
     },
     render: function (h) {
         return h(App);

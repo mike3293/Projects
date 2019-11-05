@@ -10,7 +10,7 @@ export default new Vuex.Store({
         login: null,
         name: null,
         loading: false,
-        role: 'user'
+        role: null
     },
     mutations: {
         setUser(state, payload) {
@@ -22,9 +22,12 @@ export default new Vuex.Store({
             if (payload.role === "admin") {
                 router.push('/admin/users');
             }
+            else if (payload.role === "user") {
+                router.push('/surveys');
+            }
             else {
                 router.push('/');
-            }    //Change to survey mb
+            }
         },
         setLoading(state, payload) {
             state.loading = payload

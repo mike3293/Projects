@@ -20,30 +20,6 @@
         width: 200px;
     }
 }
-.md-card-content {
-    padding-bottom: 3px !important;
-}
-
-.md-field {
-    margin-bottom: 0;
-}
-
-.card {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 0;
-    span {
-        font-size: 18px;
-    }
-    &__actions {
-        margin: 3px;
-        padding: 0;
-    }
-}
-
-.question-label {
-    margin-left: 5px;
-}
 
 .fade-enter-active {
     transition: opacity 0.5s;
@@ -58,7 +34,7 @@
 }
 </style>
 <script>
-import TextQuestion from "../../shared/components/survey/text_question/TextQuestion";
+import TextQuestion from "@/shared/components/survey/text-question/TextQuestion.vue";
 export default {
     name: "CreateSurvey",
     components: {

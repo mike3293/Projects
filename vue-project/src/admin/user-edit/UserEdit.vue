@@ -122,14 +122,14 @@ export default {
                 await this.$root.users.editUser(user, res);
 
                 this.$store.commit("setLoading", false);
-                this.$router.push("./");
+                this.$router.push({ name: "users" });
             } catch (e) {
                 alert(e);
                 this.$store.commit("setLoading", false);
             }
         },
         goBack() {
-            this.$router.push("./");
+            this.$router.push({ name: "users" });
         }
     }
 };

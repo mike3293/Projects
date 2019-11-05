@@ -2,11 +2,11 @@
     <main class="user-list" v-if="users[0]">
         <md-table class="user-list__table">
             <md-table-row>
-                <md-table-head @click="sort('login')">Login</md-table-head>
-                <md-table-head @click="sort('nickName')">Nick</md-table-head>
-                <md-table-head @click="sort('role')">Role</md-table-head>
-                <md-table-head @click="sort('createDate')">Create at</md-table-head>
-                <md-table-head @click="sort('surveys')">Surveys</md-table-head>
+                <md-table-head>Login</md-table-head>
+                <md-table-head>Nick</md-table-head>
+                <md-table-head>Role</md-table-head>
+                <md-table-head>Create at</md-table-head>
+                <md-table-head>Surveys</md-table-head>
                 <md-table-head>Actions</md-table-head>
             </md-table-row>
 
@@ -34,25 +34,13 @@
     </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-list {
     max-width: 800px;
     margin: auto;
-    &__spinner {
-        position: relative;
-        overflow-x: auto;
-        top: 0;
-        left: 0;
-    }
     &__table {
         text-align: left;
-        // it's working
-        // width: 80%;
         margin: auto;
-
-        // height: 100px;
-        border-collapse: collapse;
-
         th {
             border-bottom: 3px solid #8f7222;
             padding: 5px;
@@ -77,7 +65,7 @@
 </style>
 
 <script>
-import UserAdd from "../user-add/UserAdd.vue";
+import UserAdd from "@/admin/user-add/UserAdd.vue";
 
 export default {
     name: "users",

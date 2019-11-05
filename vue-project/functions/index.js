@@ -123,7 +123,7 @@ async function getUsers(req, res) {
             Snapshot = await db.collection('users').orderBy("login").startAt(lastUser).limit(pageSize).get();
         }
 
-        for (user of Snapshot.docs) {
+        for (let user of Snapshot.docs) {
             const data = user.data();
             data.id = user.id;
             usersArray.push(data);
