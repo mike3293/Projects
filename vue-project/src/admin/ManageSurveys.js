@@ -6,7 +6,7 @@ export default class ManageSurveys {
     async saveSurvey(name, questions, login) {
         const firebase = this.firebase;
         console.log(login);
-        firebase.firestore().collection('surveys').add({ name: name, questions: questions });
+        firebase.firestore().collection('surveys').add({ name: name, questions: questions, answered: 0 });
 
         const userDoc = await firebase.firestore().collection('users').where("login", "==", login).limit(1).get();
         const id = userDoc.docs[0].id;
