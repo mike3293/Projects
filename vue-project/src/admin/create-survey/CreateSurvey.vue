@@ -54,9 +54,13 @@ export default {
                 answer: ""
             });
         },
-        saveSurvey() {
+        async saveSurvey() {
             try {
-                this.$root.manageSurveys.saveSurvey(this.name, this.questions);
+                await this.$root.manageSurveys.saveSurvey(
+                    this.name,
+                    this.questions,
+                    this.$store.state.login
+                );
                 this.questions = [];
                 this.name = "";
             } catch (e) {
