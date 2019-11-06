@@ -7,22 +7,6 @@ export default class AuthServices {
     async checkSignIn() {
         const firebase = this.firebase;
 
-        // async function checkCallback(user) {
-        //     if (user) {
-        //         const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
-        //         const currentDoc = snapshot.docs[0];
-        //         email = user.email;
-        //         role = currentDoc.data().role;
-        //         alert(role);
-        //         nickName = currentDoc.data().nickName;
-
-        //         token = await user.getIdToken(true);
-
-        //         // this.$store.dispatch("autoSignIn", user);
-
-        //     }
-        // }
-
         return new Promise(function (resolve) {
             firebase.auth().onAuthStateChanged(
                 async function (user) {
@@ -34,21 +18,12 @@ export default class AuthServices {
                             const role = currentData.role;
                             const nickName = currentData.nickName;
                             const token = await user.getIdToken(true);
-                            alert(role);
                             resolve({ email: user.email, role, nickName, token });
                         }
-                        // this.$store.dispatch("autoSignIn", user);
-
                     }
                 }
             );
         });
-
-
-
-        // await this.firebase.auth().onAuthStateChanged(checkCallback);
-        // //alert(role);
-        // return { email, role, nickName, token };
     }
 
     async signIn(email, password) {
@@ -59,11 +34,6 @@ export default class AuthServices {
         const Snapshot = await firebase.firestore().collection('users').where("login", "==", email).limit(1).get();
 
         const currentDoc = Snapshot.docs[0];
-
-        // To delete, example for create-survey
-        // const docRef = firebase.firestore().collection('users').doc(currentDoc.id);      // increment 'surveys' field
-        // docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });
-
         const role = currentDoc.data().role;
         const nickName = currentDoc.data().nickName;
 
