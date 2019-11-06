@@ -19,12 +19,12 @@ export default class SurveyServices {
         return surveysArray;
     }
 
-    completeSurvey(surveyIn, user) {
+    completeSurvey(surveyIn, login) {
         const firebase = this.firebase;
 
         const obj = {};
-        obj[surveyIn.id] = surveyIn.questions;
-        firebase.firestore().collection('answers').doc(user).set(obj, { merge: true });
+        obj[login] = surveyIn.questions;
+        firebase.firestore().collection('answers').doc(surveyIn.id).set(obj, { merge: true });
 
     }
 }

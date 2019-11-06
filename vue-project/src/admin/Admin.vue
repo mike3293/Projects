@@ -11,6 +11,11 @@
                 :md-ripple="false"
                 to="/admin/create-survey"
             >Create survey</md-button>
+            <md-button
+                class="md-raised admin-panel__link"
+                :md-ripple="false"
+                to="/admin/surveys"
+            >Surveys List</md-button>
         </div>
 
         <!-- <router-link to="/admin/users">users</router-link> -->

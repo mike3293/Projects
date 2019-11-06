@@ -44,7 +44,14 @@ const router = new Router({
                     component: function () {
                         return import("./admin/create-survey/CreateSurvey.vue");
                     }
-                }
+                },
+                {
+                    path: "surveys",
+                    name: "surveys-list",
+                    component: function () {
+                        return import("./admin/surveys-list/SurveysList.vue");
+                    }
+                },
             ],
             meta: { requiresAuth: true, requiresAdmin: true }
         },
