@@ -68,10 +68,13 @@ export default {
     name: "app",
     async created() {
         try {
+            this.$store.commit("setLoading", true);
             const user = await this.$root.auth.checkSignIn();
             this.$store.dispatch("setUser", user);
         } catch (e) {
             alert(e);
+        } finally {
+            this.$store.commit("setLoading", false);
         }
     },
     methods: {
