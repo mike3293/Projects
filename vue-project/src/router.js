@@ -97,13 +97,13 @@ router.beforeEach((to, from, next) => {
 
     const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
     const isAdmin = (store.state.role === 'admin');
-
-    if (requiresAuth && !isAuthenticated) {
-        next('/')
-    } else if (requiresAdmin && !isAdmin) {
-        next('/surveys')
-    }
-    else {
-        next()
-    }
+    if (from.path !== to.path)
+        if (requiresAuth && !isAuthenticated) {
+            next('/')
+        } else if (requiresAdmin && !isAdmin) {
+            next('/surveys')
+        }
+        else {
+            next()
+        }
 })

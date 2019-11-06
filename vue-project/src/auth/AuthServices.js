@@ -28,13 +28,15 @@ export default class AuthServices {
                 async function (user) {
                     if (user) {
                         const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
-                        const currentDoc = snapshot.docs[0];
+                        if (snapshot.docs[0]) {
+                            const currentData = snapshot.docs[0].data();
 
-                        const role = currentDoc.data().role;
-                        const nickName = currentDoc.data().nickName;
-                        const token = await user.getIdToken(true);
-
-                        resolve({ email: user.email, role, nickName, token });
+                            const role = currentData.role;
+                            const nickName = currentData.nickName;
+                            const token = await user.getIdToken(true);
+                            alert(role);
+                            resolve({ email: user.email, role, nickName, token });
+                        }
                         // this.$store.dispatch("autoSignIn", user);
 
                     }

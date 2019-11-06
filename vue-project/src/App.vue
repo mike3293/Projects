@@ -89,13 +89,6 @@ export default {
         }
     },
     computed: {
-        comparePasswords() {
-            if (this.password === this.passwordValid) {
-                return false;
-            } else {
-                return true;
-            }
-        },
         showName() {
             return this.$store.state.name;
         },
