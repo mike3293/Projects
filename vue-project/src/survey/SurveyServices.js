@@ -26,5 +26,6 @@ export default class SurveyServices {
         obj[login] = surveyIn.questions;
         firebase.firestore().collection('answers').doc(surveyIn.id).set(obj, { merge: true });
 
+        firebase.firestore().collection('surveys').doc(surveyIn.id).update({ answered: firebase.firestore.FieldValue.increment(1) });
     }
 }

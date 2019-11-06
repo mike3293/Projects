@@ -30,7 +30,6 @@
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
         <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
-        <!-- <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar> -->
     </main>
 </template>
 
@@ -76,7 +75,6 @@ export default {
         return {
             users: [],
             pageSize: 5,
-            currentPage: 1,
             prevStart: [],
             isModalVisible: false
         };
@@ -152,10 +150,5 @@ export default {
             this.firstPage();
         }
     }
-    // computed: {
-    //     loading() {
-    //         return this.$store.state.loading;
-    //     }
-    // }
 };
 </script>

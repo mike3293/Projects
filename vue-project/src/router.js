@@ -52,6 +52,14 @@ const router = new Router({
                         return import("./admin/surveys-list/SurveysList.vue");
                     }
                 },
+                {
+                    path: "results",
+                    name: "survey-results",
+                    props: true,
+                    component: function () {
+                        return import("./admin/stats/SurveyStats.vue");
+                    }
+                },
             ],
             meta: { requiresAuth: true, requiresAdmin: true }
         },

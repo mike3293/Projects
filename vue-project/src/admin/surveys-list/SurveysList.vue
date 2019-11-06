@@ -1,42 +1,37 @@
 <template>
-    <main class="user-list" v-if="users[0]">
-        <md-table class="user-list__table">
+    <main class="survey-list" v-if="surveys[0]">
+        <md-table class="survey-list__table">
             <md-table-row>
-                <md-table-head>Name</md-table-head>
+                <md-table-head style="min-width:200px">Name</md-table-head>
+                <md-table-head>Answered</md-table-head>
                 <md-table-head>Results</md-table-head>
-                <md-table-head>Role</md-table-head>
-                <md-table-head>Create at</md-table-head>
-                <md-table-head>Surveys</md-table-head>
                 <md-table-head>Actions</md-table-head>
             </md-table-row>
 
-            <md-table-row :key="user.login" v-for="user in users">
-                <md-table-cell>{{user.login}}</md-table-cell>
-                <md-table-cell>{{user.nickName}}</md-table-cell>
-                <md-table-cell>{{user.role}}</md-table-cell>
-                <md-table-cell>{{dataToString(user.createDate)}}</md-table-cell>
-                <md-table-cell>{{user.surveys}}</md-table-cell>
+            <md-table-row :key="survey.id" v-for="survey in surveys" class="survey">
+                <md-table-cell>{{survey.name}}</md-table-cell>
+                <md-table-cell>{{survey.answered}}</md-table-cell>
                 <md-table-cell>
-                    <button @click="edit(user)">edit</button>
-                    <button @click="del(user)">del</button>
+                    <a @click.prevent="results(survey)" class="survey__results">results</a>
+                </md-table-cell>
+                <md-table-cell>
+                    <div class="survey__actions">
+                        <!-- <button @click="edit(user)">edit</button> -->
+                        <button @click="del(survey)">del</button>
+                    </div>
                 </md-table-cell>
             </md-table-row>
         </md-table>
-        <div class="user-list__pagination">
-            <!-- <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button> -->
+        <!-- <div class="survey-list__pagination">
             <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
             <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
-            <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
-        </div>
-        <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
-        <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
-        <!-- <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar> -->
+        </div>-->
     </main>
 </template>
 
 <style lang="scss" scoped>
-.user-list {
-    max-width: 800px;
+.survey-list {
+    max-width: 600px;
     margin: auto;
     &__table {
         text-align: left;
@@ -62,91 +57,87 @@
         justify-content: center;
     }
 }
+.survey {
+    &__results {
+        cursor: pointer;
+    }
+
+    &__actions {
+        display: inline-flex;
+
+        button {
+            margin-right: 5px;
+        }
+    }
+}
 </style>
 
 <script>
-import UserAdd from "@/admin/user-add/UserAdd.vue";
-
 export default {
-    name: "users",
-    components: {
-        UserAdd
-    },
+    name: "admin-surveys",
     data: function() {
         return {
-            users: [],
+            surveys: [],
             pageSize: 5,
-            currentPage: 1,
-            prevStart: [],
-            isModalVisible: false
+            prevStart: []
         };
     },
     async created() {
         await this.firstPage();
     },
     methods: {
-        dataToString(dateIn) {
-            const date = new Date(dateIn);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            return `${day < 10 ? "0" + day : day}.${
-                month < 10 ? "0" + month : month
-            }.${date.getFullYear()}`;
+        results(survey) {
+            this.$router.push({ name: "survey-results", params: { survey } });
         },
         async firstPage() {
             this.$store.commit("setLoading", true);
-            this.users = await this.$root.users.getUsers(
-                "first",
-                this.pageSize
+            this.surveys = await this.$root.manageSurveys.getSurveys(
+                null,
+                this.pageSize,
+                "first"
             );
             this.$store.commit("setLoading", false);
         },
-        async nextPage() {
-            this.$store.commit("setLoading", true);
-            const firstUser = this.users[0];
+        // async nextPage() {
+        //     this.$store.commit("setLoading", true);
+        //     const firstUser = this.surveys[0];
 
-            if (this.users[this.pageSize - 1]) {
-                const users = await this.$root.users.getUsers(
-                    this.users[this.pageSize - 1],
-                    this.pageSize
-                );
+        //     if (this.surveys[this.pageSize - 1]) {
+        //         const users = await this.$root.users.getUsers(
+        //             this.surveys[this.pageSize - 1],
+        //             this.pageSize
+        //         );
 
-                if (users[0]) {
-                    this.users = users;
-                    this.prevStart.push(firstUser);
-                }
-            }
-            this.$store.commit("setLoading", false);
-        },
-        async prevPage() {
-            this.$store.commit("setLoading", true);
-            if (this.prevStart[0]) {
-                this.users = await this.$root.users.getUsers(
-                    this.prevStart.pop(),
-                    this.pageSize,
-                    "prev"
-                );
-            }
-            this.$store.commit("setLoading", false);
-        },
-        edit(user) {
-            this.$router.push({ name: "edit", params: { user } });
-        },
-        async del(user) {
+        //         if (users[0]) {
+        //             this.surveys = users;
+        //             this.prevStart.push(firstUser);
+        //         }
+        //     }
+        //     this.$store.commit("setLoading", false);
+        // },
+        // async prevPage() {
+        //     this.$store.commit("setLoading", true);
+        //     if (this.prevStart[0]) {
+        //         this.surveys = await this.$root.users.getUsers(
+        //             this.prevStart.pop(),
+        //             this.pageSize,
+        //             "prev"
+        //         );
+        //     }
+        //     this.$store.commit("setLoading", false);
+        // },
+        // edit(user) {
+        //     this.$router.push({ name: "edit", params: { user } });
+        // },
+        async del(survey) {
             try {
                 this.$store.commit("setLoading", true);
-                await this.$root.users.deleteUser(user);
+                await this.$root.manageSurveys.deleteSurvey(survey);
                 this.refreshTable();
             } catch (e) {
                 this.$store.commit("setLoading", false);
                 alert(e);
             }
-        },
-        showModal() {
-            this.isModalVisible = true;
-        },
-        closeModal() {
-            this.isModalVisible = false;
         },
         async refreshTable() {
             this.firstPage();
