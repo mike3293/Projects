@@ -107,18 +107,18 @@ export default router;
 
 router.beforeEach((to, from, next) => {
     //alert(from.path);
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const isAuthenticated = store.state.login;
 
     const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
     const isAdmin = (store.state.role === 'admin');
-    if (from.path !== to.path)
-        if (requiresAuth && !isAuthenticated) {
-            next('/')
-        } else if (requiresAdmin && !isAdmin) {
-            next('/surveys')
-        }
-        else {
-            next()
-        }
+
+    if (requiresAuth && !isAuthenticated) {
+       next('/');
+    } else if (requiresAdmin && !isAdmin) {
+        next('/surveys');
+    }
+    else {
+        next();
+    }
 })

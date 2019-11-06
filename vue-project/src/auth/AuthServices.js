@@ -1,3 +1,5 @@
+import { reject } from "q";
+
 export default class AuthServices {
     constructor(firebase) {
         this.firebase = firebase;
@@ -7,12 +9,17 @@ export default class AuthServices {
     async checkSignIn() {
         const firebase = this.firebase;
 
-        return new Promise(function (resolve) {
+        return new Promise(function (resolve, reject) {
             firebase.auth().onAuthStateChanged(
                 async function (user) {
+                    // console.log("here");
                     if (user) {
+                    // console.log("her2e");
+
                         const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
                         if (snapshot.docs[0]) {
+                    // console.log("here3");
+
                             const currentData = snapshot.docs[0].data();
 
                             const role = currentData.role;
@@ -21,6 +28,7 @@ export default class AuthServices {
                             resolve({ email: user.email, role, nickName, token });
                         }
                     }
+                    reject("No auth, need sign in");
                 }
             );
         });

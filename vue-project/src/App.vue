@@ -73,7 +73,7 @@ export default {
             const user = await this.$root.auth.checkSignIn();
             this.$store.dispatch("setUser", user);
         } catch (e) {
-            alert(e);
+            console.log(e);
         } finally {
             this.$store.commit("setLoading", false);
         }
