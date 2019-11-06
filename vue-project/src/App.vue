@@ -66,13 +66,14 @@ body {
 <script>
 export default {
     name: "app",
-    // created() {
-    //     firebase.auth().onAuthStateChanged(firebaseUser => {
-    //         if (firebaseUser) {
-    //             store.dispatch("autoSignIn", firebaseUser);
-    //         }
-    //     });
-    // },
+    async created() {
+        try {
+            const user = await this.$root.auth.checkSignIn();
+            this.$store.dispatch("setUser", user);
+        } catch (e) {
+            alert(e);
+        }
+    },
     methods: {
         async signOut() {
             await this.$root.auth.signOut();

@@ -47,6 +47,7 @@
 <style lang="scss">
 .modal-backdrop {
     position: fixed;
+    z-index: 10;
     top: 0;
     bottom: 0;
     left: 0;

@@ -30,6 +30,14 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/admin/users/edit',
+                    name: "edit",
+                    props: true,
+                    component: function () {
+                        return import("./admin/user-edit/UserEdit.vue");
+                    }
+                },
+                {
                     path: "create-survey",
                     name: "create-survey",
                     component: function () {
@@ -39,14 +47,7 @@ const router = new Router({
             ],
             meta: { requiresAuth: true, requiresAdmin: true }
         },
-        {
-            path: '/admin/users/edit',
-            name: "edit",
-            props: true,
-            component: function () {
-                return import("./admin/user-edit/UserEdit.vue");
-            }
-        },
+
         {
             path: "/sign-up",
             name: "sign-up",
@@ -59,7 +60,8 @@ const router = new Router({
             name: "surveys",
             component: function () {
                 return import("./survey/surveys-list/SurveysList.vue");
-            }
+            },
+            meta: { requiresAuth: true }
         },
         {
             path: "/survey",
@@ -67,7 +69,8 @@ const router = new Router({
             props: true,
             component: function () {
                 return import("./survey/Survey.vue");
-            }
+            },
+            meta: { requiresAuth: true }
         },
         {
             path: "/home",

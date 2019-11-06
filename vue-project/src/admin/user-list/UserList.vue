@@ -138,7 +138,6 @@ export default {
         // },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
-            this.refreshTable();
         },
         del(user) {
             this.$root.users.deleteUser(user);

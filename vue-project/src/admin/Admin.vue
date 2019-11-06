@@ -1,11 +1,15 @@
 <template>
     <div class="admin-panel">
         <div class="admin-panel__sidebar">
-            <md-button class="md-raised admin-panel__link" :md-ripple="false" to="users">Users</md-button>
             <md-button
                 class="md-raised admin-panel__link"
                 :md-ripple="false"
-                to="create-survey"
+                to="/admin/users"
+            >Users</md-button>
+            <md-button
+                class="md-raised admin-panel__link"
+                :md-ripple="false"
+                to="/admin/create-survey"
             >Create survey</md-button>
         </div>
 

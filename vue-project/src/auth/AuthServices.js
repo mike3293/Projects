@@ -4,6 +4,51 @@ export default class AuthServices {
     }
 
 
+    async checkSignIn() {
+        const firebase = this.firebase;
+
+        // async function checkCallback(user) {
+        //     if (user) {
+        //         const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
+        //         const currentDoc = snapshot.docs[0];
+        //         email = user.email;
+        //         role = currentDoc.data().role;
+        //         alert(role);
+        //         nickName = currentDoc.data().nickName;
+
+        //         token = await user.getIdToken(true);
+
+        //         // this.$store.dispatch("autoSignIn", user);
+
+        //     }
+        // }
+
+        return new Promise(function (resolve) {
+            firebase.auth().onAuthStateChanged(
+                async function (user) {
+                    if (user) {
+                        const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
+                        const currentDoc = snapshot.docs[0];
+
+                        const role = currentDoc.data().role;
+                        const nickName = currentDoc.data().nickName;
+                        const token = await user.getIdToken(true);
+
+                        resolve({ email: user.email, role, nickName, token });
+                        // this.$store.dispatch("autoSignIn", user);
+
+                    }
+                }
+            );
+        });
+
+
+
+        // await this.firebase.auth().onAuthStateChanged(checkCallback);
+        // //alert(role);
+        // return { email, role, nickName, token };
+    }
+
     async signIn(email, password) {
         const firebase = this.firebase;
         await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -48,12 +93,12 @@ export default class AuthServices {
 
         firebase.firestore().collection('users').add({ login: email, role: "user", createDate: currentDateUnix, surveys: 0, nickName: name });
 
-        for (let i = 1; i < 10; i++) {           // add users
-            await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
-            const currentDateUnix = (new Date()).valueOf();
+        // for (let i = 1; i < 10; i++) {           // add users
+        //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
+        //     const currentDateUnix = (new Date()).valueOf();
 
-            firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
-        }
+        //     firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
+        // }
 
         return { email, role: 'user', nickName: name, token };
     }
