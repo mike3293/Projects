@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import store from "./store";
+
 import Signin from "./auth/sign-in/SignIn.vue";
-import * as firebase from "firebase/app";
 
 Vue.use(Router);
 
@@ -90,22 +91,19 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
+    //alert(from.path);
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-    const isAuthenticated = firebase.auth().currentUser;
+    const isAuthenticated = store.state.login;
 
-    // TODO: check for admin
-    //const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
-    //const isAdmin = (this.$store.state.role === 'admin');
-
-    // if (requiresAdmin && this.$store.state.role !== 'admin') {
-    //     next('/')
-    // } else {
-    //     next()
-    // }
+    const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+    const isAdmin = (store.state.role === 'admin');
 
     if (requiresAuth && !isAuthenticated) {
         next('/')
-    } else {
+    } else if (requiresAdmin && !isAdmin) {
+        next('/surveys')
+    }
+    else {
         next()
     }
 })
