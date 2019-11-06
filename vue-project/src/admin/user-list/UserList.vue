@@ -129,22 +129,18 @@ export default {
             }
             this.$store.commit("setLoading", false);
         },
-        // async lastPage() {
-        //     this.users = await this.$root.users.getUsers(
-        //         this.users[this.pageSize - 1],
-        //         this.pageSize,
-        //         "last"
-        //     );
-        // },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
         },
-        del(user) {
-            this.$root.users.deleteUser(user);
-            this.users = this.users.filter(function(value) {
-                return value != user;
-            });
-            this.refreshTable();
+        async del(user) {
+            try {
+                this.$store.commit("setLoading", true);
+                await this.$root.users.deleteUser(user);
+                this.refreshTable();
+            } catch (e) {
+                this.$store.commit("setLoading", false);
+                alert(e);
+            }
         },
         showModal() {
             this.isModalVisible = true;
