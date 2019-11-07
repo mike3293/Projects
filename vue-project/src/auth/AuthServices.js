@@ -10,20 +10,20 @@ export default class AuthServices {
         return new Promise(function (resolve, reject) {
             firebase.auth().onAuthStateChanged(
                 async function (user) {
-                    // console.log("here");
                     if (user) {
-                    // console.log("her2e");
-
                         const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
                         if (snapshot.docs[0]) {
-                    // console.log("here3");
-
                             const currentData = snapshot.docs[0].data();
 
                             const role = currentData.role;
                             const nickName = currentData.nickName;
                             const token = await user.getIdToken(true);
-                            resolve({ email: user.email, role, nickName, token });
+                            resolve({
+                                email: user.email,
+                                role,
+                                nickName,
+                                token
+                            });
                         }
                     }
                     reject("No auth, need sign in");
@@ -43,7 +43,12 @@ export default class AuthServices {
         const role = currentDoc.data().role;
         const nickName = currentDoc.data().nickName;
 
-        return { email, role, nickName, token };
+        return {
+            email,
+            role,
+            nickName,
+            token
+        };
     }
 
 
@@ -69,7 +74,13 @@ export default class AuthServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection('users').add({ login: email, role: "user", createDate: currentDateUnix, surveys: 0, nickName: name });
+        firebase.firestore().collection('users').add({
+            login: email,
+            role: "user",
+            createDate: currentDateUnix,
+            surveys: 0,
+            nickName: name
+        });
 
         // for (let i = 1; i < 10; i++) {           // add users
         //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
@@ -78,10 +89,15 @@ export default class AuthServices {
         //     firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
         // }
 
-        return { email, role: 'user', nickName: name, token };
+        return {
+            email,
+            role: 'user',
+            nickName: name,
+            token
+        };
     }
 
     async signOut() {
-        this.firebase.auth().signOut();
+        await this.firebase.auth().signOut();
     }
 }

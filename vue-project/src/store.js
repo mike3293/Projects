@@ -21,20 +21,18 @@ export default new Vuex.Store({
 
             if (payload.role === "admin") {
                 router.push('/admin/users');
-            }
-            else if (payload.role === "user") {
+            } else if (payload.role === "user") {
                 router.push('/surveys');
-            }
-            else {
-                router.push('/');
             }
         },
         setLoading(state, payload) {
-            state.loading = payload
+            state.loading = payload;
         }
     },
     actions: {
-        setUser({ commit }, payload) {
+        setUser({
+            commit
+        }, payload) {
             commit('setUser', payload);
         }
     }

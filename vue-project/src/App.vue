@@ -7,13 +7,7 @@
             <!-- <router-link to="/home" class="nav__page-links" v-if="!showName">Test page with 4 pic</router-link> -->
             <router-link to="/about" class="nav__page-links">About</router-link>
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
-            <router-link to="/admin/surveys" class="nav__page-links">in</router-link>
-            <router-link
-                to="/admin/users"
-                @click.native="signOut()"
-                class="nav__name"
-                v-if="showName"
-            >Log out</router-link>
+            <router-link to="/" @click.native="signOut()" class="nav__name" v-if="showName">Sign out</router-link>
         </nav>
         <router-view />
         <footer />

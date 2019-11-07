@@ -10,8 +10,7 @@ Vue.use(Router);
 const router = new Router({
     mode: "history",
     base: process.env.BASE_URL,
-    routes: [
-        {
+    routes: [{
             path: "/",
             name: "sign-in",
             component: Signin
@@ -22,8 +21,7 @@ const router = new Router({
             component: function () {
                 return import("./admin/Admin.vue");
             },
-            children: [
-                {
+            children: [{
                     path: "users",
                     name: "users",
                     component: function () {
@@ -31,7 +29,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/admin/users/edit',
+                    path: 'users/edit',
                     name: "edit",
                     props: true,
                     component: function () {
@@ -61,9 +59,11 @@ const router = new Router({
                     }
                 },
             ],
-            meta: { requiresAuth: true, requiresAdmin: true }
+            meta: {
+                requiresAuth: true,
+                requiresAdmin: true
+            }
         },
-
         {
             path: "/sign-up",
             name: "sign-up",
@@ -77,7 +77,10 @@ const router = new Router({
             component: function () {
                 return import("./survey/surveys-list/SurveysList.vue");
             },
-            meta: { requiresAuth: true }
+            meta: {
+                requiresAuth: true
+            }
+
         },
         {
             path: "/survey",
@@ -86,7 +89,9 @@ const router = new Router({
             component: function () {
                 return import("./survey/Survey.vue");
             },
-            meta: { requiresAuth: true }
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: "/home",
@@ -106,7 +111,6 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
-    //alert(from.path);
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const isAuthenticated = store.state.login;
 
@@ -114,11 +118,10 @@ router.beforeEach((to, from, next) => {
     const isAdmin = (store.state.role === 'admin');
 
     if (requiresAuth && !isAuthenticated) {
-       next('/');
+        next('/');
     } else if (requiresAdmin && !isAdmin) {
         next('/surveys');
-    }
-    else {
+    } else {
         next();
     }
 })
