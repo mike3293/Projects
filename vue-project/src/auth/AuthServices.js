@@ -1,5 +1,3 @@
-import { reject } from "q";
-
 export default class AuthServices {
     constructor(firebase) {
         this.firebase = firebase;
