@@ -8,11 +8,12 @@ export default class BaseResource {
 
     async post(URL, obj) {
         const token = this.getToken();
-        obj.token = token;
+        //obj.token = token;
         await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": token
             },
             body: JSON.stringify(obj)
         });
@@ -20,11 +21,12 @@ export default class BaseResource {
 
     async get(URL, obj) {
         const token = this.getToken();
-        obj.token = token;
+        //obj.token = token;
         const res = await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": token
             },
             body: JSON.stringify(obj)
         });
