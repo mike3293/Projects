@@ -21,7 +21,7 @@
         </md-card-content>
     </md-card>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .md-card-content {
     padding-bottom: 3px !important;
 }

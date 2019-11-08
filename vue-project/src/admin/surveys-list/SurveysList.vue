@@ -22,10 +22,10 @@
                 </md-table-cell>
             </md-table-row>
         </md-table>
-        <!-- <div class="survey-list__pagination">
+        <div class="survey-list__pagination">
             <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
             <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
-        </div>-->
+        </div>
     </main>
 </template>
 
@@ -98,34 +98,34 @@ export default {
             );
             this.$store.commit("setLoading", false);
         },
-        // async nextPage() {
-        //     this.$store.commit("setLoading", true);
-        //     const firstUser = this.surveys[0];
+        async nextPage() {
+            this.$store.commit("setLoading", true);
+            const firstSurvey = this.surveys[0];
 
-        //     if (this.surveys[this.pageSize - 1]) {
-        //         const users = await this.$root.users.getUsers(
-        //             this.surveys[this.pageSize - 1],
-        //             this.pageSize
-        //         );
+            if (this.surveys[this.pageSize - 1]) {
+                const surveys = await this.$root.manageSurveys.getSurveys(
+                    this.surveys[this.pageSize - 1],
+                    this.pageSize
+                );
 
-        //         if (users[0]) {
-        //             this.surveys = users;
-        //             this.prevStart.push(firstUser);
-        //         }
-        //     }
-        //     this.$store.commit("setLoading", false);
-        // },
-        // async prevPage() {
-        //     this.$store.commit("setLoading", true);
-        //     if (this.prevStart[0]) {
-        //         this.surveys = await this.$root.users.getUsers(
-        //             this.prevStart.pop(),
-        //             this.pageSize,
-        //             "prev"
-        //         );
-        //     }
-        //     this.$store.commit("setLoading", false);
-        // },
+                if (surveys[0]) {
+                    this.surveys = surveys;
+                    this.prevStart.push(firstSurvey);
+                }
+            }
+            this.$store.commit("setLoading", false);
+        },
+        async prevPage() {
+            this.$store.commit("setLoading", true);
+            if (this.prevStart[0]) {
+                this.surveys = await this.$root.manageSurveys.getSurveys(
+                    this.prevStart.pop(),
+                    this.pageSize,
+                    "prev"
+                );
+            }
+            this.$store.commit("setLoading", false);
+        },
         // edit(user) {
         //     this.$router.push({ name: "edit", params: { user } });
         // },
@@ -133,20 +133,15 @@ export default {
             try {
                 this.$store.commit("setLoading", true);
                 await this.$root.manageSurveys.deleteSurvey(survey);
-                this.refreshTable();
+                await this.refreshTable();
             } catch (e) {
                 this.$store.commit("setLoading", false);
                 alert(e);
             }
         },
         async refreshTable() {
-            this.firstPage();
+            await this.firstPage();
         }
     }
-    // computed: {
-    //     loading() {
-    //         return this.$store.state.loading;
-    //     }
-    // }
 };
 </script>

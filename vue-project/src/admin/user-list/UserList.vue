@@ -134,7 +134,7 @@ export default {
             try {
                 this.$store.commit("setLoading", true);
                 await this.$root.users.deleteUser(user);
-                this.refreshTable();
+                await this.refreshTable();
             } catch (e) {
                 this.$store.commit("setLoading", false);
                 alert(e);
@@ -147,7 +147,7 @@ export default {
             this.isModalVisible = false;
         },
         async refreshTable() {
-            this.firstPage();
+            await this.firstPage();
         }
     }
 };

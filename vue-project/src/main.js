@@ -35,7 +35,6 @@ const usersService = new UsersServices(firebase, baseResource);
 const manageSurveys = new ManageSurveys(firebase);
 const surveyServices = new SurveyServices(firebase);
 
-
 new Vue({
     router,
     store,
