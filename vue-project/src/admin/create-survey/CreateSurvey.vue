@@ -56,13 +56,17 @@ export default {
         },
         async saveSurvey() {
             try {
-                await this.$root.manageSurveys.saveSurvey(
-                    this.name,
-                    this.questions,
-                    this.$store.state.login
-                );
-                this.questions = [];
-                this.name = "";
+                if (this.questions[0]) {
+                    await this.$root.manageSurveys.saveSurvey(
+                        this.name ? this.name : "DEFAULT",
+                        this.questions,
+                        this.$store.state.login
+                    );
+                    this.questions = [];
+                    this.name = "";
+                } else {
+                    throw Error("Create at least one question");
+                }
             } catch (e) {
                 alert(e);
             }
