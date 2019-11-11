@@ -24,13 +24,14 @@ export default class ManageSurveys {
         if (surveyPointer == null && action === "first") {
             snapshot = await db.collection('surveys').orderBy("__name__").limit(pageSize).get();
         }
-        else {
-            snapshot = await db.collection('surveys').orderBy("__name__").startAfter(surveyPointer.id).limit(pageSize).get();
-        }
-
         if (action === "prev") {
             snapshot = await db.collection('surveys').orderBy("__name__").startAt(surveyPointer.id).limit(pageSize).get();
         }
+        if (action === "next") {
+            snapshot = await db.collection('surveys').orderBy("__name__").startAfter(surveyPointer.id).limit(pageSize).get();
+        }
+
+
 
         for (let survey of snapshot.docs) {
             const data = survey.data();

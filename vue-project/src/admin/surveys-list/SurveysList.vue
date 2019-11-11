@@ -105,7 +105,8 @@ export default {
             if (this.surveys[this.pageSize - 1]) {
                 const surveys = await this.$root.manageSurveys.getSurveys(
                     this.surveys[this.pageSize - 1],
-                    this.pageSize
+                    this.pageSize,
+                    "next"
                 );
 
                 if (surveys[0]) {

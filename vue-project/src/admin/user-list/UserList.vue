@@ -94,8 +94,9 @@ export default {
         async firstPage() {
             this.$store.commit("setLoading", true);
             this.users = await this.$root.users.getUsers(
-                "first",
-                this.pageSize
+                null,
+                this.pageSize,
+                "first"
             );
             this.$store.commit("setLoading", false);
         },
@@ -105,13 +106,14 @@ export default {
 
             if (this.users[this.pageSize - 1]) {
                 const users = await this.$root.users.getUsers(
-                    this.users[this.pageSize - 1],
-                    this.pageSize
+                    this.users[this.pageSize - 1].login,
+                    this.pageSize,
+                    "next"
                 );
 
                 if (users[0]) {
                     this.users = users;
-                    this.prevStart.push(firstUser);
+                    this.prevStart.push(firstUser.login);
                 }
             }
             this.$store.commit("setLoading", false);

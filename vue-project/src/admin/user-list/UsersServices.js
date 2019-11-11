@@ -6,14 +6,7 @@ export default class UsersServices {
 
 
     async getUsers(lastUser, pageSize, action) {
-        let lastUserProp;
-        if (lastUser != "first") {
-            lastUserProp = lastUser.login; // mb change to [''] for other sort
-        } else {
-            lastUserProp = lastUser;
-        }
-
-        const usersArray = await this.resource.get('/get', { lastUser: lastUserProp, pageSize, action });
+        const usersArray = await this.resource.get('/get', { lastUser, pageSize, action });
 
         return usersArray;
     }
