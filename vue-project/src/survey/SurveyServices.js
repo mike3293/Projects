@@ -6,7 +6,7 @@ export default class SurveyServices {
     async loadList() {
         const firebase = this.firebase;
 
-        const snapshot = await firebase.firestore().collection('surveys').get();
+        const snapshot = await firebase.firestore().collection("surveys").get();
 
         const surveysArray = [];
 
@@ -24,8 +24,8 @@ export default class SurveyServices {
 
         const obj = {};
         obj[login] = surveyIn.questions;
-        firebase.firestore().collection('answers').doc(surveyIn.id).set(obj, { merge: true });
+        firebase.firestore().collection("answers").doc(surveyIn.id).set(obj, { merge: true });
 
-        firebase.firestore().collection('surveys').doc(surveyIn.id).update({ answered: firebase.firestore.FieldValue.increment(1) });
+        firebase.firestore().collection("surveys").doc(surveyIn.id).update({ answered: firebase.firestore.FieldValue.increment(1) });
     }
 }

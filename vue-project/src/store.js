@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue"
+import Vuex from "vuex"
 import router from "./router";
 
 Vue.use(Vuex)
@@ -20,9 +20,9 @@ export default new Vuex.Store({
             state.token = payload.token;
 
             if (payload.role === "admin") {
-                router.push('/admin/users');
+                router.push("/admin/users");
             } else if (payload.role === "user") {
-                router.push('/surveys');
+                router.push("/surveys");
             }
         },
         setLoading(state, payload) {
@@ -30,10 +30,8 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        setUser({
-            commit
-        }, payload) {
-            commit('setUser', payload);
+        setUser({ commit }, payload) {
+            commit("setUser", payload);
         }
     }
 })

@@ -11,7 +11,7 @@ export default class AuthServices {
             firebase.auth().onAuthStateChanged(
                 async function (user) {
                     if (user) {
-                        const snapshot = await firebase.firestore().collection('users').where("login", "==", user.email).limit(1).get();
+                        const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
                         if (snapshot.docs[0]) {
                             const currentData = snapshot.docs[0].data();
 
@@ -37,7 +37,7 @@ export default class AuthServices {
         await firebase.auth().signInWithEmailAndPassword(email, password);
         const token = await firebase.auth().currentUser.getIdToken(true);
 
-        const Snapshot = await firebase.firestore().collection('users').where("login", "==", email).limit(1).get();
+        const Snapshot = await firebase.firestore().collection("users").where("login", "==", email).limit(1).get();
 
         const currentDoc = Snapshot.docs[0];
         const role = currentDoc.data().role;
@@ -74,7 +74,7 @@ export default class AuthServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection('users').add({
+        firebase.firestore().collection("users").add({
             login: email,
             role: "user",
             createDate: currentDateUnix,
@@ -86,12 +86,12 @@ export default class AuthServices {
         //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
         //     const currentDateUnix = (new Date()).valueOf();
 
-        //     firebase.firestore().collection('users').add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
+        //     firebase.firestore().collection("users").add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
         // }
 
         return {
             email,
-            role: 'user',
+            role: "user",
             nickName: name,
             token
         };

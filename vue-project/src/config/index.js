@@ -20,10 +20,10 @@ export { appConfig };
 
 // (async function () {
 //     if (process.env.NODE_ENV == "development") {
-//         firebaseConfig = await import('./development');
+//         firebaseConfig = await import("./development");
 //     }
 //     else if (process.env.NODE_ENV == "production") {
-//         firebaseConfig = await import('./production');
+//         firebaseConfig = await import("./production");
 //     }
 // })();
 

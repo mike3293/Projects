@@ -6,13 +6,13 @@ export default class UsersServices {
 
 
     async getUsers(lastUser, pageSize, action) {
-        const usersArray = await this.resource.get('/get', { lastUser, pageSize, action });
+        const usersArray = await this.resource.get("/get", { lastUser, pageSize, action });
 
         return usersArray;
     }
 
     async deleteUser(user) {
-        await this.resource.post('/delete', { email: user.login });
+        await this.resource.post("/delete", { email: user.login });
 
         const firebase = this.firebase;
         const id = `${user.id}`;
@@ -21,7 +21,7 @@ export default class UsersServices {
     }
 
     async editUser(user) {
-        const res = await this.resource.post('/edit', { email: user.oldLogin, password: user.password, newEmail: user.login });
+        const res = await this.resource.post("/edit", { email: user.oldLogin, password: user.password, newEmail: user.login });
 
         const firebase = this.firebase;
         const id = `${user.id}`;
@@ -35,13 +35,13 @@ export default class UsersServices {
     }
 
     async createUser(user) {
-        await this.resource.post('/add', { email: user.login, password: user.password });
+        await this.resource.post("/add", { email: user.login, password: user.password });
 
         const firebase = this.firebase;
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection('users').add({ login: user.login, role: user.role, createDate: currentDateUnix, surveys: 0, nickName: user.name });
+        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, surveys: 0, nickName: user.name });
 
     }
 }
