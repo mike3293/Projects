@@ -64,8 +64,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    width: 40%;
-    max-width: 400px;
+    max-width: 380px;
 }
 
 .modal-header,

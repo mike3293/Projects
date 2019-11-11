@@ -36,7 +36,6 @@
                 <button class="edit-user__button button" :disabled="loading || check">update</button>
             </div>
         </form>
-        <div>{{msg}}</div>
     </div>
 </template>
 
@@ -48,8 +47,7 @@
 }
 .edit-user {
     &__form {
-        width: 35%;
-        max-width: 400px;
+        max-width: 380px;
         display: block;
         border: 2px solid black;
         margin: 100px auto;
@@ -109,9 +107,6 @@ export default {
         },
         check() {
             return this.$v.$anyError;
-        },
-        msg() {
-            return this.user;
         }
     },
     methods: {
