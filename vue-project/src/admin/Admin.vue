@@ -25,7 +25,7 @@
     </div>-->
     <div>
         <md-app>
-            <md-app-drawer md-permanent="full" :md-swipeable="true" class="admin-nav">
+            <md-app-drawer md-permanent="full" :md-active="showMenu" class="admin-nav">
                 <md-button
                     class="md-raised admin-nav__link"
                     :md-ripple="false"
@@ -41,9 +41,15 @@
                     :md-ripple="false"
                     to="/admin/surveys"
                 >Surveys List</md-button>
+                <md-button
+                    :md-ripple="false"
+                    class="md-accent admin-nav__link hide"
+                    @click="showMenu=false"
+                >close</md-button>
             </md-app-drawer>
 
             <md-app-content>
+                <md-button :md-ripple="false" class="hide" @click="showMenu=true">menu</md-button>
                 <router-view />
             </md-app-content>
         </md-app>
@@ -73,13 +79,24 @@
         background-color: #f0db1c !important;
     }
 }
+.hide {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .hide {
+        display: initial;
+    }
+}
 </style>
 
 <script>
 export default {
     name: "admin",
     data: function() {
-        return {};
+        return {
+            showMenu: false
+        };
     }
 };
 </script>
