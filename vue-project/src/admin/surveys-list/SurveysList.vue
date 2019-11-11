@@ -2,14 +2,14 @@
     <main class="survey-list" v-if="surveys[0]">
         <md-table class="survey-list__table">
             <md-table-row>
-                <md-table-head style="min-width:200px">Name</md-table-head>
+                <md-table-head class="name">Name</md-table-head>
                 <md-table-head>Answered</md-table-head>
                 <md-table-head>Results</md-table-head>
                 <md-table-head>Actions</md-table-head>
             </md-table-row>
 
             <md-table-row :key="survey.id" v-for="survey in surveys" class="survey">
-                <md-table-cell>{{survey.name}}</md-table-cell>
+                <md-table-cell class="survey__name">{{survey.name}}</md-table-cell>
                 <md-table-cell>{{survey.answered}}</md-table-cell>
                 <md-table-cell>
                     <a @click.prevent="results(survey)" class="survey__results">results</a>
@@ -60,6 +60,11 @@
 .survey {
     &__results {
         cursor: pointer;
+    }
+
+    &__name {
+        max-width: 250px;
+        overflow-wrap: break-word;
     }
 
     &__actions {

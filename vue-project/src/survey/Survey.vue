@@ -7,7 +7,7 @@
         <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">complete</md-button>
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .survey {
     &__name {
         margin: 10px auto;
@@ -34,7 +34,7 @@ export default {
                     this.survey,
                     this.$store.state.login
                 );
-                this.$router.push("surveys");
+                this.$router.push({name: "surveys"});
             } catch (e) {
                 alert(e);
             }

@@ -23,8 +23,7 @@
         display: block;
         border: 1px solid;
         border-radius: 5px;
-        // flex-wrap: wrap;
-        // justify-content: space-around;
+        overflow-wrap: break-word;
     }
 }
 .survey {
