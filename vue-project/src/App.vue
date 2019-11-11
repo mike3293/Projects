@@ -5,7 +5,7 @@
         </div>
         <nav class="nav">
             <!-- <router-link to="/home" class="nav__page-links" v-if="!showName">Test page with 4 pic</router-link> -->
-            <router-link to="/about" class="nav__page-links">About</router-link>
+            <router-link to="/about" class="nav__page-links" v-if="!showName">About</router-link>
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
             <router-link to="/" @click.native="signOut()" class="nav__name" v-if="showName">Sign out</router-link>
         </nav>
