@@ -8,7 +8,6 @@ export default class BaseResource {
 
     async post(URL, obj) {
         const token = this.getToken();
-        //obj.token = token;
         await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {
@@ -21,7 +20,6 @@ export default class BaseResource {
 
     async get(URL, obj) {
         const token = this.getToken();
-        //obj.token = token;
         const res = await fetch(`${this.baseURL + URL}`, {
             method: "POST",
             headers: {

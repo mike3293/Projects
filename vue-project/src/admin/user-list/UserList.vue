@@ -64,12 +64,10 @@
 </style>
 
 <script>
-import UserAdd from "@/admin/user-add/UserAdd.vue";
-
 export default {
-    name: "users",
+    name: "UserList",
     components: {
-        UserAdd
+        UserAdd: () => import("@/admin/user-add/UserAdd.vue")
     },
     data: function() {
         return {
@@ -92,42 +90,57 @@ export default {
             }.${date.getFullYear()}`;
         },
         async firstPage() {
-            this.$store.commit("setLoading", true);
-            this.users = await this.$root.users.getUsers(
-                null,
-                this.pageSize,
-                "first"
-            );
-            this.$store.commit("setLoading", false);
+            try {
+                this.$store.commit("setLoading", true);
+                this.users = await this.$root.users.getUsers(
+                    null,
+                    this.pageSize,
+                    "first"
+                );
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
+            }
         },
         async nextPage() {
-            this.$store.commit("setLoading", true);
-            const firstUser = this.users[0];
+            try {
+                this.$store.commit("setLoading", true);
+                const firstUser = this.users[0];
 
-            if (this.users[this.pageSize - 1]) {
-                const users = await this.$root.users.getUsers(
-                    this.users[this.pageSize - 1].login,
-                    this.pageSize,
-                    "next"
-                );
+                if (this.users[this.pageSize - 1]) {
+                    const users = await this.$root.users.getUsers(
+                        this.users[this.pageSize - 1].login,
+                        this.pageSize,
+                        "next"
+                    );
 
-                if (users[0]) {
-                    this.users = users;
-                    this.prevStart.push(firstUser.login);
+                    if (users[0]) {
+                        this.users = users;
+                        this.prevStart.push(firstUser.login);
+                    }
                 }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
-            this.$store.commit("setLoading", false);
         },
         async prevPage() {
-            this.$store.commit("setLoading", true);
-            if (this.prevStart[0]) {
-                this.users = await this.$root.users.getUsers(
-                    this.prevStart.pop(),
-                    this.pageSize,
-                    "prev"
-                );
+            try {
+                this.$store.commit("setLoading", true);
+                if (this.prevStart[0]) {
+                    this.users = await this.$root.users.getUsers(
+                        this.prevStart.pop(),
+                        this.pageSize,
+                        "prev"
+                    );
+                }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
-            this.$store.commit("setLoading", false);
         },
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });

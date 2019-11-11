@@ -1,28 +1,4 @@
 <template>
-    <!-- <div class="admin-panel">
-        <div class="admin-panel__sidebar">
-            <md-button
-                class="md-raised admin-panel__link"
-                :md-ripple="false"
-                to="/admin/users"
-            >Users</md-button>
-            <md-button
-                class="md-raised admin-panel__link"
-                :md-ripple="false"
-                to="/admin/create-survey"
-            >Create survey</md-button>
-            <md-button
-                class="md-raised admin-panel__link"
-                :md-ripple="false"
-                to="/admin/surveys"
-            >Surveys List</md-button>
-    </div>-->
-
-    <!-- <router-link to="/admin/users">users</router-link> -->
-    <!-- <div class="admin-panel__content">
-            <router-view />
-        </div>
-    </div>-->
     <div>
         <md-app>
             <md-app-drawer md-permanent="full" :md-active="showMenu" class="admin-nav">
@@ -56,7 +32,7 @@
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .md-app {
     min-height: 565px;
     border: 1px solid rgba(#000, 0.12);

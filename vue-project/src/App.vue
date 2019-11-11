@@ -74,13 +74,17 @@ export default {
     },
     methods: {
         async signOut() {
-            await this.$root.auth.signOut();
-            this.$store.dispatch("setUser", {
-                email: null,
-                nickName: null,
-                role: null,
-                token: null
-            });
+            try {
+                await this.$root.auth.signOut();
+                this.$store.dispatch("setUser", {
+                    email: null,
+                    nickName: null,
+                    role: null,
+                    token: null
+                });
+            } catch (e) {
+                alert(e);
+            }
         }
     },
     computed: {

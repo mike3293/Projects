@@ -29,9 +29,6 @@
         margin: 100px auto;
     }
 
-    &__title {
-    }
-
     &__input {
         width: 70%;
         margin-bottom: 20px;
@@ -67,9 +64,9 @@ export default {
                 let res = await this.$root.auth.signIn(...args);
 
                 this.$store.dispatch("setUser", res);
-                this.$store.commit("setLoading", false);
             } catch (e) {
                 alert(e);
+            } finally {
                 this.$store.commit("setLoading", false);
             }
         }

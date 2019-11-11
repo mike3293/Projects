@@ -79,7 +79,7 @@
 
 <script>
 export default {
-    name: "admin-surveys",
+    name: "AdminSurveys",
     data: function() {
         return {
             surveys: [],
@@ -95,54 +95,67 @@ export default {
             this.$router.push({ name: "survey-results", params: { survey } });
         },
         async firstPage() {
-            this.$store.commit("setLoading", true);
-            this.surveys = await this.$root.manageSurveys.getSurveys(
-                null,
-                this.pageSize,
-                "first"
-            );
-            this.$store.commit("setLoading", false);
+            try {
+                this.$store.commit("setLoading", true);
+                this.surveys = await this.$root.manageSurveys.getSurveys(
+                    null,
+                    this.pageSize,
+                    "first"
+                );
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
+            }
         },
         async nextPage() {
-            this.$store.commit("setLoading", true);
-            const firstSurvey = this.surveys[0];
+            try {
+                this.$store.commit("setLoading", true);
+                const firstSurvey = this.surveys[0];
 
-            if (this.surveys[this.pageSize - 1]) {
-                const surveys = await this.$root.manageSurveys.getSurveys(
-                    this.surveys[this.pageSize - 1],
-                    this.pageSize,
-                    "next"
-                );
+                if (this.surveys[this.pageSize - 1]) {
+                    const surveys = await this.$root.manageSurveys.getSurveys(
+                        this.surveys[this.pageSize - 1],
+                        this.pageSize,
+                        "next"
+                    );
 
-                if (surveys[0]) {
-                    this.surveys = surveys;
-                    this.prevStart.push(firstSurvey);
+                    if (surveys[0]) {
+                        this.surveys = surveys;
+                        this.prevStart.push(firstSurvey);
+                    }
                 }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
-            this.$store.commit("setLoading", false);
         },
         async prevPage() {
-            this.$store.commit("setLoading", true);
-            if (this.prevStart[0]) {
-                this.surveys = await this.$root.manageSurveys.getSurveys(
-                    this.prevStart.pop(),
-                    this.pageSize,
-                    "prev"
-                );
+            try {
+                this.$store.commit("setLoading", true);
+                if (this.prevStart[0]) {
+                    this.surveys = await this.$root.manageSurveys.getSurveys(
+                        this.prevStart.pop(),
+                        this.pageSize,
+                        "prev"
+                    );
+                }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
-            this.$store.commit("setLoading", false);
         },
-        // edit(user) {
-        //     this.$router.push({ name: "edit", params: { user } });
-        // },
         async del(survey) {
             try {
                 this.$store.commit("setLoading", true);
                 await this.$root.manageSurveys.deleteSurvey(survey);
                 await this.refreshTable();
             } catch (e) {
-                this.$store.commit("setLoading", false);
                 alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
         },
         async refreshTable() {

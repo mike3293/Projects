@@ -34,11 +34,10 @@
 }
 </style>
 <script>
-import TextQuestion from "@/shared/components/survey/text-question/TextQuestion.vue";
 export default {
     name: "CreateSurvey",
     components: {
-        TextQuestion
+        TextQuestion: () => import("@/shared/components/survey/text-question/TextQuestion.vue")
     },
     data() {
         return {

@@ -15,11 +15,10 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    //justify-content: space-around;
+
     &__survey {
         margin: 20px;
         min-width: 120px;
-        // margin-top: 30px;
         display: block;
         border: 1px solid;
         border-radius: 5px;
@@ -35,14 +34,8 @@
 </style>
 
 <script>
-/* eslint-disable */
-import TextQuestion from "@/shared/components/survey/text-question/TextQuestion.vue";
-
 export default {
     name: "SurveysList",
-    components: {
-        TextQuestion
-    },
     data: function() {
         return {
             surveys: []

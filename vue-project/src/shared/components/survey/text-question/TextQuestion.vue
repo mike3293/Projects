@@ -1,16 +1,16 @@
 <template>
-    <md-card class="card">
+    <md-card class="question">
         <md-card-content>
             <div class="md-layout">
                 <span>{{question.id}}.</span>
-                <input class="question-label" v-model="question.label" v-if="mode != 'fixed'" />
-                <span class="question" v-if="mode == 'fixed'">{{question.label}}</span>
+                <input class="question__label" v-model="question.label" v-if="mode != 'fixed'" />
+                <span v-if="mode == 'fixed'">{{question.label}}</span>
             </div>
             <md-field>
                 <label>Answer</label>
                 <md-textarea v-model="question.answer" :md-autogrow="true"></md-textarea>
             </md-field>
-            <md-card-actions class="card__actions">
+            <md-card-actions class="question__actions">
                 <!-- <md-button :md-ripple="false">Save</md-button> -->
                 <md-button
                     :md-ripple="false"
@@ -30,7 +30,7 @@
     margin-bottom: 0;
 }
 
-.card {
+.question {
     max-width: 400px;
     margin: 20px auto;
     padding: 0;
@@ -44,10 +44,9 @@
         margin: 3px;
         padding: 0;
     }
-}
-
-.question-label {
-    margin-left: 5px;
+    &__label {
+        margin-left: 5px;
+    }
 }
 </style>
 <script>

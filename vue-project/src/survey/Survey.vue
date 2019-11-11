@@ -20,12 +20,12 @@
 }
 </style>
 <script>
-import TextQuestion from "@/shared/components/survey/text-question/TextQuestion.vue";
 export default {
     name: "Survey",
     props: ["survey"],
     components: {
-        TextQuestion
+        TextQuestion: () =>
+            import("@/shared/components/survey/text-question/TextQuestion.vue")
     },
     methods: {
         complete() {
@@ -34,7 +34,7 @@ export default {
                     this.survey,
                     this.$store.state.login
                 );
-                this.$router.push({name: "surveys"});
+                this.$router.push({ name: "surveys" });
             } catch (e) {
                 alert(e);
             }

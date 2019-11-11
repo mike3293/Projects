@@ -1,31 +1,28 @@
 <template>
-    <div class="modal-backdrop">
-        <div class="modal">
-            <header class="modal-header">
+    <div class="background">
+        <div class="window">
+            <header class="window__header">
                 Add user
                 <button type="button" class="btn-close" @click="close">x</button>
             </header>
-            <section class="modal-body">
-                <form
-                    v-on:submit.prevent="add({login, name, password, role})"
-                    class="modal-body__form"
-                >
-                    <input required v-model="name" placeholder="Name" class="modal-body__input" />
-                    <div class="modal-body__errors"></div>
+            <section class="content window__content">
+                <form v-on:submit.prevent="add({login, name, password, role})" class="form">
+                    <input required v-model="name" placeholder="Name" class="form__input" />
+                    <div class="form__errors"></div>
                     <input
                         required
                         v-model="login"
                         placeholder="Login (email)"
                         type="email"
-                        class="modal-body__input"
+                        class="form__input"
                     />
-                    <div class="modal-body__errors"></div>
+                    <div class="form__errors"></div>
                     <input
                         v-model.trim="$v.password.$model"
                         placeholder="Password"
-                        class="modal-body__input"
+                        class="form__input"
                     />
-                    <div class="modal-body__errors">
+                    <div class="form__errors">
                         <p class="error" v-if="!$v.password.required">this field is required</p>
                         <p
                             class="error"
@@ -37,85 +34,65 @@
                         <option>admin</option>
                         <option>user</option>
                     </select>
-                    <button class="modal-body__button button" :disabled="loading || check">Add</button>
+                    <button class="form__button" :disabled="loading || check">Add</button>
                 </form>
             </section>
         </div>
     </div>
 </template>
 
-<style lang="scss">
-.modal-backdrop {
+<style lang="scss" scoped>
+.background {
     position: fixed;
     z-index: 10;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
-.modal {
+.window {
     background: #ffffff;
     overflow-x: auto;
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    max-width: 380px;
-}
+    max-width: 400px;
 
-.modal-header,
-.modal-footer {
-    padding: 15px;
-    display: flex;
-}
+    &__header {
+        padding: 15px;
+        display: flex;
+        border-bottom: 1px solid #eeeeee;
+        font-size: 20px;
+        justify-content: space-between;
 
-.modal-header {
-    border-bottom: 1px solid #eeeeee;
-    font-size: 20px;
-    justify-content: space-between;
-}
-
-.modal-body {
-    position: relative;
-    padding: 20px 10px;
-    min-width: 300px;
-}
-
-.btn-close {
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4aae9b;
-    background: transparent;
-}
-
-.error {
-    margin: 0;
-    padding: 0;
-    color: red;
-}
-
-.modal-body {
-    &__form {
-        display: block;
-        margin: auto;
+        .btn-close {
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #4aae9b;
+            background: transparent;
+        }
     }
+
+    &__content {
+        position: relative;
+        padding: 20px 0;
+        min-width: 350px;
+    }
+}
+
+.form {
+    display: block;
+    margin: auto;
 
     &__input {
-        width: 70%;
-    }
-
-    &__links {
-        margin: auto;
-        margin-bottom: 5px;
-        width: 70%;
-        display: flex;
-        justify-content: space-between;
+        width: 80%;
     }
 
     &__button {
@@ -127,8 +104,14 @@
         height: 20px;
         line-height: 20px;
         text-align: left;
-        width: 70%;
+        width: 80%;
         margin: auto;
+    }
+
+    .error {
+        margin: 0;
+        padding: 0;
+        color: red;
     }
 }
 </style>
@@ -137,7 +120,7 @@
 import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
-    name: "user-add",
+    name: "UserAdd",
 
     methods: {
         close() {
@@ -153,10 +136,10 @@ export default {
                 const res = this.$root.resource;
                 await this.$root.users.createUser(user, res);
 
-                this.$store.commit("setLoading", false);
                 this.close();
             } catch (e) {
                 alert(e);
+            } finally {
                 this.$store.commit("setLoading", false);
             }
         }
@@ -181,9 +164,6 @@ export default {
         },
         check() {
             return this.$v.$anyError;
-        },
-        msg() {
-            return this.user;
         }
     }
 };

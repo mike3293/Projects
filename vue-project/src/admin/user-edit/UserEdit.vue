@@ -53,9 +53,6 @@
         margin: 100px auto;
     }
 
-    &__title {
-    }
-
     &__input {
         width: 70%;
     }
@@ -116,10 +113,10 @@ export default {
                 const res = this.$root.resource;
                 await this.$root.users.editUser(user, res);
 
-                this.$store.commit("setLoading", false);
                 this.$router.push({ name: "users" });
             } catch (e) {
                 alert(e);
+            } finally {
                 this.$store.commit("setLoading", false);
             }
         },

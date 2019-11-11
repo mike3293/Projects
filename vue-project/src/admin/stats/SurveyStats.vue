@@ -61,7 +61,6 @@
 </style>
 
 <script>
-// use Object.keys(answersPerUser) to get users
 export default {
     name: "SurveyStats",
     props: ["survey"],
@@ -77,18 +76,24 @@ export default {
     },
     methods: {
         async getAnswers() {
-            if (this.survey.answered != 0) {
-                this.noAnswers = false;
-                this.answersPerUser = await this.$root.manageSurveys.getSurveyStats(
-                    this.survey.id
-                );
-                this.users = Object.keys(this.answersPerUser);
+            try {
+                this.$store.commit("setLoading", true);
+                if (this.survey.answered != 0) {
+                    this.noAnswers = false;
+                    this.answersPerUser = await this.$root.manageSurveys.getSurveyStats(
+                        this.survey.id
+                    );
+                    this.users = Object.keys(this.answersPerUser);
+                }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
             }
         },
         currentAnswer(user, id) {
             return this.answersPerUser[user][id - 1].answer;
         }
-    },
-    computed: {}
+    }
 };
 </script>
