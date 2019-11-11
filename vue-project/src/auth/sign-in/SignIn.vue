@@ -23,8 +23,7 @@
 @import "../../shared/components/button/button.css";
 .sign-in {
     &__form {
-        width: 35%;
-        max-width: 400px;
+        max-width: 380px;
         display: block;
         border: 2px solid black;
         margin: 100px auto;
