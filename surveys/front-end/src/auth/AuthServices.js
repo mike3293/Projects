@@ -1,11 +1,13 @@
 export default class AuthServices {
+    #firebase = null;
+
     constructor(firebase) {
-        this.firebase = firebase;
+        this.#firebase = firebase;
     }
 
 
     async checkSignIn() {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
 
         return new Promise(function (resolve, reject) {
             firebase.auth().onAuthStateChanged(
@@ -33,7 +35,7 @@ export default class AuthServices {
     }
 
     async signIn(email, password) {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
         await firebase.auth().signInWithEmailAndPassword(email, password);
         const token = await firebase.auth().currentUser.getIdToken(true);
 
@@ -67,7 +69,7 @@ export default class AuthServices {
     // }
 
     async signUp(email, password, name) {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
 
         await firebase.auth().createUserWithEmailAndPassword(email, password);
         const token = await firebase.auth().currentUser.getIdToken(true);
@@ -98,6 +100,6 @@ export default class AuthServices {
     }
 
     async signOut() {
-        await this.firebase.auth().signOut();
+        await this.#firebase.auth().signOut();
     }
 }

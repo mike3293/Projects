@@ -1,8 +1,8 @@
 export default class BaseResource {
 
-    constructor(baseURL, token) {
+    constructor(baseURL, getToken) {
         this.baseURL = baseURL;
-        this.getToken = token;
+        this.getToken = getToken;
     }
 
 

@@ -1,10 +1,12 @@
 export default class SurveyServices {
+    #firebase = null;
+
     constructor(firebase) {
-        this.firebase = firebase;
+        this.#firebase = firebase;
     }
 
     async loadList() {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
 
         const snapshot = await firebase.firestore().collection("surveys").get();
 
@@ -20,7 +22,7 @@ export default class SurveyServices {
     }
 
     completeSurvey(surveyIn, login) {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
 
         const obj = {};
         obj[login] = surveyIn.questions;

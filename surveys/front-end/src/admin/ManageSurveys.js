@@ -1,10 +1,12 @@
 export default class ManageSurveys {
+    #firebase = null;
+
     constructor(firebase) {
-        this.firebase = firebase;
+        this.#firebase = firebase;
     }
 
     async saveSurvey(name, questions, login) {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
         firebase.firestore().collection("surveys").add({ name: name, questions: questions, answered: 0 });
 
         const userDoc = await firebase.firestore().collection("users").where("login", "==", login).limit(1).get();
@@ -15,7 +17,7 @@ export default class ManageSurveys {
     }
 
     async getSurveys(surveyPointer, pageSize, action) {
-        const db = this.firebase.firestore();
+        const db = this.#firebase.firestore();
 
         const surveysArray = [];
 
@@ -42,7 +44,7 @@ export default class ManageSurveys {
     }
 
     async deleteSurvey(surveyIn) {
-        const firebase = this.firebase;
+        const firebase = this.#firebase;
         await firebase.firestore().collection("answers").doc(surveyIn.id).delete();
 
         await firebase.firestore().collection("surveys").doc(surveyIn.id).delete();
@@ -50,7 +52,7 @@ export default class ManageSurveys {
 
     async getSurveyStats(surveyID) {
 
-        const db = this.firebase.firestore();
+        const db = this.#firebase.firestore();
 
         const snapshot = await db.collection("answers").doc(surveyID).get();
 
