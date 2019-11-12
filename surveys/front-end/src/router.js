@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
 import store from "./store";
 
 import Signin from "./auth/sign-in/SignIn.vue";
@@ -92,11 +91,6 @@ const router = new Router({
         meta: {
             requiresAuth: true
         }
-    },
-    {
-        path: "/home",
-        name: "home",
-        component: Home
     },
     {
         path: "/about",
