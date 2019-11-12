@@ -5,7 +5,6 @@ export default class AuthServices {
         this.#firebase = firebase;
     }
 
-
     async checkSignIn() {
         const firebase = this.#firebase;
 

@@ -1,3 +1,5 @@
+// Not working version!!
+
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
@@ -15,6 +17,7 @@ const db = admin.firestore();
 async function edit(req, res) {
     cors(req, res, async function () {
         const decodedToken = await auth.verifyIdToken(req.get("Authorization"));
+
         const email = req.body.email;
         const userAuth = await auth.getUserByEmail(email);
 
@@ -95,9 +98,15 @@ async function getUsers(req, res) {
     });
 }
 
-module.exports = {
-    delete: functions.https.onRequest(deleteUser),
-    edit: functions.https.onRequest(edit),
-    add: functions.https.onRequest(add),
+const exportedFunctions = {
+    delete: deleteUser,
+    edit: edit,
+    add: add,
     get: functions.https.onRequest(getUsers)
 };
+
+
+const exportedFunctionsWithOnRequestWithCorsWithAuth = decorateAllProperties(exportedFunctions, functions.https.onRequest, cors, auth);
+
+
+module.exports = exportedFunctionsWithOnRequestWithCorsWithAuth;
