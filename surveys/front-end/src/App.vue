@@ -4,7 +4,6 @@
             <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar>
         </div>
         <nav class="nav">
-            <!-- <router-link to="/home" class="nav__page-links" v-if="!showName">Test page with 4 pic</router-link> -->
             <router-link to="/about" class="nav__page-links" v-if="!showName">About</router-link>
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
             <router-link to="/" @click.native="signOut()" class="nav__name" v-if="showName">Sign out</router-link>
@@ -27,7 +26,10 @@ body {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     text-align: center;
     font-size: 16px;
-    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     &__progress-bar {
         width: 100%;
         position: absolute;
@@ -37,21 +39,19 @@ body {
         padding: 30px;
         text-align: right;
         text-decoration: underline;
-        background-color: #efffaa;
+        background-color: rgb(255, 152, 0);
         border-bottom: 2px solid;
         &__name {
             font-weight: bold;
-            color: #205c99;
             margin-left: 10px;
         }
 
         &__page-links {
             font-weight: bold;
-            color: #2c3e50;
             margin-left: 10px;
 
             &.router-link-exact-active {
-                color: #42b983 !important;
+                color: #048b4f !important;
             }
         }
     }
@@ -59,6 +59,8 @@ body {
 </style>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
     name: "app",
     async created() {
@@ -87,13 +89,9 @@ export default {
             }
         }
     },
-    computed: {
-        showName() {
-            return this.$store.state.name;
-        },
-        loading() {
-            return this.$store.state.loading;
-        }
-    }
+    computed: mapState({
+        showName: state => state.name,
+        loading: state => state.loading
+    })
 };
 </script>
