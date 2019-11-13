@@ -73,7 +73,7 @@ export default {
         return {
             users: [],
             pageSize: 5,
-            prevStart: [],
+            prevPageStart: [],
             isModalVisible: false
         };
     },
@@ -117,7 +117,7 @@ export default {
 
                     if (users[0]) {
                         this.users = users;
-                        this.prevStart.push(firstUser.login);
+                        this.prevPageStart.push(firstUser.login);
                     }
                 }
             } catch (e) {
@@ -129,9 +129,9 @@ export default {
         async prevPage() {
             try {
                 this.$store.commit("setLoading", true);
-                if (this.prevStart[0]) {
+                if (this.prevPageStart[0]) {
                     this.users = await this.$root.users.getUsers(
-                        this.prevStart.pop(),
+                        this.prevPageStart.pop(),
                         this.pageSize,
                         "prev"
                     );

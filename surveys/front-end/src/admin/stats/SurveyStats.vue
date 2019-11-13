@@ -38,7 +38,7 @@
     margin-top: 20px;
 }
 .survey__question-stats {
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px auto;
 }
 .stats {
@@ -53,7 +53,7 @@
     }
     &__table {
         display: block;
-        max-width: 300px;
+        max-width: 450px;
         text-align: left;
         display: block;
     }
@@ -66,33 +66,18 @@ export default {
     props: ["survey"],
     data: function() {
         return {
-            answersPerUser: [],
-            users: [],
-            noAnswers: true
+            answersPerUser: this.survey.answersForSurvey,
+            users: Object.keys(this.survey.answersForSurvey)
         };
     },
-    created() {
-        this.getAnswers();
-    },
     methods: {
-        async getAnswers() {
-            try {
-                this.$store.commit("setLoading", true);
-                if (this.survey.answered != 0) {
-                    this.noAnswers = false;
-                    this.answersPerUser = await this.$root.manageSurveys.getSurveyStats(
-                        this.survey.id
-                    );
-                    this.users = Object.keys(this.answersPerUser);
-                }
-            } catch (e) {
-                alert(e);
-            } finally {
-                this.$store.commit("setLoading", false);
-            }
-        },
         currentAnswer(user, id) {
             return this.answersPerUser[user][id - 1].answer;
+        }
+    },
+    computed: {
+        noAnswers() {
+            return !this.users[0];
         }
     }
 };

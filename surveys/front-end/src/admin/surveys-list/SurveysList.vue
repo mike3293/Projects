@@ -10,7 +10,7 @@
 
             <md-table-row :key="survey.id" v-for="survey in surveys" class="survey">
                 <md-table-cell class="survey__name">{{survey.name}}</md-table-cell>
-                <md-table-cell>{{survey.answered}}</md-table-cell>
+                <md-table-cell>{{nubmerOfUsersAnswers(survey)}}</md-table-cell>
                 <md-table-cell>
                     <a @click.prevent="results(survey)" class="survey__results">results</a>
                 </md-table-cell>
@@ -84,7 +84,7 @@ export default {
         return {
             surveys: [],
             pageSize: 5,
-            prevStart: []
+            prevPageStart: []
         };
     },
     async created() {
@@ -122,7 +122,7 @@ export default {
 
                     if (surveys[0]) {
                         this.surveys = surveys;
-                        this.prevStart.push(firstSurvey);
+                        this.prevPageStart.push(firstSurvey);
                     }
                 }
             } catch (e) {
@@ -134,9 +134,9 @@ export default {
         async prevPage() {
             try {
                 this.$store.commit("setLoading", true);
-                if (this.prevStart[0]) {
+                if (this.prevPageStart[0]) {
                     this.surveys = await this.$root.manageSurveys.getSurveys(
-                        this.prevStart.pop(),
+                        this.prevPageStart.pop(),
                         this.pageSize,
                         "prev"
                     );
@@ -160,6 +160,9 @@ export default {
         },
         async refreshTable() {
             await this.firstPage();
+        },
+        nubmerOfUsersAnswers(survey) {
+            return Object.keys(survey.answersForSurvey).length;
         }
     }
 };

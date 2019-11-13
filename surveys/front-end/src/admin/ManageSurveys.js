@@ -7,13 +7,13 @@ export default class ManageSurveys {
 
     async saveSurvey(name, questions, login) {
         const firebase = this.#firebase;
-        firebase.firestore().collection("surveys").add({ name: name, questions: questions, answered: 0 });
+        firebase.firestore().collection("surveys").add({ name: name, questions: questions });
 
         const userDoc = await firebase.firestore().collection("users").where("login", "==", login).limit(1).get();
         const id = userDoc.docs[0].id;
 
         const docRef = firebase.firestore().collection("users").doc(id);
-        docRef.update({ surveys: firebase.firestore.FieldValue.increment(1) });     // increment "surveys" field
+        docRef.update({ numberOfCreatedSurveys: firebase.firestore.FieldValue.increment(1) });     // increment "numberOfCreatedSurveys" field
     }
 
     async getSurveys(surveyPointer, pageSize, action) {
@@ -33,11 +33,13 @@ export default class ManageSurveys {
             snapshot = await db.collection("surveys").orderBy("__name__").startAfter(surveyPointer.id).limit(pageSize).get();
         }
 
-
-
         for (let survey of snapshot.docs) {
             const data = survey.data();
             data.id = survey.id;
+
+            const answersSnapshot = await db.collection("answers").doc(survey.id).get();
+            data.answersForSurvey = answersSnapshot.data() ? answersSnapshot.data() : 0;
+
             surveysArray.push(data);
         }
         return surveysArray;
@@ -50,11 +52,11 @@ export default class ManageSurveys {
         await firebase.firestore().collection("surveys").doc(surveyIn.id).delete();
     }
 
-    async getSurveyStats(surveyID) {
+    async getSurveyStats(surveyId) {
 
         const db = this.#firebase.firestore();
 
-        const snapshot = await db.collection("answers").doc(surveyID).get();
+        const snapshot = await db.collection("answers").doc(surveyId).get();
 
         return snapshot.data();
     }
