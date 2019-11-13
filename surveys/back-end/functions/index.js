@@ -10,6 +10,7 @@ const auth = admin.auth();
 const db = admin.firestore();
 
 const whitelist = ["http://localhost:8080", "https://mike3293.github.io"];
+
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
@@ -20,14 +21,12 @@ const corsOptions = {
     }
 };
 
-const cors = require("cors")(corsOptions);      // To change
+const cors = require("cors")(corsOptions);
 
 // @param {Object} req Express Request Object.
 // @param {Object} res Express Response Object
 
-async function edit(req, res) {
-    const decodedToken = await auth.verifyIdToken(req.get("Authorization"));
-
+async function edit(req, res, decodedUser) {
     const email = req.body.email;
     const userAuth = await auth.getUserByEmail(email);
 
@@ -36,24 +35,22 @@ async function edit(req, res) {
         email: req.body.newEmail
     });
 
-    console.log(`${email} edited to: ${req.body.newEmail} by ${decodedToken.email}`);
+    console.log(`${email} edited to: ${req.body.newEmail} by ${decodedUser.email}`);
     res.end();
 }
 
-async function deleteUser(req, res) {
-    const decodedToken = await auth.verifyIdToken(req.get("Authorization"));
+async function deleteUser(req, res, decodedUser) {
     const email = req.body.email;
 
     const userAuth = await auth.getUserByEmail(email);
 
     await auth.deleteUser(userAuth.uid);
 
-    console.log(`${email} deleted by ${decodedToken.email}`);
+    console.log(`${email} deleted by ${decodedUser.email}`);
     res.end();
 }
 
-async function add(req, res) {
-    const decodedToken = await auth.verifyIdToken(req.get("Authorization"));
+async function add(req, res, decodedUser) {
     const email = req.body.email;
 
     await auth.createUser({
@@ -61,7 +58,7 @@ async function add(req, res) {
         email
     });
 
-    console.log(`Added ${email}  by ${decodedToken.email}`);
+    console.log(`Added ${email}  by ${decodedUser.email}`);
 
     res.end();
 }
@@ -70,8 +67,6 @@ async function getUsers(req, res) {
     let lastUser = req.body.lastUser;
     const pageSize = req.body.pageSize;
     const action = req.body.action;
-
-    console.log(lastUser);
 
     const usersArray = [];
 
@@ -105,24 +100,12 @@ function decorateAllProperties(functions, cors, auth, onRequest) {
     for (let key in functions) {
         let func = functions[key];
         let funcWithAuth = async function (req, res) {
-            console.log(req + "first req");
-            try {
-                await auth.verifyIdToken(req.get("Authorization"));
-                // console.log(func);
-                func(req, res);
-            } catch (e) {
-                console.log(e + " first");
-            }
+            const decodedUser = await auth.verifyIdToken(req.get("Authorization"));
+            func(req, res, decodedUser);
         };
 
-        // console.log(newFunc);
         let funcWithAuthWithCors = async function (req, res) {
-            try {
-                // console.log(req);
-                cors(req, res, funcWithAuth.bind(null, req, res));
-            } catch (e) {
-                console.log(e);
-            }
+            cors(req, res, funcWithAuth.bind(null, req, res));
         }
 
         let funcWithAuthWithCorsWithOnRequest = onRequest(funcWithAuthWithCors);
