@@ -86,6 +86,10 @@ async function getUsers(req, res) {
     for (let user of Snapshot.docs) {
         const data = user.data();
         data.id = user.id;
+
+        const surveysSnapshot = await db.collection("surveys").where("creator", "==", data.login).get();
+        data.numberOfCreatedSurveys = surveysSnapshot.size;
+
         usersArray.push(data);
     }
 

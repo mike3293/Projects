@@ -15,7 +15,7 @@
                 <md-table-cell>{{user.nickName}}</md-table-cell>
                 <md-table-cell>{{user.role}}</md-table-cell>
                 <md-table-cell>{{dataToString(user.createDate)}}</md-table-cell>
-                <md-table-cell>{{user.surveys}}</md-table-cell>
+                <md-table-cell>{{user.numberOfCreatedSurveys}}</md-table-cell>
                 <md-table-cell>
                     <button @click="edit(user)">edit</button>
                     <button @click="del(user)">del</button>

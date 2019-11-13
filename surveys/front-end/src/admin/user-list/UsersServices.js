@@ -44,7 +44,7 @@ export default class UsersServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, surveys: 0, nickName: user.name });
+        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.name });
 
     }
 }

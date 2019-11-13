@@ -6,14 +6,7 @@ export default class ManageSurveys {
     }
 
     async saveSurvey(name, questions, login) {
-        const firebase = this.#firebase;
-        firebase.firestore().collection("surveys").add({ name: name, questions: questions });
-
-        const userDoc = await firebase.firestore().collection("users").where("login", "==", login).limit(1).get();
-        const id = userDoc.docs[0].id;
-
-        const docRef = firebase.firestore().collection("users").doc(id);
-        docRef.update({ numberOfCreatedSurveys: firebase.firestore.FieldValue.increment(1) });     // increment "numberOfCreatedSurveys" field
+        this.#firebase.firestore().collection("surveys").add({ name: name, questions: questions, creator: login });
     }
 
     async getSurveys(surveyPointer, pageSize, action) {

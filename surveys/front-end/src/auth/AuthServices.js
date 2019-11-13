@@ -79,7 +79,6 @@ export default class AuthServices {
             login: email,
             role: "user",
             createDate: currentDateUnix,
-            surveys: 0,
             nickName: name
         });
 
@@ -87,7 +86,7 @@ export default class AuthServices {
         //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
         //     const currentDateUnix = (new Date()).valueOf();
 
-        //     firebase.firestore().collection("users").add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, surveys: 0, nickName: `user${i}` });
+        //     firebase.firestore().collection("users").add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, nickName: `user${i}` });
         // }
 
         return {
