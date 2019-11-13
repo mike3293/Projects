@@ -40,7 +40,8 @@ body {
         text-align: right;
         text-decoration: underline;
         background-color: rgb(255, 152, 0);
-        border-bottom: 2px solid;
+        // border-bottom: 2px solid;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         &__name {
             font-weight: bold;
             margin-left: 10px;

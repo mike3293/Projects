@@ -36,7 +36,7 @@
 .md-app {
     min-height: 565px;
     border: 1px solid rgba(#000, 0.12);
-    border-top: none;
+    border-top: 2px solid rgba(#000, 0.12);
 }
 
 .md-drawer {

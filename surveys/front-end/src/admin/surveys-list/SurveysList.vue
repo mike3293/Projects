@@ -30,6 +30,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/shared/colors.scss";
 .survey-list {
     max-width: 600px;
     margin: auto;
@@ -37,7 +38,7 @@
         text-align: left;
         margin: auto;
         th {
-            border-bottom: 3px solid #8f7222;
+            border-bottom: 3px solid $dark-gold;
             padding: 5px;
         }
         td {
@@ -48,7 +49,7 @@
             background: white;
         }
         tr:nth-child(even) {
-            background: #bed3f3;
+            background: $light-blue;
         }
     }
     &__pagination {

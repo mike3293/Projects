@@ -6,7 +6,12 @@
                 <md-table-head>Nick</md-table-head>
                 <md-table-head>Role</md-table-head>
                 <md-table-head>Create at</md-table-head>
-                <md-table-head>Surveys</md-table-head>
+                <md-table-head>
+                    <div class="user-list__surveys">
+                        Surveys
+                        <br />created
+                    </div>
+                </md-table-head>
                 <md-table-head>Actions</md-table-head>
             </md-table-row>
 
@@ -34,6 +39,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/shared/colors.scss";
+
 .user-list {
     max-width: 800px;
     margin: auto;
@@ -41,7 +48,7 @@
         text-align: left;
         margin: auto;
         th {
-            border-bottom: 3px solid #8f7222;
+            border-bottom: 3px solid $dark-gold;
             padding: 5px;
         }
         td {
@@ -52,13 +59,18 @@
             background: white;
         }
         tr:nth-child(even) {
-            background: #bed3f3;
+            background: $light-blue;
         }
     }
     &__pagination {
         display: flex;
         margin: 10px;
         justify-content: center;
+    }
+
+    &__surveys {
+        max-width: 30px;
+        line-height: 16px;
     }
 }
 </style>
