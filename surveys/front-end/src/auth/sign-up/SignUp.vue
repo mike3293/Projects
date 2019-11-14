@@ -26,14 +26,14 @@
                 >password must have at least 6 letters.</p>
             </div>
             <input
-                v-model.trim="$v.passwordValid.$model"
+                v-model.trim="$v.repeatPassword.$model"
                 placeholder="Repeat password"
                 class="sign-up__input"
-                v-bind:class="{ notSame: !$v.passwordValid.sameAsPassword }"
+                v-bind:class="{ notSame: !$v.repeatPassword.sameAsPassword }"
                 type="password"
             />
             <div class="sign-up__errors">
-                <p class="error" v-if="!$v.passwordValid.sameAsPassword">not same</p>
+                <p class="error" v-if="!$v.repeatPassword.sameAsPassword">not same</p>
             </div>
 
             <button class="sign-up__button button" :disabled="loading || check">Sign up</button>
@@ -94,7 +94,7 @@ export default {
         return {
             login: "",
             password: "",
-            passwordValid: "",
+            repeatPassword: "",
             name: ""
         };
     },
@@ -103,7 +103,7 @@ export default {
             required,
             minLenght: minLength(6)
         },
-        passwordValid: {
+        repeatPassword: {
             required,
             sameAsPassword: sameAs("password")
         }

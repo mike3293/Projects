@@ -1,6 +1,6 @@
 <template>
     <div class="sign-in">
-        <form v-on:submit.prevent="sign(login, password)" class="sign-in__form">
+        <form v-on:submit.prevent="signIn(login, password)" class="sign-in__form">
             <h3 class="sign-in__title">Sign in</h3>
             <input required v-model="login" type="email" placeholder="Login" class="sign-in__input" />
             <input
@@ -57,7 +57,7 @@ export default {
         };
     },
     methods: {
-        async sign(...args) {
+        async signIn(...args) {
             try {
                 this.$store.commit("setLoading", true);
 
