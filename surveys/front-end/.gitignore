@@ -2,6 +2,7 @@
 node_modules
 /dist
 *.code-workspace
+/src/config/production.js
 
 # local env files
 .env.local
