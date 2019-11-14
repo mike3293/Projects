@@ -1,5 +1,3 @@
-// Not working version!!
-
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
@@ -70,20 +68,21 @@ async function getUsers(req, res) {
 
     const usersArray = [];
 
-    let Snapshot;
+    let query = db.collection("users").orderBy("login");
 
-    if (action === "first") {
-        Snapshot = await db.collection("users").orderBy("login").limit(pageSize).get();
-    }
     if (action === "next") {
-        Snapshot = await db.collection("users").orderBy("login").startAfter(lastUser).limit(pageSize).get();
+        query = query.startAfter(lastUser);
+    }
+    else if (action === "prev") {
+        query = query.startAt(lastUser);
+    }
+    else if (!(action === "first")) {
+        throw Error("Invalid args");
     }
 
-    if (action === "prev") {
-        Snapshot = await db.collection("users").orderBy("login").startAt(lastUser).limit(pageSize).get();
-    }
+    const snapshot = await query.limit(pageSize).get();
 
-    for (let user of Snapshot.docs) {
+    for (let user of snapshot.docs) {
         const data = user.data();
         data.id = user.id;
 

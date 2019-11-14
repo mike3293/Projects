@@ -88,13 +88,13 @@ export default {
         };
     },
     async created() {
-        await this.firstPage();
+        await this.getFirstPage();
     },
     methods: {
         results(survey) {
             this.$router.push({ name: "survey-results", params: { survey } });
         },
-        async firstPage() {
+        async getFirstPage() {
             try {
                 this.$store.commit("setLoading", true);
                 this.surveys = await this.$root.manageSurveys.getSurveys(
@@ -154,7 +154,7 @@ export default {
         async del(survey) {
             try {
                 this.$store.commit("setLoading", true);
-                await this.$root.manageSurveys.deleteSurvey(survey);
+                await this.$root.manageSurveys.deleteSurvey(survey.id);
                 await this.refreshTable();
             } catch (e) {
                 alert(e);
@@ -163,7 +163,7 @@ export default {
             }
         },
         async refreshTable() {
-            await this.firstPage();
+            await this.getFirstPage();
         },
         nubmerOfUsersAnswers(survey) {
             return Object.keys(survey.answersForSurvey).length;

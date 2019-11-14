@@ -14,17 +14,19 @@ export default class ManageSurveys {
 
         const surveysArray = [];
 
-        let snapshot;
+        let querry = db.collection("surveys").orderBy("__name__");
 
-        if (surveyPointer == null && action === "first") {
-            snapshot = await db.collection("surveys").orderBy("__name__").limit(pageSize).get();
-        }
         if (action === "prev") {
-            snapshot = await db.collection("surveys").orderBy("__name__").startAt(surveyPointer.id).limit(pageSize).get();
+            querry = querry.startAt(surveyPointer.id);
         }
-        if (action === "next") {
-            snapshot = await db.collection("surveys").orderBy("__name__").startAfter(surveyPointer.id).limit(pageSize).get();
+        else if (action === "next") {
+            querry = querry.startAfter(surveyPointer.id);
         }
+        else if (!(surveyPointer == null && action === "first")) {
+            throw Error("Invalid args");
+        }
+
+        const snapshot = await querry.limit(pageSize).get();
 
         for (let survey of snapshot.docs) {
             const data = survey.data();
@@ -38,10 +40,10 @@ export default class ManageSurveys {
         return surveysArray;
     }
 
-    async deleteSurvey(surveyIn) {
+    async deleteSurvey(surveyId) {
         const firebase = this.#firebase;
-        await firebase.firestore().collection("answers").doc(surveyIn.id).delete();
-        await firebase.firestore().collection("surveys").doc(surveyIn.id).delete();
+        await firebase.firestore().collection("answers").doc(surveyId).delete();
+        await firebase.firestore().collection("surveys").doc(surveyId).delete();
     }
 
     async getSurveyStats(surveyId) {
