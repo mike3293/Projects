@@ -19,7 +19,7 @@
                 <md-table-cell>{{user.login}}</md-table-cell>
                 <md-table-cell>{{user.nickName}}</md-table-cell>
                 <md-table-cell>{{user.role}}</md-table-cell>
-                <md-table-cell>{{dataToString(user.createDate)}}</md-table-cell>
+                <md-table-cell>{{user.createDate | dateToString}}</md-table-cell>
                 <md-table-cell>{{user.numberOfCreatedSurveys}}</md-table-cell>
                 <md-table-cell>
                     <button @click="edit(user)">edit</button>
@@ -76,6 +76,8 @@
 </style>
 
 <script>
+import { dateToString } from "@/shared/TextFormatter";
+
 export default {
     name: "UserList",
     components: {
@@ -92,15 +94,10 @@ export default {
     async created() {
         await this.getFirstPage();
     },
+    filters: {
+        dateToString: dateToString
+    },
     methods: {
-        dataToString(dateIn) {
-            const date = new Date(dateIn);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            return `${day < 10 ? "0" + day : day}.${
-                month < 10 ? "0" + month : month
-            }.${date.getFullYear()}`;
-        },
         async getFirstPage() {
             try {
                 this.$store.commit("setLoading", true);
