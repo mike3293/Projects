@@ -120,6 +120,7 @@
 
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
+import { mapState } from "vuex";
 
 export default {
     name: "UserAdd",
@@ -135,9 +136,7 @@ export default {
         async add(user) {
             try {
                 this.$store.commit("setLoading", true);
-                const res = this.$root.resource;
-                await this.$root.users.createUser(user, res);
-
+                await this.$root.users.createUser(user);
                 this.close();
             } catch (e) {
                 alert(e);
@@ -161,9 +160,7 @@ export default {
         }
     },
     computed: {
-        loading() {
-            return this.$store.state.loading;
-        },
+        ...mapState(["loading"]),
         check() {
             return this.$v.$anyError;
         }

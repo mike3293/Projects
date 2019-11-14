@@ -56,6 +56,7 @@
 </style>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: "sign-in",
     data: function() {
@@ -79,10 +80,6 @@ export default {
             }
         }
     },
-    computed: {
-        loading() {
-            return this.$store.state.loading;
-        }
-    }
+    computed: mapState(["loading"])
 };
 </script>

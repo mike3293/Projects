@@ -87,6 +87,7 @@
 
 <script>
 import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import { mapState } from "vuex";
 
 export default {
     name: "sign-up",
@@ -109,9 +110,7 @@ export default {
         }
     },
     computed: {
-        loading() {
-            return this.$store.state.loading;
-        },
+        ...mapState(["loading"]),
         check() {
             return this.$v.$anyError;
         }

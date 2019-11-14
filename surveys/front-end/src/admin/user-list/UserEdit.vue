@@ -78,6 +78,7 @@
 
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
+import { mapState } from "vuex";
 
 export default {
     name: "edit",
@@ -99,9 +100,7 @@ export default {
         }
     },
     computed: {
-        loading() {
-            return this.$store.state.loading;
-        },
+        ...mapState(["loading"]),
         check() {
             return this.$v.$anyError;
         }
