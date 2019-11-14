@@ -19,7 +19,7 @@
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../shared/components/button/button.css";
 .sign-in {
     &__form {

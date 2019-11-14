@@ -16,7 +16,6 @@
                 </md-table-cell>
                 <md-table-cell>
                     <div class="survey__actions">
-                        <!-- <button @click="edit(user)">edit</button> -->
                         <button @click="del(survey)">del</button>
                     </div>
                 </md-table-cell>

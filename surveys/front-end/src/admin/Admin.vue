@@ -45,7 +45,6 @@
 .admin-nav__link {
     width: 90%;
     text-transform: none;
-    // font-weight: 500;
     font-size: 17px;
     margin: auto;
     margin-top: 20px;

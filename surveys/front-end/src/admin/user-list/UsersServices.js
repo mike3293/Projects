@@ -10,7 +10,6 @@ export default class UsersServices {
 
     async getUsers(lastUser, pageSize, action) {
         const usersArray = await this.#resource.get("/get", { lastUser, pageSize, action });
-
         return usersArray;
     }
 

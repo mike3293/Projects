@@ -42,6 +42,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/shared/colors.scss";
+
 .background {
     position: fixed;
     z-index: 10;
@@ -49,7 +51,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: $blur-black;
     display: flex;
     justify-content: center;
     align-items: flex-start;

@@ -12,5 +12,4 @@ const appConfig = {
     ServerBaseUrl: "https://us-central1-vivid-cache-256107.cloudfunctions.net"
 }
 
-
 export default appConfig;

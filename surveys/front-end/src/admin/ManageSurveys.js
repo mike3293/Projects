@@ -41,12 +41,10 @@ export default class ManageSurveys {
     async deleteSurvey(surveyIn) {
         const firebase = this.#firebase;
         await firebase.firestore().collection("answers").doc(surveyIn.id).delete();
-
         await firebase.firestore().collection("surveys").doc(surveyIn.id).delete();
     }
 
     async getSurveyStats(surveyId) {
-
         const db = this.#firebase.firestore();
 
         const snapshot = await db.collection("answers").doc(surveyId).get();

@@ -52,21 +52,6 @@ export default class AuthServices {
         };
     }
 
-
-    // Feature to do
-    // var provider = new firebase.auth.GoogleAuthProvider();
-
-    // export const googleSignIn = function () {
-    //     firebase.auth().signInWithPopup(provider).then(function (result) {
-    //         // This gives you a Google Access Token. You can use it to access the Google API.
-    //         var token = result.credential.accessToken;
-    //         // The signed-in user info.
-    //         var user = result.user;
-    //         // ...
-    //         console.log(token + " " + user.email);
-    //     });
-    // }
-
     async signUp(email, password, name) {
         const firebase = this.#firebase;
 
@@ -81,13 +66,6 @@ export default class AuthServices {
             createDate: currentDateUnix,
             nickName: name
         });
-
-        // for (let i = 1; i < 10; i++) {           // add users
-        //     await firebase.auth().createUserWithEmailAndPassword(`user${i}@user.com`, password);
-        //     const currentDateUnix = (new Date()).valueOf();
-
-        //     firebase.firestore().collection("users").add({ login: `user${i}@user.com`, role: "user", createDate: currentDateUnix, nickName: `user${i}` });
-        // }
 
         return {
             email,

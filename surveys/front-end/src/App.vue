@@ -14,6 +14,7 @@
 </template>
 
 <style lang="scss">
+@import "@/shared/colors.scss";
 * {
     box-sizing: border-box;
 }
@@ -39,9 +40,8 @@ body {
         padding: 30px;
         text-align: right;
         text-decoration: underline;
-        background-color: rgb(255, 152, 0);
-        // border-bottom: 2px solid;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        background-color: $orange;
+        box-shadow: 0 0 10px $blur-black;
         &__name {
             font-weight: bold;
             margin-left: 10px;

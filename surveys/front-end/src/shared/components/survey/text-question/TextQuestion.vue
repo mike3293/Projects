@@ -11,7 +11,6 @@
                 <md-textarea v-model="question.answer" :md-autogrow="true"></md-textarea>
             </md-field>
             <md-card-actions class="question__actions">
-                <!-- <md-button :md-ripple="false">Save</md-button> -->
                 <md-button
                     :md-ripple="false"
                     @click="delQuestion(question.id)"

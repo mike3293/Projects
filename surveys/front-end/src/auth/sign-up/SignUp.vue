@@ -41,7 +41,8 @@
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "@/shared/colors.scss";
 .error {
     margin: 0;
     padding: 0;
@@ -80,7 +81,7 @@
     }
 }
 .notSame {
-    border-color: rgb(255, 131, 115);
+    border-color: $light-red;
 }
 </style>
 

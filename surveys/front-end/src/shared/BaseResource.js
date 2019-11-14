@@ -5,7 +5,6 @@ export default class BaseResource {
         this.getToken = getToken;
     }
 
-
     async post(URL, obj) {
         const token = this.getToken();
         await fetch(`${this.baseURL + URL}`, {
