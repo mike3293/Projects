@@ -13,7 +13,9 @@ export default class AuthServices {
                 async function (user) {
                     if (user) {
                         const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
-                        if (snapshot.docs[0]) {
+
+                        const userExist = snapshot.docs[0];
+                        if (userExist) {
                             const currentData = snapshot.docs[0].data();
 
                             const role = currentData.role;

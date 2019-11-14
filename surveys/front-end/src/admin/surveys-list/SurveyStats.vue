@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="md-title">Survey name: {{survey.name}}</div>
-        <div v-if="noAnswers" class="warning">No answers from users</div>
+        <div v-if="noAnswersExist" class="warning">No answers from users</div>
         <div
             class="stats survey__question-stats"
             :key="question.id"
@@ -76,7 +76,7 @@ export default {
         }
     },
     computed: {
-        noAnswers() {
+        noAnswersExist() {
             return !this.users[0];
         }
     }

@@ -55,7 +55,8 @@ export default {
         },
         async saveSurvey() {
             try {
-                if (this.questions[0]) {
+                const atLeastOneQuestionExist = this.questions[0];
+                if (atLeastOneQuestionExist) {
                     await this.$root.manageSurveys.saveSurvey(
                         this.name ? this.name : "DEFAULT",
                         this.questions,

@@ -1,5 +1,5 @@
 <template>
-    <main class="survey-list" v-if="surveys[0]">
+    <main class="survey-list" v-if="surveysIsLoaded">
         <md-table class="survey-list__table">
             <md-table-row>
                 <md-table-head class="name">Name</md-table-head>
@@ -112,15 +112,17 @@ export default {
             try {
                 this.$store.commit("setLoading", true);
                 const firstSurvey = this.surveys[0];
+                const pageIsFull = this.surveys[this.pageSize - 1];
 
-                if (this.surveys[this.pageSize - 1]) {
+                if (pageIsFull) {
                     const surveys = await this.$root.manageSurveys.getSurveys(
                         this.surveys[this.pageSize - 1],
                         this.pageSize,
                         "next"
                     );
+                    const atLeastOneSurveyExist = surveys[0];
 
-                    if (surveys[0]) {
+                    if (atLeastOneSurveyExist) {
                         this.surveys = surveys;
                         this.prevPageStart.push(firstSurvey);
                     }
@@ -134,7 +136,9 @@ export default {
         async prevPage() {
             try {
                 this.$store.commit("setLoading", true);
-                if (this.prevPageStart[0]) {
+                const IsNotFirstPage = this.prevPageStart[0];
+
+                if (IsNotFirstPage) {
                     this.surveys = await this.$root.manageSurveys.getSurveys(
                         this.prevPageStart.pop(),
                         this.pageSize,
@@ -163,6 +167,11 @@ export default {
         },
         nubmerOfUsersAnswers(survey) {
             return Object.keys(survey.answersForSurvey).length;
+        }
+    },
+    computed: {
+        surveysIsLoaded() {
+            return this.surveys[0];
         }
     }
 };

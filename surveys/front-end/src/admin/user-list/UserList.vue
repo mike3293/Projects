@@ -1,5 +1,5 @@
 <template>
-    <main class="user-list" v-if="users[0]">
+    <main class="user-list" v-if="atLeastOneUserExist">
         <md-table class="user-list__table">
             <md-table-row>
                 <md-table-head>Login</md-table-head>
@@ -175,6 +175,11 @@ export default {
         },
         async refreshTable() {
             await this.firstPage();
+        }
+    },
+    computed: {
+        atLeastOneUserExist() {
+            return this.users[0];
         }
     }
 };
