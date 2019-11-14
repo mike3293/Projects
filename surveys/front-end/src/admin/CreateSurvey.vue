@@ -6,7 +6,7 @@
         </md-field>
         <transition-group name="fade">
             <div class="builder__question" :key="question.id" v-for="question in questions">
-                <text-question :question="question" @del="delQuestion" />
+                <text-question :question="question" @delete="delQuestion" />
             </div>
         </transition-group>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="saveSurvey">Save</md-button>

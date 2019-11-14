@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         delQuestion(id) {
-            this.$emit("del", id);
+            this.$emit("delete", id);
         }
     }
 };

@@ -23,18 +23,18 @@
                 <md-table-cell>{{user.numberOfCreatedSurveys}}</md-table-cell>
                 <md-table-cell>
                     <button @click="edit(user)">edit</button>
-                    <button @click="del(user)">del</button>
+                    <button @click="deleteUser(user)">del</button>
                 </md-table-cell>
             </md-table-row>
         </md-table>
         <div class="user-list__pagination">
             <!-- <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button> -->
-            <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
-            <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="getPrevPage">Previous</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="getNextPage">Next</md-button>
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
-        <user-add v-show="isModalVisible" @close="closeModal(); refreshTable();" />
+        <user-add v-show="isModalVisible" @close="closeModal" />
     </main>
 </template>
 
@@ -90,7 +90,7 @@ export default {
         };
     },
     async created() {
-        await this.firstPage();
+        await this.getFirstPage();
     },
     methods: {
         dataToString(dateIn) {
@@ -101,7 +101,7 @@ export default {
                 month < 10 ? "0" + month : month
             }.${date.getFullYear()}`;
         },
-        async firstPage() {
+        async getFirstPage() {
             try {
                 this.$store.commit("setLoading", true);
                 this.users = await this.$root.users.getUsers(
@@ -115,7 +115,7 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         },
-        async nextPage() {
+        async getNextPage() {
             try {
                 this.$store.commit("setLoading", true);
                 const firstUser = this.users[0];
@@ -138,7 +138,7 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         },
-        async prevPage() {
+        async getPrevPage() {
             try {
                 this.$store.commit("setLoading", true);
                 if (this.prevPageStart[0]) {
@@ -157,7 +157,7 @@ export default {
         edit(user) {
             this.$router.push({ name: "edit", params: { user } });
         },
-        async del(user) {
+        async deleteUser(user) {
             try {
                 this.$store.commit("setLoading", true);
                 await this.$root.users.deleteUser(user);
@@ -170,11 +170,12 @@ export default {
         showModal() {
             this.isModalVisible = true;
         },
-        closeModal() {
+        async closeModal() {
             this.isModalVisible = false;
+            await this.refreshTable();
         },
         async refreshTable() {
-            await this.firstPage();
+            await this.getFirstPage();
         }
     },
     computed: {

@@ -16,14 +16,14 @@
                 </md-table-cell>
                 <md-table-cell>
                     <div class="survey__actions">
-                        <button @click="del(survey)">del</button>
+                        <button @click="deleteSurvey(survey)">del</button>
                     </div>
                 </md-table-cell>
             </md-table-row>
         </md-table>
         <div class="survey-list__pagination">
-            <md-button class="md-raised" :md-ripple="false" @click="prevPage">Previous</md-button>
-            <md-button class="md-raised" :md-ripple="false" @click="nextPage">Next</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="getPrevPage">Previous</md-button>
+            <md-button class="md-raised" :md-ripple="false" @click="getNextPage">Next</md-button>
         </div>
     </main>
 </template>
@@ -108,7 +108,7 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         },
-        async nextPage() {
+        async getNextPage() {
             try {
                 this.$store.commit("setLoading", true);
                 const firstSurvey = this.surveys[0];
@@ -133,7 +133,7 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         },
-        async prevPage() {
+        async getPrevPage() {
             try {
                 this.$store.commit("setLoading", true);
                 const IsNotFirstPage = this.prevPageStart[0];
@@ -151,7 +151,7 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         },
-        async del(survey) {
+        async deleteSurvey(survey) {
             try {
                 this.$store.commit("setLoading", true);
                 await this.$root.manageSurveys.deleteSurvey(survey.id);
