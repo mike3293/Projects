@@ -79,7 +79,7 @@
 export default {
     name: "UserList",
     components: {
-        UserAdd: () => import("@/admin/user-add/UserAdd.vue")
+        UserAdd: () => import("./UserAdd")
     },
     data: function() {
         return {

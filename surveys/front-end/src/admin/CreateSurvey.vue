@@ -37,7 +37,7 @@
 export default {
     name: "CreateSurvey",
     components: {
-        TextQuestion: () => import("@/shared/components/survey/text-question/TextQuestion.vue")
+        TextQuestion: () => import("@/shared/components/survey/TextQuestion")
     },
     data() {
         return {

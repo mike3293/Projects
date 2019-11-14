@@ -2,10 +2,18 @@
     <div class="sign-in">
         <form v-on:submit.prevent="signIn(login, password)" class="sign-in__form">
             <h3 class="sign-in__title">Sign in</h3>
-            <input required v-model="login" type="email" placeholder="Login" class="sign-in__input" />
+            <input
+                required
+                v-model="login"
+                autocomplete="username"
+                type="email"
+                placeholder="Login"
+                class="sign-in__input"
+            />
             <input
                 required
                 v-model="password"
+                autocomplete="current-password"
                 placeholder="Password"
                 class="sign-in__input"
                 type="password"
@@ -20,7 +28,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "../../shared/components/button/button.css";
+@import "../shared/components/button.css";
 .sign-in {
     &__form {
         max-width: 380px;

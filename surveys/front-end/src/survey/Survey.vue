@@ -24,8 +24,7 @@ export default {
     name: "Survey",
     props: ["survey"],
     components: {
-        TextQuestion: () =>
-            import("@/shared/components/survey/text-question/TextQuestion.vue")
+        TextQuestion: () => import("@/shared/components/survey/TextQuestion")
     },
     methods: {
         complete() {
