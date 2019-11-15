@@ -60,7 +60,7 @@ export default {
                     await this.$root.manageSurveys.saveSurvey(
                         this.name ? this.name : "DEFAULT",
                         this.questions,
-                        this.$store.state.login
+                        this.$store.state.auth.email
                     );
                     this.questions = [];
                     this.name = "";

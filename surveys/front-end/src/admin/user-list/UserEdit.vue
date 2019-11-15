@@ -33,7 +33,7 @@
             </select>
             <div class="edit-user__menu">
                 <button class="edit-user__button button" @click="goBack()">cancel</button>
-                <button class="edit-user__button button" :disabled="loading || check">update</button>
+                <button class="edit-user__button button" :disabled="isLoading || check">update</button>
             </div>
         </form>
     </div>
@@ -100,7 +100,9 @@ export default {
         }
     },
     computed: {
-        ...mapState(["loading"]),
+        ...mapState({
+            isLoading: state => state.common.isLoading
+        }),
         check() {
             return this.$v.$anyError;
         }

@@ -34,7 +34,7 @@
                         <option>admin</option>
                         <option>user</option>
                     </select>
-                    <button class="form__button" :disabled="loading || check">Add</button>
+                    <button class="form__button" :disabled="isLoading || check">Add</button>
                 </form>
             </section>
         </div>
@@ -160,7 +160,9 @@ export default {
         }
     },
     computed: {
-        ...mapState(["loading"]),
+        ...mapState({
+            isLoading: state => state.common.isLoading
+        }),
         check() {
             return this.$v.$anyError;
         }

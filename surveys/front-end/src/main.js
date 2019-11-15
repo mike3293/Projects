@@ -30,7 +30,7 @@ Vue.use(VueMaterial);
 Vue.config.productionTip = false;   // disable warning about working in dev mode
 
 const authService = new AuthServices(firebase);
-const baseResource = new BaseResource(appConfig.ServerBaseUrl, () => store.state.token);
+const baseResource = new BaseResource(appConfig.ServerBaseUrl, () => store.state.auth.token);
 const usersService = new UsersServices(firebase, baseResource);
 const manageSurveys = new ManageSurveys(firebase);
 const surveyServices = new SurveyServices(firebase);

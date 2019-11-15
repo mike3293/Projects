@@ -36,7 +36,7 @@
                 <p class="error" v-if="!$v.repeatPassword.sameAsPassword">not same</p>
             </div>
 
-            <button class="sign-up__button button" :disabled="loading || check">Sign up</button>
+            <button class="sign-up__button button" :disabled="isLoading || check">Sign up</button>
         </form>
     </div>
 </template>
@@ -110,7 +110,9 @@ export default {
         }
     },
     computed: {
-        ...mapState(["loading"]),
+        ...mapState({
+            isLoading: state => state.common.isLoading
+        }),
         check() {
             return this.$v.$anyError;
         }

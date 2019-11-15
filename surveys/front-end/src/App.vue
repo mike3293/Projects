@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <div class="app__progress-bar">
-            <md-progress-bar md-mode="indeterminate" v-if="loading"></md-progress-bar>
+            <md-progress-bar md-mode="indeterminate" v-if="isLoading"></md-progress-bar>
         </div>
         <nav class="nav">
             <router-link to="/about" class="nav__page-links" v-if="!showName">About</router-link>
@@ -80,8 +80,8 @@ export default {
         }
     },
     computed: mapState({
-        showName: state => state.name,
-        loading: state => state.loading,
+        showName: state => state.auth.name,
+        isLoading: state => state.common.isLoading,
         appIsLoaded: state => state.common.appIsLoaded
     })
 };

@@ -7,7 +7,7 @@
                 v-model="login"
                 autocomplete="username"
                 type="email"
-                placeholder="Login"
+                placeholder="Email"
                 class="sign-in__input"
             />
             <input
@@ -22,7 +22,7 @@
                 <router-link to="/sign-up">Sign up</router-link>
                 <router-link to="/">Password?</router-link>
             </div>
-            <button class="sign-in__button button" :disabled="loading">Sign in</button>
+            <button class="sign-in__button button" :disabled="isLoading">Sign in</button>
         </form>
     </div>
 </template>
@@ -85,6 +85,8 @@ export default {
             }
         }
     },
-    computed: mapState(["loading"])
+    computed: mapState({
+        isLoading: state => state.common.isLoading
+    })
 };
 </script>

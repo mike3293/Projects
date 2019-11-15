@@ -102,10 +102,10 @@ router.beforeEach(async function (to, from, next) {
     }
 
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    const isAuthenticated = store.state.login;
+    const isAuthenticated = store.state.auth.email;
 
     const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
-    const isAdmin = (store.state.role === "admin");
+    const isAdmin = (store.state.auth.role === "admin");
 
     if (requiresAuth && !isAuthenticated) {
         next("/");

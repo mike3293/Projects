@@ -7,29 +7,25 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         common: {
+            isLoading: false,
             appIsLoaded: false
         },
-        token: null,
-        login: null,
-        name: null,
-        loading: false,
-        role: null
+        auth: {
+            token: null,
+            email: null,
+            name: null,
+            role: null
+        }
     },
     mutations: {
         setUser(state, payload) {
-            state.login = payload.email;
-            state.name = payload.nickName;
-            state.role = payload.role;
-            state.token = payload.token;
-
-            // if (payload.role === "admin") {
-            //     router.push("/admin/users");
-            // } else if (payload.role === "user") {
-            //     router.push("/surveys");
-            // }
+            state.auth.email = payload.email;
+            state.auth.name = payload.nickName;
+            state.auth.role = payload.role;
+            state.auth.token = payload.token;
         },
         setLoading(state, payload) {
-            state.loading = payload;
+            state.common.isLoading = payload;
         }
     },
     actions: {
