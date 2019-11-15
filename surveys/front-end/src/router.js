@@ -90,8 +90,8 @@ router.beforeEach(async function (to, from, next) {
     if (!store.state.common.appIsLoaded) {
         try {
             store.commit("setLoading", true);
-            const user = await Vue.prototype.$auth.checkSignIn();
-            // const user = await authService.checkSignIn();
+            const user = await Vue.prototype.$auth.checkSignInOnLoad();
+            // const user = await authService.checkSignInOnLoad();
             store.dispatch("setUser", user);
         } catch (e) {
             console.log(e);
