@@ -8,7 +8,7 @@
             <router-link to="/" class="nav__page-links" v-if="!showName">Sign in</router-link>
             <router-link to="/" @click.native="signOut()" class="nav__name" v-if="showName">Sign out</router-link>
         </nav>
-        <router-view />
+        <router-view v-if="appIsLoaded" />
         <footer />
     </div>
 </template>
@@ -64,17 +64,6 @@ import { mapState } from "vuex";
 
 export default {
     name: "app",
-    async created() {
-        try {
-            this.$store.commit("setLoading", true);
-            const user = await this.$root.auth.checkSignIn();
-            this.$store.dispatch("setUser", user);
-        } catch (e) {
-            console.log(e);
-        } finally {
-            this.$store.commit("setLoading", false);
-        }
-    },
     methods: {
         async signOut() {
             try {
@@ -92,7 +81,8 @@ export default {
     },
     computed: mapState({
         showName: state => state.name,
-        loading: state => state.loading
+        loading: state => state.loading,
+        appIsLoaded: state => state.common.appIsLoaded
     })
 };
 </script>

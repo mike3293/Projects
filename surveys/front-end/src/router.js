@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store";
+// import { authService } from "./main";
 
 import Signin from "./auth/SignIn";
 
@@ -85,7 +86,21 @@ const router = new Router({
 
 export default router;
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async function (to, from, next) {
+    if (!store.state.common.appIsLoaded) {
+        try {
+            store.commit("setLoading", true);
+            const user = await Vue.prototype.$auth.checkSignIn();
+            // const user = await authService.checkSignIn();
+            store.dispatch("setUser", user);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            store.commit("setLoading", false);
+            store.state.common.appIsLoaded = true;
+        }
+    }
+
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const isAuthenticated = store.state.login;
 

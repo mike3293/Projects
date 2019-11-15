@@ -1,11 +1,14 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import router from "./router";
+//import router from "./router";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        common: {
+            appIsLoaded: false
+        },
         token: null,
         login: null,
         name: null,
@@ -19,11 +22,11 @@ export default new Vuex.Store({
             state.role = payload.role;
             state.token = payload.token;
 
-            if (payload.role === "admin") {
-                router.push("/admin/users");
-            } else if (payload.role === "user") {
-                router.push("/surveys");
-            }
+            // if (payload.role === "admin") {
+            //     router.push("/admin/users");
+            // } else if (payload.role === "user") {
+            //     router.push("/surveys");
+            // }
         },
         setLoading(state, payload) {
             state.loading = payload;
