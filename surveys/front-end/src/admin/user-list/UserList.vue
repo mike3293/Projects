@@ -22,7 +22,7 @@
                 <md-table-cell>{{user.createDate | dateToString}}</md-table-cell>
                 <md-table-cell>{{user.numberOfCreatedSurveys}}</md-table-cell>
                 <md-table-cell>
-                    <button @click="edit(user)">edit</button>
+                    <button @click="showModal(user)">edit</button>
                     <button @click="deleteUser(user)">del</button>
                 </md-table-cell>
             </md-table-row>
@@ -34,7 +34,7 @@
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
-        <user-add v-show="isModalVisible" @close="closeModal" />
+        <user-manage v-show="isModalVisible" :user="userToEdit" @close="closeModal" />
     </main>
 </template>
 
@@ -81,14 +81,19 @@ import { dateToString } from "@/shared/TextFormatter";
 export default {
     name: "UserList",
     components: {
-        UserAdd: () => import("./UserAdd")
+        UserManage: () => import("./UserAdd")
     },
     data: function() {
         return {
             users: [],
             pageSize: 5,
             prevPageStart: [],
-            isModalVisible: false
+            isModalVisible: false,
+            userToEdit: {
+                login: null,
+                role: null,
+                name: null
+            }
         };
     },
     async created() {
@@ -164,11 +169,17 @@ export default {
                 alert(e);
             }
         },
-        showModal() {
+        showModal(user) {
             this.isModalVisible = true;
+            alert(typeof user);
+            this.userToEdit =
+                typeof user == "object"
+                    ? user
+                    : { login: null, role: null, name: null };
         },
         async closeModal() {
             this.isModalVisible = false;
+            this.userToEdit = null;
             await this.refreshTable();
         },
         async refreshTable() {

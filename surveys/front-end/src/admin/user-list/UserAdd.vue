@@ -1,11 +1,14 @@
 <template>
     <modal :closeEvent="'close'">
-        <form v-on:submit.prevent="add({login, name, password, role})" class="form">
-            <input required v-model="name" placeholder="Name" class="form__input" />
+        <form
+            v-on:submit.prevent="add({login: user.login, name: user.nickName, password, role: user.role})"
+            class="form"
+        >
+            <input required v-model="user.nickName" placeholder="Name" class="form__input" />
             <div class="form__errors"></div>
             <input
                 required
-                v-model="login"
+                v-model="user.login"
                 placeholder="Login (email)"
                 type="email"
                 class="form__input"
@@ -20,7 +23,7 @@
                 >password must have at least 6 letters.</p>
             </div>
             <br />
-            <select v-model="role">
+            <select v-model="user.role">
                 <option>admin</option>
                 <option>user</option>
             </select>
@@ -115,6 +118,12 @@ export default {
     components: {
         Modal: () => import("@/shared/components/Modal")
     },
+    props: ["user"],
+    data: function() {
+        return {
+            password: ""
+        };
+    },
     methods: {
         close() {
             this.$emit("close");
@@ -135,14 +144,6 @@ export default {
             }
         }
     },
-    data: function() {
-        return {
-            login: "",
-            password: "",
-            name: "",
-            role: ""
-        };
-    },
     validations: {
         password: {
             required,
@@ -155,6 +156,9 @@ export default {
         }),
         check() {
             return this.$v.$anyError;
+        },
+        userProvided() {
+            return this.user;
         }
     }
 };
