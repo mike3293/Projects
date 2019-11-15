@@ -1,44 +1,32 @@
 <template>
-    <div class="background">
-        <div class="window">
-            <header class="window__header">
-                Add user
-                <button type="button" class="btn-close" @click="close">x</button>
-            </header>
-            <section class="content window__content">
-                <form v-on:submit.prevent="add({login, name, password, role})" class="form">
-                    <input required v-model="name" placeholder="Name" class="form__input" />
-                    <div class="form__errors"></div>
-                    <input
-                        required
-                        v-model="login"
-                        placeholder="Login (email)"
-                        type="email"
-                        class="form__input"
-                    />
-                    <div class="form__errors"></div>
-                    <input
-                        v-model.trim="$v.password.$model"
-                        placeholder="Password"
-                        class="form__input"
-                    />
-                    <div class="form__errors">
-                        <p class="error" v-if="!$v.password.required">this field is required</p>
-                        <p
-                            class="error"
-                            v-if="!$v.password.minLenght"
-                        >password must have at least 6 letters.</p>
-                    </div>
-                    <br />
-                    <select v-model="role">
-                        <option>admin</option>
-                        <option>user</option>
-                    </select>
-                    <button class="form__button" :disabled="isLoading || check">Add</button>
-                </form>
-            </section>
-        </div>
-    </div>
+    <modal :closeEvent="'close'">
+        <form v-on:submit.prevent="add({login, name, password, role})" class="form">
+            <input required v-model="name" placeholder="Name" class="form__input" />
+            <div class="form__errors"></div>
+            <input
+                required
+                v-model="login"
+                placeholder="Login (email)"
+                type="email"
+                class="form__input"
+            />
+            <div class="form__errors"></div>
+            <input v-model.trim="$v.password.$model" placeholder="Password" class="form__input" />
+            <div class="form__errors">
+                <p class="error" v-if="!$v.password.required">this field is required</p>
+                <p
+                    class="error"
+                    v-if="!$v.password.minLenght"
+                >password must have at least 6 letters.</p>
+            </div>
+            <br />
+            <select v-model="role">
+                <option>admin</option>
+                <option>user</option>
+            </select>
+            <button class="form__button" :disabled="isLoading || check">Add</button>
+        </form>
+    </modal>
 </template>
 
 <style lang="scss" scoped>
@@ -124,7 +112,9 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserAdd",
-
+    components: {
+        Modal: () => import("@/shared/components/Modal")
+    },
     methods: {
         close() {
             this.$emit("close");
