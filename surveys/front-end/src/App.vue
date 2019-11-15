@@ -68,7 +68,7 @@ export default {
         async signOut() {
             try {
                 await this.$root.auth.signOut();
-                this.$store.dispatch("setUser", {
+                this.$store.commit("setUser", {
                     email: null,
                     nickName: null,
                     role: null,

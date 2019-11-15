@@ -124,7 +124,7 @@ export default {
 
                 let res = await this.$root.auth.signUp(...args);
 
-                this.$store.dispatch("setUser", res);
+                this.$store.commit("setUser", res);
 
                 if (res.role === "admin") {
                     this.$router.push({ name: "users" });

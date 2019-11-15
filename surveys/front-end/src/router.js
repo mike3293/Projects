@@ -92,12 +92,12 @@ router.beforeEach(async function (to, from, next) {
             store.commit("setLoading", true);
             const user = await Vue.prototype.$auth.checkSignInOnLoad();
             // const user = await authService.checkSignInOnLoad();
-            store.dispatch("setUser", user);
+            store.commit("setUser", user);
         } catch (e) {
             console.log(e);
         } finally {
             store.commit("setLoading", false);
-            store.state.common.appIsLoaded = true;
+            store.commit("setAppIsLoaded", true);
         }
     }
 
