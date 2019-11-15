@@ -11,6 +11,15 @@
         </transition-group>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="saveSurvey">Save</md-button>
         <md-button class="md-raised" :md-ripple="false" @click="addQuestion">Add question</md-button>
+        <md-snackbar
+            :md-position="'center'"
+            :md-duration="3000"
+            :md-active.sync="showSnackbar"
+            md-persistent
+        >
+            <span>Add at least one question</span>
+            <md-button class="md-primary" @click="showSnackbar = false">OK</md-button>
+        </md-snackbar>
     </div>
 </template>
 <style lang="scss">
@@ -42,13 +51,14 @@ export default {
     data() {
         return {
             questions: [],
-            name: ""
+            name: "",
+            showSnackbar: false
         };
     },
     methods: {
         addQuestion() {
             this.questions.push({
-                id: this.questions.length + 1,
+                id: this.questions.length,
                 label: "",
                 answer: ""
             });
@@ -65,15 +75,15 @@ export default {
                     this.questions = [];
                     this.name = "";
                 } else {
-                    throw Error("Create at least one question");
+                    this.showSnackbar = true;
                 }
             } catch (e) {
                 alert(e);
             }
         },
         delQuestion(questionId) {
-            this.questions.splice(questionId - 1, 1);
-            for (let i = questionId - 1; i < this.questions.length; i++) {
+            this.questions.splice(questionId, 1);
+            for (let i = questionId; i < this.questions.length; i++) {
                 this.questions[i].id -= 1;
             }
         }

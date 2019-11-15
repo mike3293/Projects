@@ -2,7 +2,7 @@
     <md-card class="question">
         <md-card-content>
             <div class="md-layout">
-                <span>{{question.id}}.</span>
+                <span>{{question.id + 1}}.</span>
                 <input class="question__label" v-model="question.label" v-if="mode != 'fixed'" />
                 <span v-if="mode == 'fixed'">{{question.label}}</span>
             </div>
