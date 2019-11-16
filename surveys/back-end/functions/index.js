@@ -7,7 +7,7 @@ const auth = admin.auth();
 
 const db = admin.firestore();
 
-const whitelist = ["http://localhost:8080", "https://mike3293.github.io"];
+const whitelist = ["http://localhost:8081", "https://mike3293.github.io"];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -26,8 +26,9 @@ const cors = require("cors")(corsOptions);
 
 async function edit(req, res, decodedUser) {
     const email = req.body.email;
+    console.log(email);
     const userAuth = await auth.getUserByEmail(email);
-
+    console.log(userAuth.uid);
     await auth.updateUser(userAuth.uid, {
         password: req.body.password,
         email: req.body.newEmail

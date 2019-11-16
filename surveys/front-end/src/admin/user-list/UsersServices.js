@@ -14,12 +14,12 @@ export default class UsersServices {
     }
 
     async deleteUser(user) {
-        await this.#resource.post("/delete", { email: user.login });
-
         const firebase = this.#firebase;
         const id = `${user.id}`;
 
         await firebase.firestore().collection("users").doc(id).delete();
+
+        await this.#resource.post("/delete", { email: user.login });
     }
 
     async editUser(user) {
@@ -43,7 +43,7 @@ export default class UsersServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.name });
+        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.nickName });
 
     }
 }

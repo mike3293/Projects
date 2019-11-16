@@ -1,7 +1,7 @@
 <template>
     <modal :closeEvent="'close'">
         <form
-            v-on:submit.prevent="add({login: user.login, name: user.nickName, password, role: user.role})"
+            v-on:submit.prevent="manage({login: user.login, password, nickName: user.nickName, role: user.role, oldLogin: user.oldLogin, id: user.id})"
             class="form"
         >
             <input required v-model="user.nickName" placeholder="Name" class="form__input" />
@@ -115,10 +115,10 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserAdd",
+    props: ["user", "mode"],
     components: {
         Modal: () => import("@/shared/components/Modal")
     },
-    props: ["user"],
     data: function() {
         return {
             password: ""
@@ -127,15 +127,17 @@ export default {
     methods: {
         close() {
             this.$emit("close");
-            this.login = "";
-            this.password = "";
-            this.name = "";
-            this.role = "";
+            this.password = null;
         },
-        async add(user) {
+        async manage(user) {
             try {
                 this.$store.commit("setLoading", true);
-                await this.$root.users.createUser(user);
+                if (this.mode === "add") {
+                    await this.$root.users.createUser(user);
+                }
+                if (this.mode === "edit") {
+                    await this.$root.users.editUser(user);
+                }
                 this.close();
             } catch (e) {
                 alert(e);
@@ -156,9 +158,6 @@ export default {
         }),
         check() {
             return this.$v.$anyError;
-        },
-        userProvided() {
-            return this.user;
         }
     }
 };
