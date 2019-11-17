@@ -7,7 +7,7 @@ const auth = admin.auth();
 
 const db = admin.firestore();
 
-const whitelist = ["http://localhost:8081", "https://mike3293.github.io"];
+const whitelist = ["http://localhost:8080", "http://localhost:8081", "https://mike3293.github.io"];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -26,9 +26,8 @@ const cors = require("cors")(corsOptions);
 
 async function edit(req, res, decodedUser) {
     const email = req.body.email;
-    console.log(email);
     const userAuth = await auth.getUserByEmail(email);
-    console.log(userAuth.uid);
+
     await auth.updateUser(userAuth.uid, {
         password: req.body.password,
         email: req.body.newEmail
@@ -69,19 +68,24 @@ async function getUsers(req, res) {
 
     const usersArray = [];
 
-    let query = db.collection("users").orderBy("login");
+    let query = db.collection("users");
 
     if (action === "next") {
-        query = query.startAfter(lastUser);
+        query = query.orderBy("login").startAfter(lastUser).limit(pageSize);
     }
     else if (action === "prev") {
-        query = query.startAt(lastUser);
+        query = query.orderBy("login", "desc").startAfter(lastUser).limit(pageSize);
     }
-    else if (!(action === "first")) {
-        throw Error("Invalid args");
+    else if (action === "first") {
+        query = query.orderBy("login").limit(pageSize);
+    }
+    else if (action === "last") {
+        const allUsersAuth = await auth.listUsers();
+        const numberOfUsers = allUsersAuth.users.length;
+        query = query.orderBy("login", "desc").limit(numberOfUsers % pageSize);
     }
 
-    const snapshot = await query.limit(pageSize).get();
+    const snapshot = await query.get();
 
     for (let user of snapshot.docs) {
         const data = user.data();
@@ -91,6 +95,10 @@ async function getUsers(req, res) {
         data.numberOfCreatedSurveys = surveysSnapshot.size;
 
         usersArray.push(data);
+    }
+
+    if (action === "last" || action === "prev") {
+        usersArray.reverse();
     }
 
     console.log(JSON.stringify(usersArray));

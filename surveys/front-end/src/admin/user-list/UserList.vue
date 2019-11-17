@@ -28,10 +28,10 @@
             </md-table-row>
         </md-table>
         <div class="user-list__pagination">
-            <!-- <md-button class="md-raised" :md-ripple="false" @click="firstPage">First</md-button> -->
+            <md-button class="md-primary" :md-ripple="false" @click="getFirstPage">First</md-button>
             <md-button class="md-raised" :md-ripple="false" @click="getPrevPage">Previous</md-button>
             <md-button class="md-raised" :md-ripple="false" @click="getNextPage">Next</md-button>
-            <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
+            <md-button class="md-primary" :md-ripple="false" @click="getLastPage">Last</md-button>
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="add">Add user</md-button>
         <user-manage v-show="isModalVisible" :user="userToEdit" @close="closeModal" />
@@ -87,7 +87,7 @@ export default {
         return {
             users: [],
             pageSize: 5,
-            prevPageStart: [],
+            //prevPageStart: [],
             isModalVisible: false,
             userToEdit: {
                 login: null,
@@ -122,7 +122,7 @@ export default {
         async getNextPage() {
             try {
                 this.$store.commit("setLoading", true);
-                const firstUser = this.users[0];
+                //const firstUser = this.users[0];
 
                 if (this.users[this.pageSize - 1]) {
                     const users = await this.$root.users.getUsers(
@@ -133,7 +133,7 @@ export default {
 
                     if (users[0]) {
                         this.users = users;
-                        this.prevPageStart.push(firstUser.login);
+                        // this.prevPageStart.push(firstUser.login);
                     }
                 }
             } catch (e) {
@@ -145,13 +145,29 @@ export default {
         async getPrevPage() {
             try {
                 this.$store.commit("setLoading", true);
-                if (this.prevPageStart[0]) {
-                    this.users = await this.$root.users.getUsers(
-                        this.prevPageStart.pop(),
-                        this.pageSize,
-                        "prev"
-                    );
+
+                const users = await this.$root.users.getUsers(
+                    this.users[0].login,
+                    this.pageSize,
+                    "prev"
+                );
+                if (users[0]) {
+                    this.users = users;
                 }
+            } catch (e) {
+                alert(e);
+            } finally {
+                this.$store.commit("setLoading", false);
+            }
+        },
+        async getLastPage() {
+            try {
+                this.$store.commit("setLoading", true);
+                this.users = await this.$root.users.getUsers(
+                    null,
+                    this.pageSize,
+                    "last"
+                );
             } catch (e) {
                 alert(e);
             } finally {
