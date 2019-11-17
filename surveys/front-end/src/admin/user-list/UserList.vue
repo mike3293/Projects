@@ -34,12 +34,7 @@
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="add">Add user</md-button>
-        <user-manage
-            v-show="isModalVisible"
-            :mode="currentMode"
-            :user="userToEdit"
-            @close="closeModal"
-        />
+        <user-manage v-show="isModalVisible" :user="userToEdit" @close="closeModal" />
     </main>
 </template>
 
@@ -94,7 +89,6 @@ export default {
             pageSize: 5,
             prevPageStart: [],
             isModalVisible: false,
-            currentMode: null,
             userToEdit: {
                 login: null,
                 role: null,
@@ -165,7 +159,6 @@ export default {
             }
         },
         edit(user) {
-            this.currentMode = "edit";
             this.userToEdit = {
                 login: user.login,
                 role: user.role,
@@ -187,8 +180,13 @@ export default {
         },
         add() {
             this.isModalVisible = true;
-            this.currentMode = "add";
-            this.userToEdit = { login: null, role: null, nickName: null };
+            this.userToEdit = {
+                login: null,
+                role: null,
+                oldLogin: null,
+                nickName: null,
+                id: null
+            };
         },
         async closeModal() {
             this.isModalVisible = false;

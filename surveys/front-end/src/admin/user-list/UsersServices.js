@@ -43,7 +43,7 @@ export default class UsersServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.nickName });
+        await firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.nickName });
 
     }
 }

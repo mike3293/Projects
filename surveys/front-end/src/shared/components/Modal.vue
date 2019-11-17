@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         close() {
-            this.$parent.$emit(this.closeEvent);
+            this.$emit(this.closeEvent);
         }
     }
 };

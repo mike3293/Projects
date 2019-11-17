@@ -1,5 +1,5 @@
 <template>
-    <modal :closeEvent="'close'">
+    <modal :closeEvent="'close'" @close="close">
         <form
             v-on:submit.prevent="manage({login: user.login, password, nickName: user.nickName, role: user.role, oldLogin: user.oldLogin, id: user.id})"
             class="form"
@@ -115,7 +115,7 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserAdd",
-    props: ["user", "mode"],
+    props: ["user"],
     components: {
         Modal: () => import("@/shared/components/Modal")
     },
@@ -132,11 +132,11 @@ export default {
         async manage(user) {
             try {
                 this.$store.commit("setLoading", true);
-                if (this.mode === "add") {
-                    await this.$root.users.createUser(user);
-                }
-                if (this.mode === "edit") {
+                const currentModeIsEdit = this.user.oldLogin;
+                if (currentModeIsEdit) {
                     await this.$root.users.editUser(user);
+                } else {
+                    await this.$root.users.createUser(user);
                 }
                 this.close();
             } catch (e) {
