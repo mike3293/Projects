@@ -24,7 +24,7 @@ npm run build
 npm run lint
 ```
 
-### deploy to https://mike3293.github.io/
+### deploy to https://vue-surveys.web.app
 
 ```
 npm run deploy
