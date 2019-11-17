@@ -32,12 +32,6 @@ const router = new Router({
                     component: () => import("./admin/user-list/UserList")
                 },
                 {
-                    path: "users/edit",
-                    name: "edit",
-                    props: true,
-                    component: () => import("./admin/user-list/UserEdit")
-                },
-                {
                     path: "create-survey",
                     name: "create-survey",
                     component: () => import("./admin/CreateSurvey")

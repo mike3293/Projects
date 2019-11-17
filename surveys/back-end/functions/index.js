@@ -7,7 +7,7 @@ const auth = admin.auth();
 
 const db = admin.firestore();
 
-const whitelist = ["http://localhost:8080", "https://mike3293.github.io"];
+const whitelist = ["http://localhost:8081", "https://mike3293.github.io"];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -26,8 +26,9 @@ const cors = require("cors")(corsOptions);
 
 async function edit(req, res, decodedUser) {
     const email = req.body.email;
+    console.log(email);
     const userAuth = await auth.getUserByEmail(email);
-
+    console.log(userAuth.uid);
     await auth.updateUser(userAuth.uid, {
         password: req.body.password,
         email: req.body.newEmail
@@ -97,11 +98,11 @@ async function getUsers(req, res) {
     res.end();
 }
 
-function decorateAllProperties(functions, cors, auth, onRequest) {
+function decorateAllProperties(functionsToDecorate, cors, auth, onRequest) {
     const decoratedFunctions = {};
 
-    for (let key in functions) {
-        let func = functions[key];
+    for (let key in functionsToDecorate) {
+        let func = functionsToDecorate[key];
         let funcWithAuth = async function (req, res) {
             const decodedUser = await auth.verifyIdToken(req.get("Authorization"));
             func(req, res, decodedUser);
@@ -126,6 +127,6 @@ const exportedFunctions = {
     get: getUsers
 };
 
-const exportedFunctionsWithAuthWithCorsWithOnRequest = decorateAllProperties(exportedFunctions, cors, auth, functions.https.onRequest);
+const exportedFunctionsWithAuthWithCorsWithOnRequest = decorateAllProperties(exportedFunctions, cors, auth, functions.region('europe-west1').https.onRequest);
 
 module.exports = exportedFunctionsWithAuthWithCorsWithOnRequest;

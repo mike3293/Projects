@@ -1,11 +1,14 @@
 <template>
-    <modal :closeEvent="'close'">
-        <form v-on:submit.prevent="add({login, name, password, role})" class="form">
-            <input required v-model="name" placeholder="Name" class="form__input" />
+    <modal :closeEvent="'close'" @close="close">
+        <form
+            v-on:submit.prevent="manage({login: user.login, password, nickName: user.nickName, role: user.role, oldLogin: user.oldLogin, id: user.id})"
+            class="form"
+        >
+            <input required v-model="user.nickName" placeholder="Name" class="form__input" />
             <div class="form__errors"></div>
             <input
                 required
-                v-model="login"
+                v-model="user.login"
                 placeholder="Login (email)"
                 type="email"
                 class="form__input"
@@ -20,7 +23,7 @@
                 >password must have at least 6 letters.</p>
             </div>
             <br />
-            <select v-model="role">
+            <select v-model="user.role">
                 <option>admin</option>
                 <option>user</option>
             </select>
@@ -112,21 +115,29 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserAdd",
+    props: ["user"],
     components: {
         Modal: () => import("@/shared/components/Modal")
+    },
+    data: function() {
+        return {
+            password: ""
+        };
     },
     methods: {
         close() {
             this.$emit("close");
-            this.login = "";
-            this.password = "";
-            this.name = "";
-            this.role = "";
+            this.password = null;
         },
-        async add(user) {
+        async manage(user) {
             try {
                 this.$store.commit("setLoading", true);
-                await this.$root.users.createUser(user);
+                const currentModeIsEdit = this.user.oldLogin;
+                if (currentModeIsEdit) {
+                    await this.$root.users.editUser(user);
+                } else {
+                    await this.$root.users.createUser(user);
+                }
                 this.close();
             } catch (e) {
                 alert(e);
@@ -134,14 +145,6 @@ export default {
                 this.$store.commit("setLoading", false);
             }
         }
-    },
-    data: function() {
-        return {
-            login: "",
-            password: "",
-            name: "",
-            role: ""
-        };
     },
     validations: {
         password: {

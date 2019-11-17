@@ -33,8 +33,8 @@
             <md-button class="md-raised" :md-ripple="false" @click="getNextPage">Next</md-button>
             <!-- <md-button class="md-raised" :md-ripple="false" @click="lastPage">Last</md-button> -->
         </div>
-        <md-button class="md-raised md-accent" :md-ripple="false" @click="showModal">Add user</md-button>
-        <user-add v-show="isModalVisible" @close="closeModal" />
+        <md-button class="md-raised md-accent" :md-ripple="false" @click="add">Add user</md-button>
+        <user-manage v-show="isModalVisible" :user="userToEdit" @close="closeModal" />
     </main>
 </template>
 
@@ -81,14 +81,21 @@ import { dateToString } from "@/shared/TextFormatter";
 export default {
     name: "UserList",
     components: {
-        UserAdd: () => import("./UserAdd")
+        UserManage: () => import("./UserManage")
     },
     data: function() {
         return {
             users: [],
             pageSize: 5,
             prevPageStart: [],
-            isModalVisible: false
+            isModalVisible: false,
+            userToEdit: {
+                login: null,
+                role: null,
+                oldLogin: null,
+                nickName: null,
+                id: null
+            }
         };
     },
     async created() {
@@ -152,7 +159,14 @@ export default {
             }
         },
         edit(user) {
-            this.$router.push({ name: "edit", params: { user } });
+            this.userToEdit = {
+                login: user.login,
+                role: user.role,
+                oldLogin: user.login,
+                nickName: user.nickName,
+                id: user.id
+            };
+            this.isModalVisible = true;
         },
         async deleteUser(user) {
             try {
@@ -164,8 +178,15 @@ export default {
                 alert(e);
             }
         },
-        showModal() {
+        add() {
             this.isModalVisible = true;
+            this.userToEdit = {
+                login: null,
+                role: null,
+                oldLogin: null,
+                nickName: null,
+                id: null
+            };
         },
         async closeModal() {
             this.isModalVisible = false;

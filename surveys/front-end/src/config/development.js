@@ -9,7 +9,7 @@ const appConfig = {
         appId: "1:240625381905:web:9c7b39efef4198d832f7b0",
         measurementId: "G-0ZX38ZPZ5H"
     },
-    ServerBaseUrl: "https://us-central1-vivid-cache-256107.cloudfunctions.net"
+    ServerBaseUrl: "https://europe-west1-vivid-cache-256107.cloudfunctions.net"
 }
 
 export default appConfig;
