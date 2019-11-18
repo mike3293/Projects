@@ -96,7 +96,7 @@ export default {
         },
         async getFirstPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 this.surveys = await this.$root.manageSurveys.getSurveys(
                     null,
                     this.pageSize,
@@ -105,12 +105,12 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async getNextPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 const firstSurvey = this.surveys[0];
                 const pageIsFull = this.surveys[this.pageSize - 1];
 
@@ -130,12 +130,12 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async getPrevPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 const IsNotFirstPage = this.prevPageStart[0];
 
                 if (IsNotFirstPage) {
@@ -148,18 +148,18 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async deleteSurvey(survey) {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 await this.$root.manageSurveys.deleteSurvey(survey.id);
                 await this.refreshTable();
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async refreshTable() {

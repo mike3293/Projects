@@ -83,15 +83,15 @@ export default router;
 router.beforeEach(async function (to, from, next) {
     if (!store.state.common.appIsLoaded) {
         try {
-            store.commit("setLoading", true);
+            store.commit("common/setLoading", true);
             const user = await Vue.prototype.$auth.checkSignInOnLoad();
             // const user = await authService.checkSignInOnLoad();
-            store.commit("setUser", user);
+            store.commit("auth/setUser", user);
         } catch (e) {
             console.log(e);
         } finally {
-            store.commit("setLoading", false);
-            store.commit("setAppIsLoaded", true);
+            store.commit("common/setLoading", false);
+            store.commit("common/setAppIsLoaded", true);
         }
     }
 

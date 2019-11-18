@@ -46,9 +46,9 @@ export default {
     },
     methods: {
         async load() {
-            this.$store.commit("setLoading", true);
+            this.$store.commit("common/setLoading", true);
             this.surveys = await this.$root.surveys.loadList();
-            this.$store.commit("setLoading", false);
+            this.$store.commit("common/setLoading", false);
         },
         pass(survey) {
             this.$router.push({

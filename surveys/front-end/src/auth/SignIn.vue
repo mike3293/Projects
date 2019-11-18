@@ -68,11 +68,11 @@ export default {
     methods: {
         async signIn(...args) {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
 
                 let res = await this.$root.auth.signIn(...args);
 
-                this.$store.commit("setUser", res);
+                this.$store.commit("auth/setUser", res);
                 if (res.role === "admin") {
                     this.$router.push({ name: "users" });
                 } else if (res.role === "user") {
@@ -81,7 +81,7 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         }
     },

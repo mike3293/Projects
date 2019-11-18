@@ -139,7 +139,7 @@ export default {
         },
         async manage(user) {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 if (this.currentModeIsEdit) {
                     await this.$root.users.editUser(user);
                 } else {
@@ -149,7 +149,7 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         }
     },

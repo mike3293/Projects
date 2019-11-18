@@ -5,30 +5,50 @@ import Vuex from "vuex"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
+    // state: {
+    //     common: {
+    //         isLoading: false,
+    //         appIsLoaded: false
+    //     },
+    //     auth: {
+    //         token: null,
+    //         email: null,
+    //         name: null,
+    //         role: null
+    //     }
+    // },
+    modules: {
         common: {
-            isLoading: false,
-            appIsLoaded: false
+            namespaced: true,
+            state: {
+                isLoading: false,
+                appIsLoaded: false
+            },
+            mutations: {
+                setLoading(state, payload) {
+                    state.isLoading = payload;
+                },
+                setAppIsLoaded(state, payload) {
+                    state.appIsLoaded = payload;
+                }
+            }
         },
         auth: {
-            token: null,
-            email: null,
-            name: null,
-            role: null
-        }
-    },
-    mutations: {
-        setLoading(state, payload) {
-            state.common.isLoading = payload;
-        },
-        setAppIsLoaded(state, payload) {
-            state.common.appIsLoaded = payload;
-        },
-        setUser(state, payload) {
-            state.auth.email = payload.email;
-            state.auth.name = payload.nickName;
-            state.auth.role = payload.role;
-            state.auth.token = payload.token;
+            namespaced: true,
+            state: {
+                token: null,
+                email: null,
+                name: null,
+                role: null
+            },
+            mutations: {
+                setUser(state, payload) {
+                    state.email = payload.email;
+                    state.name = payload.nickName;
+                    state.role = payload.role;
+                    state.token = payload.token;
+                }
+            }
         }
     }
-})
+});

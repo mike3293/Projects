@@ -68,7 +68,7 @@ export default {
         async signOut() {
             try {
                 await this.$root.auth.signOut();
-                this.$store.commit("setUser", {
+                this.$store.commit("auth/setUser", {
                     email: null,
                     nickName: null,
                     role: null,
@@ -79,10 +79,14 @@ export default {
             }
         }
     },
-    computed: mapState({
-        showName: state => state.auth.name,
-        isLoading: state => state.common.isLoading,
-        appIsLoaded: state => state.common.appIsLoaded
-    })
+    computed: {
+        ...mapState("common", {
+            isLoading: state => state.isLoading,
+            appIsLoaded: state => state.appIsLoaded
+        }),
+        showName() {
+            return this.$store.state.auth.name;
+        }
+    }
 };
 </script>

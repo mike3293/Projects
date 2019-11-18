@@ -107,7 +107,7 @@ export default {
     methods: {
         async getFirstPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 this.users = await this.$root.users.getUsers(
                     null,
                     this.pageSize,
@@ -116,12 +116,12 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async getNextPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 //const firstUser = this.users[0];
 
                 if (this.users[this.pageSize - 1]) {
@@ -139,12 +139,12 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async getPrevPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
 
                 const users = await this.$root.users.getUsers(
                     this.users[0].login,
@@ -157,12 +157,12 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         async getLastPage() {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 this.users = await this.$root.users.getUsers(
                     null,
                     this.pageSize,
@@ -171,7 +171,7 @@ export default {
             } catch (e) {
                 alert(e);
             } finally {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
             }
         },
         edit(user) {
@@ -186,11 +186,11 @@ export default {
         },
         async deleteUser(user) {
             try {
-                this.$store.commit("setLoading", true);
+                this.$store.commit("common/setLoading", true);
                 await this.$root.users.deleteUser(user);
                 await this.refreshTable();
             } catch (e) {
-                this.$store.commit("setLoading", false);
+                this.$store.commit("common/setLoading", false);
                 alert(e);
             }
         },
