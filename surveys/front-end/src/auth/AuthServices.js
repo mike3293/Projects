@@ -8,30 +8,31 @@ export default class AuthServices {
     async checkSignInOnLoad() {
         const firebase = this.#firebase;
 
-        return new Promise(function (resolve, reject) {
-            firebase.auth().onAuthStateChanged(
-                async function (user) {
-                    if (user) {
-                        const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
+        return new Promise((resolve, reject) => {
+            const unsubscribe = firebase.auth().onAuthStateChanged(async function (user) {
+                unsubscribe();
+                console.log(user);
+                if (user) {
+                    const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
 
-                        const userExist = snapshot.docs[0];
-                        if (userExist) {
-                            const currentData = snapshot.docs[0].data();
+                    const userExist = snapshot.docs[0];
+                    if (userExist) {
+                        const currentData = snapshot.docs[0].data();
 
-                            const role = currentData.role;
-                            const nickName = currentData.nickName;
-                            const token = await user.getIdToken(true);
-                            resolve({
-                                email: user.email,
-                                role,
-                                nickName,
-                                token
-                            });
-                        }
+                        const role = currentData.role;
+                        const nickName = currentData.nickName;
+                        const token = await user.getIdToken(true);
+                        resolve({
+                            email: user.email,
+                            role,
+                            nickName,
+                            token
+                        });
                     }
-                    reject("No auth, need sign in");
                 }
-            );
+                reject("No auth, need sign in");
+
+            });
         });
     }
 
