@@ -2,7 +2,7 @@
     <div class="background">
         <div class="window">
             <header class="window__header">
-                Add user
+                {{title}}
                 <button type="button" class="btn-close" @click="close">x</button>
             </header>
             <section class="content window__content">
@@ -65,7 +65,8 @@
 export default {
     name: "modal",
     props: {
-        closeEvent: String
+        closeEvent: String,
+        title: String
     },
     methods: {
         close() {

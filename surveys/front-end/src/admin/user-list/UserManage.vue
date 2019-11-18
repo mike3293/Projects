@@ -1,5 +1,5 @@
 <template>
-    <modal :closeEvent="'close'" @close="close">
+    <modal :title="currentTitle" :closeEvent="'close'" @close="close">
         <form
             v-on:submit.prevent="manage({login: user.login, password, nickName: user.nickName, role: user.role, oldLogin: user.oldLogin, id: user.id})"
             class="form"
@@ -14,7 +14,12 @@
                 class="form__input"
             />
             <div class="form__errors"></div>
-            <input v-model.trim="$v.password.$model" placeholder="Password" class="form__input" />
+            <input
+                v-model.trim="$v.password.$model"
+                placeholder="Password"
+                required
+                class="form__input"
+            />
             <div class="form__errors">
                 <p class="error" v-if="!$v.password.required">this field is required</p>
                 <p
@@ -23,11 +28,14 @@
                 >password must have at least 6 letters.</p>
             </div>
             <br />
-            <select v-model="user.role">
+            <select required v-model="user.role">
                 <option>admin</option>
                 <option>user</option>
             </select>
-            <button class="form__button" :disabled="isLoading || check">Add</button>
+            <button class="form__button" :disabled="isLoading || check">
+                <span v-if="!currentModeIsEdit">Add</span>
+                <span v-if="currentModeIsEdit">Update</span>
+            </button>
         </form>
     </modal>
 </template>
@@ -114,7 +122,7 @@ import { required, minLength } from "vuelidate/lib/validators";
 import { mapState } from "vuex";
 
 export default {
-    name: "UserAdd",
+    name: "UserManage",
     props: ["user"],
     components: {
         Modal: () => import("@/shared/components/Modal")
@@ -132,8 +140,7 @@ export default {
         async manage(user) {
             try {
                 this.$store.commit("setLoading", true);
-                const currentModeIsEdit = this.user.oldLogin;
-                if (currentModeIsEdit) {
+                if (this.currentModeIsEdit) {
                     await this.$root.users.editUser(user);
                 } else {
                     await this.$root.users.createUser(user);
@@ -158,6 +165,16 @@ export default {
         }),
         check() {
             return this.$v.$anyError;
+        },
+        currentModeIsEdit() {
+            return this.user.oldLogin;
+        },
+        currentTitle() {
+            if (this.currentModeIsEdit) {
+                return "Edit user";
+            } else {
+                return "Add user";
+            }
         }
     }
 };
