@@ -64,28 +64,31 @@ async function add(req, res, decodedUser) {
 async function getUsers(req, res) {
     let lastUser = req.body.lastUser;
     const pageSize = req.body.pageSize;
-    const action = req.body.action;
+    let action = req.body.action;
 
     const usersArray = [];
 
     let query = db.collection("users");
 
     if (action === "next") {
-        query = query.orderBy("login").startAfter(lastUser).limit(pageSize);
+        query = query.orderBy("login").startAfter(lastUser);
     }
     else if (action === "prev") {
-        query = query.orderBy("login", "desc").startAfter(lastUser).limit(pageSize);
+        query = query.orderBy("login", "desc").startAfter(lastUser);
     }
     else if (action === "first") {
-        query = query.orderBy("login").limit(pageSize);
+        query = query.orderBy("login");
     }
     else if (action === "last") {
-        const allUsersAuth = await auth.listUsers();
-        const numberOfUsers = allUsersAuth.users.length;
-        query = query.orderBy("login", "desc").limit(numberOfUsers % pageSize);
+        query = query.orderBy("login", "desc");
     }
 
-    const snapshot = await query.get();
+    let snapshot = await query.limit(pageSize).get();
+
+    if (action === "prev" && snapshot.docs.length != pageSize) {
+        snapshot = await db.collection("users").orderBy("login").limit(pageSize).get();
+        action = "first";
+    }
 
     for (let user of snapshot.docs) {
         const data = user.data();
