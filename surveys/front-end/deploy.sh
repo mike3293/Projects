@@ -4,16 +4,5 @@ set -e
 # build
 npm run build
 
-# navigate into the build output directory
-cd dist
-
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
-
-git init
-git add -A
-git commit -m 'deploy'
-
-git push -f https://github.com/mike3293/mike3293.github.io.git master
-
-cd -
+# deploy to https://vue-surveys.web.app/
+firebase deploy

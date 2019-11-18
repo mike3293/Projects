@@ -11,7 +11,6 @@ export default class AuthServices {
         return new Promise((resolve, reject) => {
             const unsubscribe = firebase.auth().onAuthStateChanged(async function (user) {
                 unsubscribe();
-                console.log(user);
                 if (user) {
                     const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
 

@@ -3,6 +3,7 @@ node_modules
 /dist
 *.code-workspace
 /src/config/production.js
+/.firebase
 
 # local env files
 .env.local

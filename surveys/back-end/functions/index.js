@@ -7,7 +7,7 @@ const auth = admin.auth();
 
 const db = admin.firestore();
 
-const whitelist = ["http://localhost:8080", "http://localhost:8081", "https://mike3293.github.io"];
+const whitelist = ["http://localhost:8080", "http://localhost:8081", "https://vue-surveys.web.app"];
 
 const corsOptions = {
     origin: function (origin, callback) {
