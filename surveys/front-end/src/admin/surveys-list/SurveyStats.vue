@@ -5,12 +5,12 @@
         <div
             class="stats survey__question-stats"
             :key="question.id"
-            v-for="question in survey.questions"
+            v-for="(question, index) in survey.questions"
         >
             <md-card>
                 <md-card-content>
                     <div class="stats__title">
-                        <span>{{question.id}}.</span>
+                        <span>{{index + 1}}.</span>
                         <span>{{question.label}}</span>
                     </div>
                     <md-table class="stats__table">
@@ -72,7 +72,11 @@ export default {
     },
     methods: {
         currentAnswer(user, id) {
-            return this.answersPerUser[user][id - 1].answer;
+            for (let answer of this.answersPerUser[user]) {
+                if (answer.id === id) {
+                    return answer.answer;
+                }
+            }
         }
     },
     computed: {

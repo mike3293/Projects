@@ -5,8 +5,12 @@
             <md-input v-model="name"></md-input>
         </md-field>
         <transition-group name="fade">
-            <div class="builder__question" :key="question.id" v-for="question in questions">
-                <text-question :question="question" @delete="delQuestion" />
+            <div
+                class="builder__question"
+                :key="question.id"
+                v-for="(question, index) in questions"
+            >
+                <text-question :index="index" :question="question" @delete="delQuestion" />
             </div>
         </transition-group>
         <md-button class="md-raised md-accent" :md-ripple="false" @click="saveSurvey">Save</md-button>
@@ -43,6 +47,7 @@
 }
 </style>
 <script>
+import { uniqueId } from "lodash";
 export default {
     name: "CreateSurvey",
     components: {
@@ -58,7 +63,7 @@ export default {
     methods: {
         addQuestion() {
             this.questions.push({
-                id: this.questions.length,
+                id: uniqueId("id_"),
                 label: "",
                 answer: ""
             });
@@ -83,9 +88,6 @@ export default {
         },
         delQuestion(questionId) {
             this.questions.splice(questionId, 1);
-            for (let i = questionId; i < this.questions.length; i++) {
-                this.questions[i].id -= 1;
-            }
         }
     }
 };

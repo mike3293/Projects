@@ -2,7 +2,7 @@
     <md-card class="question">
         <md-card-content>
             <div class="md-layout">
-                <span>{{question.id + 1}}.</span>
+                <span>{{index + 1}}.</span>
                 <input class="question__label" v-model="question.label" v-if="mode != 'fixed'" />
                 <span v-if="mode == 'fixed'">{{question.label}}</span>
             </div>
@@ -13,7 +13,7 @@
             <md-card-actions class="question__actions">
                 <md-button
                     :md-ripple="false"
-                    @click="delQuestion(question.id)"
+                    @click="delQuestion"
                     v-if="mode != 'fixed'"
                 >Cancel</md-button>
             </md-card-actions>
@@ -58,11 +58,12 @@ export default {
     },
     props: {
         question: Object,
+        index: Number,
         mode: String
     },
     methods: {
-        delQuestion(id) {
-            this.$emit("delete", id);
+        delQuestion() {
+            this.$emit("delete", this.index);
         }
     }
 };
