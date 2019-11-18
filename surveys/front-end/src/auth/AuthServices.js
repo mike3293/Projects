@@ -1,5 +1,6 @@
 export default class AuthServices {
     #firebase = null;
+    userIsLoaded = false;
 
     constructor(firebase) {
         this.#firebase = firebase;
@@ -7,9 +8,14 @@ export default class AuthServices {
 
     async checkSignInOnLoad() {
         const firebase = this.#firebase;
+        const classContext = this;
 
         return new Promise((resolve, reject) => {
+            if (classContext.userIsLoaded) {
+                reject("User already given");
+            }
             const unsubscribe = firebase.auth().onAuthStateChanged(async function (user) {
+                classContext.userIsLoaded = true;
                 unsubscribe();
                 if (user) {
                     const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
