@@ -1,5 +1,7 @@
 # Surveys
 
+## deployed on https://mike3293.github.io/
+
 ## Project setup
 
 ```
@@ -22,10 +24,4 @@ npm run build
 
 ```
 npm run lint
-```
-
-### deploy to https://vue-surveys.web.app
-
-```
-npm run deploy
 ```
