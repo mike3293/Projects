@@ -1,10 +1,10 @@
 <template>
     <main class="surveys-list">
-        <div class="survey surveys-list__survey" :key="survey.id" v-for="survey in surveys">
+        <md-card class="survey surveys-list__survey" :key="survey.id" v-for="survey in surveys">
             <div class="survey__name">{{survey.name}}</div>
             <div class="survey__length">{{survey.questions.length}} questions</div>
             <md-button class="md-raised md-primary" :md-ripple="false" @click="pass(survey)">pass</md-button>
-        </div>
+        </md-card>
     </main>
 </template>
 
@@ -20,7 +20,6 @@
         margin: 20px;
         min-width: 120px;
         display: block;
-        border: 1px solid;
         border-radius: 5px;
         overflow-wrap: break-word;
     }
