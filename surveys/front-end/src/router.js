@@ -1,9 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "./store";
-// import { authService } from "./main";
+import store from "@/store";
 
-import Signin from "./auth/SignIn";
+import Signin from "@/auth/SignIn";
 
 Vue.use(Router);
 
@@ -85,7 +84,6 @@ router.beforeEach(async function (to, from, next) {
         try {
             store.commit("common/setLoading", true);
             const user = await Vue.prototype.$auth.checkSignInOnLoad();
-            // const user = await authService.checkSignInOnLoad();
             store.commit("auth/setUser", user);
         } catch (e) {
             console.log(e);

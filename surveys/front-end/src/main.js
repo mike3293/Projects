@@ -35,9 +35,7 @@ const usersService = new UsersServices(firebase, baseResource);
 const manageSurveys = new ManageSurveys(firebase);
 const surveyServices = new SurveyServices(firebase);
 
-export { authService };
-
-Vue.prototype.$auth = authService;
+Vue.prototype.$auth = authService;  // for access in router
 
 new Vue({
     router,

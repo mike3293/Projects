@@ -66,7 +66,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "@/shared/colors.scss";
+@import "@/shared/colors";
 .error {
     margin: 0;
     padding: 0;

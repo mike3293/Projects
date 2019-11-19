@@ -81,7 +81,7 @@ import { dateToString } from "@/shared/TextFormatter";
 export default {
     name: "UserList",
     components: {
-        UserManage: () => import("./UserManage")
+        UserManage: () => import("@/admin/user-list/UserManage")
     },
     data: function() {
         return {
