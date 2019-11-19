@@ -87,7 +87,6 @@ export default {
         return {
             users: [],
             pageSize: 5,
-            //prevPageStart: [],
             isModalVisible: false,
             userToEdit: {
                 login: null,
@@ -122,7 +121,6 @@ export default {
         async getNextPage() {
             try {
                 this.$store.commit("common/setLoading", true);
-                //const firstUser = this.users[0];
 
                 if (this.users[this.pageSize - 1]) {
                     const users = await this.$root.users.getUsers(
@@ -133,7 +131,6 @@ export default {
 
                     if (users[0]) {
                         this.users = users;
-                        // this.prevPageStart.push(firstUser.login);
                     }
                 }
             } catch (e) {
