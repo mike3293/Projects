@@ -39,6 +39,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import "~@/shared/components/button.css";
 @import "@/shared/colors.scss";
 
 .user-list {

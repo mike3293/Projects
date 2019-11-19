@@ -53,7 +53,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import "~@/shared/components/button.css";
 .error {
     margin: 0;
     padding: 0;
