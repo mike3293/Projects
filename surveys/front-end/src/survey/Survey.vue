@@ -8,7 +8,8 @@
         >
             <text-question :index="index" :question="question" mode="fixed" />
         </div>
-        <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">complete</md-button>
+        <md-button class="md-raised" :md-ripple="false" :to="{name:'surveys'}">Go to list</md-button>
+        <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">Complete</md-button>
     </div>
 </template>
 <style lang="scss" scoped>
