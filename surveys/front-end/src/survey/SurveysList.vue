@@ -52,7 +52,8 @@ export default {
         pass(survey) {
             this.$router.push({
                 name: "survey",
-                params: { survey }
+                params: { survey },
+                query: { id: survey.id }
             });
         }
     }

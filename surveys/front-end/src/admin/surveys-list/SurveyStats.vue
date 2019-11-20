@@ -27,6 +27,7 @@
                 </md-card-content>
             </md-card>
         </div>
+        <md-button class="md-raised" :to="{name:'surveys-list'}">Go to surveys list</md-button>
     </div>
 </template>
 

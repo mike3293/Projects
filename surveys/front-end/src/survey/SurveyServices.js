@@ -28,4 +28,19 @@ export default class SurveyServices {
         obj[login] = surveyIn.questions;
         firebase.firestore().collection("answers").doc(surveyIn.id).set(obj, { merge: true });
     }
+
+    async getSurvey(surveyId) {
+        const firebase = this.#firebase;
+
+        const snapshot = await firebase.firestore().collection("surveys").doc(surveyId).get();
+
+        const survey = snapshot.data();
+
+        if (!survey) {
+            throw Error("Id is incorrect");
+        }
+        survey.id = surveyId;
+
+        return survey;
+    }
 }

@@ -1,19 +1,23 @@
 <template>
     <div class="survey">
-        <div v-if="surveyIsSubmitted">
-            <div class="survey__name">{{survey.name}}</div>
+        <div v-if="surveyIsLoaded">
+            <div class="survey__name">Survey name: {{currentSurvey.name}}</div>
             <div
                 class="survey__question"
                 :key="question.id"
-                v-for="(question, index) in survey.questions"
+                v-for="(question, index) in currentSurvey.questions"
             >
                 <text-question :index="index" :question="question" mode="fixed" />
             </div>
             <md-button class="md-raised" :md-ripple="false" :to="{name:'surveys'}">Go to list</md-button>
             <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">Complete</md-button>
         </div>
-        <md-snackbar :md-position="'center'" :md-active="!surveyIsSubmitted" md-persistent>
-            <span>No survey</span>
+        <md-snackbar
+            :md-position="'center'"
+            :md-active="!surveyIsGiven && !surveyIdIsGiven || IdIsincorrect"
+            md-persistent
+        >
+            <span>Survey id is incorrect / not presented</span>
             <md-button class="md-primary" :to="{name:'surveys'}">Go to surveys list</md-button>
         </md-snackbar>
     </div>
@@ -37,7 +41,36 @@ export default {
     components: {
         TextQuestion: () => import("@/shared/components/survey/TextQuestion")
     },
+    data: function() {
+        return {
+            currentSurvey: null,
+            surveyIsLoaded: false,
+            IdIsincorrect: false
+        };
+    },
+    async created() {
+        await this.getSurvey();
+    },
     methods: {
+        async getSurvey() {
+            if (this.surveyIsGiven) {
+                this.currentSurvey = this.survey;
+                this.surveyIsLoaded = true;
+            } else if (this.surveyIdIsGiven) {
+                try {
+                    this.$store.commit("common/setLoading", true);
+                    this.currentSurvey = await this.$root.surveys.getSurvey(
+                        this.$route.query.id
+                    );
+                    this.surveyIsLoaded = true;
+                } catch (e) {
+                    console.log(e);
+                    this.IdIsincorrect = true;
+                } finally {
+                    this.$store.commit("common/setLoading", false);
+                }
+            }
+        },
         complete() {
             try {
                 this.$root.surveys.completeSurvey(
@@ -51,8 +84,11 @@ export default {
         }
     },
     computed: {
-        surveyIsSubmitted() {
+        surveyIsGiven() {
             return typeof this.survey != "undefined";
+        },
+        surveyIdIsGiven() {
+            return typeof this.$route.query.id != "undefined";
         }
     }
 };
