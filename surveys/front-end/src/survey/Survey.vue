@@ -1,15 +1,21 @@
 <template>
     <div class="survey">
-        <div class="survey__name">{{survey.name}}</div>
-        <div
-            class="survey__question"
-            :key="question.id"
-            v-for="(question, index) in survey.questions"
-        >
-            <text-question :index="index" :question="question" mode="fixed" />
+        <div v-if="surveyIsSubmitted">
+            <div class="survey__name">{{survey.name}}</div>
+            <div
+                class="survey__question"
+                :key="question.id"
+                v-for="(question, index) in survey.questions"
+            >
+                <text-question :index="index" :question="question" mode="fixed" />
+            </div>
+            <md-button class="md-raised" :md-ripple="false" :to="{name:'surveys'}">Go to list</md-button>
+            <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">Complete</md-button>
         </div>
-        <md-button class="md-raised" :md-ripple="false" :to="{name:'surveys'}">Go to list</md-button>
-        <md-button class="md-raised md-accent" :md-ripple="false" @click="complete">Complete</md-button>
+        <md-snackbar :md-position="'center'" :md-active="!surveyIsSubmitted" md-persistent>
+            <span>No survey</span>
+            <md-button class="md-primary" :to="{name:'surveys'}">Go to surveys list</md-button>
+        </md-snackbar>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -42,6 +48,11 @@ export default {
             } catch (e) {
                 alert(e);
             }
+        }
+    },
+    computed: {
+        surveyIsSubmitted() {
+            return typeof this.survey != "undefined";
         }
     }
 };
