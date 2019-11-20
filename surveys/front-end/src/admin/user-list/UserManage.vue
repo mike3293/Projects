@@ -120,12 +120,13 @@
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
 import { mapState } from "vuex";
+import Modal from "@/shared/components/Modal";
 
 export default {
     name: "UserManage",
     props: ["user"],
     components: {
-        Modal: () => import("@/shared/components/Modal")
+        Modal
     },
     data: function() {
         return {
