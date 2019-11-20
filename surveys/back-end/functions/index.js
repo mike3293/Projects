@@ -88,6 +88,9 @@ async function getUsers(req, res) {
     if (action === "prev" && snapshot.docs.length != pageSize) {
         snapshot = await db.collection("users").orderBy("login").limit(pageSize).get();
         action = "first";
+    } else if (action === "next" && snapshot.docs.length != pageSize) {
+        snapshot = await db.collection("users").orderBy("login", "desc").limit(pageSize).get();
+        action = "last";
     }
 
     for (let user of snapshot.docs) {
