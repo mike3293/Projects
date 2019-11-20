@@ -86,4 +86,8 @@ export default class AuthServices {
     async signOut() {
         await this.#firebase.auth().signOut();
     }
+
+    async restorePassword(email) {
+        await this.#firebase.auth().sendPasswordResetEmail(email);
+    }
 }

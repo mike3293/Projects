@@ -21,6 +21,11 @@ const router = new Router({
             component: () => import("./auth/SignUp")
         },
         {
+            path: "/account-recovery",
+            name: "recovery",
+            component: () => import("./auth/AccountRecovery")
+        },
+        {
             path: "/admin",
             name: "admin",
             component: () => import("./admin/Admin"),

@@ -1,9 +1,10 @@
 <template>
     <div class="sign-in">
+        ..
         <form novalidate class="sign-in__form" @submit.prevent="validateUser">
             <md-card>
                 <md-card-header>
-                    <div class="md-title">Sign in</div>
+                    <div class="md-title">Recovery</div>
                 </md-card-header>
 
                 <md-card-content class="md-layout md-alignment-center">
@@ -40,7 +41,6 @@
 
                 <div class="sign-in__links">
                     <router-link to="/sign-up">Sign up</router-link>
-                    <a style="cursor: pointer" @click="restorePassword">password?</a>
                     <md-button
                         type="submit"
                         class="md-raised"
@@ -96,7 +96,7 @@ import { required, minLength, email } from "vuelidate/lib/validators";
 import { mapState } from "vuex";
 
 export default {
-    name: "sign-in",
+    name: "AccountRecovery",
     data: function() {
         return {
             email: "",
@@ -144,16 +144,6 @@ export default {
                 alert(e);
             } finally {
                 this.$store.commit("common/setLoading", false);
-            }
-        },
-        async restorePassword() {
-            try {
-                await this.$root.auth.restorePassword(this.email);
-                alert(
-                    "A password reset link has been sent to your email address"
-                );
-            } catch (e) {
-                alert(e);
             }
         }
     },
