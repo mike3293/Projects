@@ -17,7 +17,10 @@ export default class UsersServices {
         const firebase = this.#firebase;
         const id = `${user.id}`;
 
-        await firebase.firestore().collection("users").doc(id).delete();
+        await firebase.firestore()
+            .collection("users")
+            .doc(id)
+            .delete();
 
         await this.#resource.post("/delete", { email: user.login });
     }
@@ -28,11 +31,14 @@ export default class UsersServices {
         const firebase = this.#firebase;
         const id = `${user.id}`;
 
-        await firebase.firestore().collection("users").doc(id).set({
-            login: user.login,
-            nickName: user.nickName,
-            role: user.role
-        }, { merge: true });
+        await firebase.firestore()
+            .collection("users")
+            .doc(id)
+            .set({
+                login: user.login,
+                nickName: user.nickName,
+                role: user.role
+            }, { merge: true });
         return res;
     }
 
@@ -43,7 +49,9 @@ export default class UsersServices {
 
         const currentDateUnix = (new Date()).valueOf();
 
-        await firebase.firestore().collection("users").add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.nickName });
+        await firebase.firestore()
+            .collection("users")
+            .add({ login: user.login, role: user.role, createDate: currentDateUnix, nickName: user.nickName });
 
     }
 }

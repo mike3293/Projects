@@ -18,7 +18,11 @@ export default class AuthServices {
                 classContext.userIsLoaded = true;
                 unsubscribe();
                 if (user) {
-                    const snapshot = await firebase.firestore().collection("users").where("login", "==", user.email).limit(1).get();
+                    const snapshot = await firebase.firestore()
+                        .collection("users")
+                        .where("login", "==", user.email)
+                        .limit(1)
+                        .get();
 
                     const userExist = snapshot.docs[0];
                     if (userExist) {
@@ -46,7 +50,11 @@ export default class AuthServices {
         await firebase.auth().signInWithEmailAndPassword(email, password);
         const token = await firebase.auth().currentUser.getIdToken(true);
 
-        const Snapshot = await firebase.firestore().collection("users").where("login", "==", email).limit(1).get();
+        const Snapshot = await firebase.firestore()
+            .collection("users")
+            .where("login", "==", email)
+            .limit(1)
+            .get();
 
         const currentDoc = Snapshot.docs[0];
         const role = currentDoc.data().role;
